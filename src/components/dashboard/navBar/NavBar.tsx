@@ -23,10 +23,10 @@ const NavBar = () => {
         </h1>
         <ul className="flex gap-[40px] text-m">
           <li className=" hover:text-indigo-500 cursor-pointer">
-            <Link href="#">Home</Link>
+            <Link href="/dashboard">Dashboard</Link>
           </li>
           <li className=" hover:text-indigo-500 cursor-pointer">
-            <Link href="#">Expenses</Link>
+            <Link href="/expenses">Expenses</Link>
           </li>
           <li className=" hover:text-indigo-500 cursor-pointer">
             <Link href="#">Profits</Link>
