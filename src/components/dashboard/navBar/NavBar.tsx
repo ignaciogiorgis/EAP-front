@@ -26,10 +26,10 @@ const NavBar = () => {
             <Link href="/dashboard">Dashboard</Link>
           </li>
           <li className=" hover:text-indigo-500 cursor-pointer">
-            <Link href="/expenses">Expenses</Link>
+            <Link href="/dashboard/expenses">Expenses</Link>
           </li>
           <li className=" hover:text-indigo-500 cursor-pointer">
-            <Link href="#">Profits</Link>
+            <Link href="/dashboard/profits">Profits</Link>
           </li>
           <li className=" hover:text-indigo-500 cursor-pointer">
             <button onClick={handleLogout}>logout</button>
