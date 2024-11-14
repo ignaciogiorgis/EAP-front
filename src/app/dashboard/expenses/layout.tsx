@@ -6,9 +6,11 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="overflow-auto scrollbar-hide">
+    <div>
       <main>
-        <NavBar />
+        <h1 className="text-center text-indigo-700 text-4xl font-bold mt-7">
+          Expenses
+        </h1>
         {children}
       </main>
     </div>
