@@ -20,7 +20,6 @@ export default function RegisterPage() {
       if (response.success) {
         router.push("/auth/pre-confirm");
       } else {
-        // Si hay un error, actualizamos el mensaje
         setErrorMessage(response.message);
       }
     } catch (error) {
