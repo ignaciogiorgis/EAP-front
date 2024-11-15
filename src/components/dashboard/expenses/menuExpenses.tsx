@@ -15,11 +15,11 @@ const menuExpenses = ({ onFormToggle, onListToggle }: MenuExpensesProps) => {
             <button
               onClick={onFormToggle}
               className="text-base  rounded-r-none  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
-        hover:bg-indigo-700 hover:text-indigo-100 
+        hover:bg-gray-700 hover:text-indigo-100 
         bg-indigo-100 
-        text-indigo-700 
+        text-gray-800
         border duration-200 ease-in-out 
-        border-indigo-600 transition"
+        border-gray-800 transition"
             >
               <div className="flex leading-5">
                 <svg
@@ -38,17 +38,17 @@ const menuExpenses = ({ onFormToggle, onListToggle }: MenuExpensesProps) => {
                   <polyline points="17 21 17 13 7 13 7 21"></polyline>
                   <polyline points="7 3 7 8 15 8"></polyline>
                 </svg>
-                Crear
+                Create
               </div>
             </button>
             <button
               onClick={onListToggle}
               className="text-base  rounded-l-none  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
-        hover:bg-indigo-700 hover:text-indigo-100 
+        hover:bg-gray-700 hover:text-indigo-100 
         bg-indigo-100 
-        text-indigo-700 
+        text-gray-800
         border duration-200 ease-in-out 
-        border-indigo-600 transition"
+        border-gray-800 transition"
             >
               <div className="flex leading-5">
                 <svg
@@ -66,7 +66,7 @@ const menuExpenses = ({ onFormToggle, onListToggle }: MenuExpensesProps) => {
                   <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                   <circle cx="12" cy="12" r="3"></circle>
                 </svg>
-                Ver Lista
+                Show List
               </div>
             </button>
           </div>

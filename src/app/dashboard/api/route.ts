@@ -1,3 +1,4 @@
+//funcion que hace el llamado ala api para crear un nuevo gasto
 export async function handleCreateExpense(data: {
   name: string;
   value: string;
@@ -31,7 +32,7 @@ export async function handleCreateExpense(data: {
     return { success: false, message: "Error en la solicitud" };
   }
 }
-
+//funcion que hace el llamado ala api para traer el listado de gastos
 export async function handleShowExpenses() {
   try {
     const response = await fetch(
@@ -41,14 +42,10 @@ export async function handleShowExpenses() {
         headers: {
           "Content-Type": "application/json",
         },
-        next: {
-          revalidate: 3, // Revalidar los datos cada 60 segundos
-        },
       }
     );
     if (!response.ok) {
       const errorData = await response.json();
-      console.log("3", errorData);
       return {
         success: false,
         message: errorData?.error?.msg || "Error en la solicitud",

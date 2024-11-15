@@ -31,18 +31,18 @@ const formExpenses = ({
   const [displayErrors, setDisplayErrors] = useState<boolean>(false);
 
   const validationSchema: ValidationSchema = {
-    name: { required: true, customMessage: "El nombre es obligatorio." },
+    name: { required: true, customMessage: "The name is required" },
     value: {
       required: true,
-      customMessage: "El valor es obligatorio",
+      customMessage: "The value is required",
     },
     description: {
       required: true,
-      customMessage: "La descripcion es obligatoria",
+      customMessage: "The description is required",
     },
     date: {
       required: true,
-      customMessage: "La fecha es obligatoria",
+      customMessage: "The date is required",
     },
   };
 
