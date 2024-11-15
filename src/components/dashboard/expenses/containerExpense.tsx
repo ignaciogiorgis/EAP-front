@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { handleCreateExpense } from "@/app/dashboard/api/route";
-import FormExpenses from "./formExpenses";
-import MenuExpenses from "./menuExpenses";
-import ListExpenses from "./listExpenses";
+import FormExpenses from "./view/formExpenses";
+import MenuExpenses from "./view/menuExpenses";
+import ListExpenses from "./view/listExpenses";
 
 type ExpensesPageProps = {
   expenses: any[];
