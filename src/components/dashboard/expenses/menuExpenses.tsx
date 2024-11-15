@@ -1,19 +1,19 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 
-interface ViewForm {
-  setIsForm: React.Dispatch<React.SetStateAction<boolean>>;
+interface MenuExpensesProps {
+  onFormToggle: MouseEventHandler<HTMLButtonElement>;
+  onListToggle: MouseEventHandler<HTMLButtonElement>;
 }
 
-const menuExpenses = ({ setIsForm }: ViewForm) => {
+const menuExpenses = ({ onFormToggle, onListToggle }: MenuExpensesProps) => {
   return (
     <div>
       <div className="p-5">
         <div className="flex justify-center items-baseline flex-wrap">
           <div className="flex m-2"></div>
           <div className="flex m-2">
-            
             <button
-              onClick={() => setIsForm(true)}
+              onClick={onFormToggle}
               className="text-base  rounded-r-none  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
         hover:bg-indigo-700 hover:text-indigo-100 
         bg-indigo-100 
@@ -42,6 +42,7 @@ const menuExpenses = ({ setIsForm }: ViewForm) => {
               </div>
             </button>
             <button
+              onClick={onListToggle}
               className="text-base  rounded-l-none  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
         hover:bg-indigo-700 hover:text-indigo-100 
         bg-indigo-100 
