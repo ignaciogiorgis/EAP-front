@@ -29,7 +29,7 @@ export default function RecoverForm({
     email: {
       required: true,
       pattern: /\S+@\S+\.\S+/,
-      customMessage: "EL email es obligatorio",
+      customMessage: "The Email is required",
     },
   };
 
@@ -57,8 +57,8 @@ export default function RecoverForm({
 
   return (
     <div className="bg-indigo-300 h-screen p-3 flex flex-col justify-center items-center">
-      <h1 className="font-extrabold sm:text-xl lg:text-3xl text-white my-10 uppercase ">
-        Recupera tu Contraseña
+      <h1 className=" sm:text-xl lg:text-3xl text-white my-10 ">
+        Recover your password
       </h1>
       <Form
         action={handleSubmit}
@@ -89,14 +89,14 @@ export default function RecoverForm({
           type="submit"
           className="bg-indigo-500 mt-3 rounded-md text-white shadow-md hover:bg-indigo-700 py-2 uppercase font-bold"
         >
-          Enviar
+          Send
         </button>
         <div className="flex justify-between">
           <Link className="text-gray-400 text-sm" href="/auth/register">
-            Crear Cuenta
+            Create an account
           </Link>
           <Link className="text-gray-400 text-sm" href="/auth/login">
-            Iniciar Sesion
+            Sign In
           </Link>
         </div>
       </Form>

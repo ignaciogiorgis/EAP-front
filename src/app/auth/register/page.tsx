@@ -31,7 +31,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="">
+    <div>
       <RegisterForm
         onSubmit={onRegisterSubmit}
         externalError={errorMessage as string}

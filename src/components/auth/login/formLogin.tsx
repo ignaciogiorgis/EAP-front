@@ -22,12 +22,12 @@ export default function LoginForm({ onSubmit, externalError }: LoginFormProps) {
     email: {
       required: true,
       pattern: /\S+@\S+\.\S+/,
-      customMessage: "El email obligatorio",
+      customMessage: "The Email is required",
     },
     password: {
       required: true,
       minLength: 6,
-      customMessage: "La contraseña es obligatoria",
+      customMessage: "The Password is required",
     },
   };
 
@@ -58,8 +58,8 @@ export default function LoginForm({ onSubmit, externalError }: LoginFormProps) {
 
   return (
     <div className="bg-indigo-300 h-screen p-3 flex flex-col justify-center items-center">
-      <h1 className="font-extrabold text-3xl text-white my-10 uppercase ">
-        Ingresar
+      <h1 className="text-3xl text-white my-10  ">
+        Sign in to EAP
       </h1>
       <Form
         action={handleSubmit}
@@ -85,7 +85,7 @@ export default function LoginForm({ onSubmit, externalError }: LoginFormProps) {
           value={formValues.email}
           onChange={handleChange}
         />
-        <label className="block text-gray-700">Contraseña</label>
+        <label className="block text-gray-700">Password</label>
         <input
           type="password"
           name="password"
@@ -98,14 +98,14 @@ export default function LoginForm({ onSubmit, externalError }: LoginFormProps) {
           type="submit"
           className="bg-indigo-500 mt-3 rounded-md text-white shadow-md hover:bg-indigo-700 py-2 uppercase font-bold"
         >
-          Ingresar
+          Sign in
         </button>
         <div className="flex justify-between">
           <Link className="text-gray-400 text-sm" href="/auth/register">
-            Crear Cuenta
+            Create an account
           </Link>
           <Link className="text-gray-400 text-sm" href="/auth/recover">
-            Olvide mi Contraseña
+            Forgot password?
           </Link>
         </div>
       </Form>

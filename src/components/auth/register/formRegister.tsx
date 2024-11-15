@@ -31,21 +31,21 @@ export default function RegisterForm({
   const [displayErrors, setDisplayErrors] = useState<boolean>(false);
 
   const validationSchema: ValidationSchema = {
-    nombre: { required: true, customMessage: "El nombre es obligatorio." },
+    nombre: { required: true, customMessage: "The Name is required" },
     email: {
       required: true,
       pattern: /\S+@\S+\.\S+/,
-      customMessage: "El email es obligatorio",
+      customMessage: "The Email is required",
     },
     password: {
       required: true,
       minLength: 6,
-      customMessage: "La contraseña es obligatoria",
+      customMessage: "The Password is required",
     },
     repetir_password: {
       required: true,
       matchField: "password",
-      customMessage: "Repeti tu contraseña",
+      customMessage: "Repeat your Password",
     },
   };
 
@@ -78,9 +78,7 @@ export default function RegisterForm({
 
   return (
     <div className="bg-indigo-300 p-3 flex flex-col justify-center items-center ">
-      <h1 className="font-extrabold text-3xl text-white my-10 uppercase ">
-        Crear Cuenta
-      </h1>
+      <h1 className="text-3xl text-white my-10  ">Create an account</h1>
       <Form
         action={handleSubmit}
         className="flex flex-col gap-2 lg:w-1/3 mb-10 bg-white py-7  px-8 rounded-md shadow-md"
@@ -97,13 +95,14 @@ export default function RegisterForm({
             ))}
           </div>
         )}
-        <label className="block text-gray-700">Nombre</label>
+        <label className="block text-gray-700">Name</label>
         <input
           type="text"
           name="nombre"
           className="py-3 px-4 bg-slate-200 rounded-md text-black"
           value={formValues.nombre}
           onChange={handleChange}
+          placeholder="Name"
         />
 
         <label className="block text-gray-700">Email</label>
@@ -112,37 +111,40 @@ export default function RegisterForm({
           className="py-3 px-4 bg-slate-200 rounded-md text-black"
           value={formValues.email}
           onChange={handleChange}
+          placeholder="Email"
         />
 
-        <label className="block text-gray-700">Contraseña</label>
+        <label className="block text-gray-700">Password</label>
         <input
           type="password"
           name="password"
           className="py-3 px-4 bg-slate-200 rounded-md text-black"
           value={formValues.password}
           onChange={handleChange}
+          placeholder="Password"
         />
 
-        <label className="block text-gray-700">Repetir Contraseña</label>
+        <label className="block text-gray-700">Repeat Password</label>
         <input
           type="password"
           name="repetir_password"
           className="py-3 px-4 bg-slate-200 rounded-md text-black"
           value={formValues.repetir_password}
           onChange={handleChange}
+          placeholder="Repeat Password"
         />
         <button
           type="submit"
           className="bg-indigo-500 mt-3 rounded-md text-white shadow-md hover:bg-indigo-700 py-2 uppercase font-bold"
         >
-          Registrarse
+          Create
         </button>
         <div className="flex justify-between">
           <Link className="text-gray-400 text-sm" href="/auth/login">
-            Iniciar Sesion
+            Sign In
           </Link>
           <Link className="text-gray-400 text-sm" href="/auth/recover">
-            Olvide mi Contraseña
+            Forgot password?
           </Link>
         </div>
       </Form>
