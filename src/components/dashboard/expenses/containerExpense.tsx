@@ -1,15 +1,11 @@
 "use client";
 
 import { useState } from "react";
-<<<<<<< HEAD
 import {
   handleCreateExpense,
   handleEditExpense,
   handleShowExpenses,
-} from "@/app/dashboard/api/route";
-=======
-import { handleCreateExpense } from "@/app/dashboard/api/route";
->>>>>>> parent of 07d4789 (24-create-function-edit-expense)
+} from "@/app/dashboard/api/route"; // Asegúrate de importar esta función
 import FormExpenses from "./view/formExpenses";
 import MenuExpenses from "./view/menuExpenses";
 import ListExpenses from "./view/listExpenses";
@@ -25,10 +21,10 @@ export default function ContainerExpense({
   const [showComponent, setShowComponent] = useState<"form" | "list" | null>(
     null
   );
-<<<<<<< HEAD
   const [expenseToEdit, setExpenseToEdit] = useState<any | null>(null);
-  const [expenses, setExpenses] = useState(initialExpenses);
+  const [expenses, setExpenses] = useState(initialExpenses); // Usar el estado para la lista de gastos
 
+  // Función para recargar los gastos desde el backend
   const reloadExpenses = async () => {
     try {
       const response = await handleShowExpenses();
@@ -43,9 +39,7 @@ export default function ContainerExpense({
     }
   };
 
-  // Handle submit for creating a new expense
-=======
->>>>>>> parent of 07d4789 (24-create-function-edit-expense)
+  // Manejo de la creación de un gasto
   async function onCreateExpenseSubmit(data: {
     name: string;
     value: string;
@@ -56,28 +50,19 @@ export default function ContainerExpense({
       const response = await handleCreateExpense(data);
 
       if (response.success) {
-<<<<<<< HEAD
         await reloadExpenses(); // Recargar la lista después de crear un gasto
         setShowComponent("list"); // Mostrar la lista
-=======
-        setShowComponent(null);
->>>>>>> parent of 07d4789 (24-create-function-edit-expense)
       } else {
         setErrorMessage(response.message);
       }
     } catch (error) {
-<<<<<<< HEAD
       console.error("Error durante la creación:", error);
-=======
-      console.error("Error durante el registro:", error);
->>>>>>> parent of 07d4789 (24-create-function-edit-expense)
       setErrorMessage(
         "Ocurrió un error inesperado. Inténtalo de nuevo más tarde."
       );
     }
   }
 
-<<<<<<< HEAD
   // Manejo de la edición de un gasto
   async function onEditExpenseSubmit(data: {
     id?: string; // `id` es opcional
@@ -109,9 +94,9 @@ export default function ContainerExpense({
     }
   }
 
-  // Handle form toggle
+  // Manejo de alternancia del formulario
   const handleFormToggle = () => {
-    setExpenseToEdit(null); // Reset expenseToEdit when switching to create
+    setExpenseToEdit(null); // Reiniciar expenseToEdit al cambiar a crear
     setShowComponent(showComponent === "form" ? null : "form");
   };
 
@@ -119,19 +104,10 @@ export default function ContainerExpense({
     <div className="overflow-auto scrollbar-hide">
       <MenuExpenses
         onFormToggle={handleFormToggle} // Reinicia expenseToEdit al alternar el formulario
-=======
-  return (
-    <div className="overflow-auto scrollbar-hide">
-      <MenuExpenses
-        onFormToggle={() =>
-          setShowComponent(showComponent === "form" ? null : "form")
-        }
->>>>>>> parent of 07d4789 (24-create-function-edit-expense)
         onListToggle={() =>
           setShowComponent(showComponent === "list" ? null : "list")
         }
       />
-<<<<<<< HEAD
 
       {/* Mostrar el formulario para crear un gasto */}
       {showComponent === "form" && !expenseToEdit && (
@@ -165,17 +141,6 @@ export default function ContainerExpense({
           }}
         />
       )}
-=======
-      {showComponent === "form" && (
-        <FormExpenses
-          onSubmit={onCreateExpenseSubmit}
-          externalError={errorMessage as string}
-          setIsForm={() => setShowComponent(null)}
-        />
-      )}
-
-      {showComponent === "list" && <ListExpenses expenses={expenses} />}
->>>>>>> parent of 07d4789 (24-create-function-edit-expense)
     </div>
   );
 }
