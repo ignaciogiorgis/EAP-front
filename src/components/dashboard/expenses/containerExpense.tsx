@@ -9,16 +9,41 @@ import FormExpenses from "./view/formExpenses";
 import MenuExpenses from "./view/menuExpenses";
 import ListExpenses from "./view/listExpenses";
 
-type ExpensesPageProps = {
-  expenses: any[];
+type ExpenseResponse = {
+  success: boolean;
+  data?: any[];
+  message?: any;
 };
 
-export default function ContainerExpense({ expenses }: ExpensesPageProps) {
+type ExpensesPageProps = {
+  expenses: any[];
+  refreshData: () => Promise<ExpenseResponse>;
+};
+
+export default function ContainerExpense({
+  expenses: initialExpenses,
+  refreshData,
+}: ExpensesPageProps) {
+  const [expenses, setExpenses] = useState(initialExpenses);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [showComponent, setShowComponent] = useState<"form" | "list" | null>(
     null
   );
   const [expenseToEdit, setExpenseToEdit] = useState<any | null>(null);
+
+  const handleRefresh = async () => {
+    try {
+      const result = await refreshData();
+      if (result.success && result.data) {
+        setExpenses(result.data);
+      } else {
+        setErrorMessage("No se pudieron actualizar los datos.");
+      }
+    } catch (error) {
+      console.error("Error al refrescar datos:", error);
+      setErrorMessage("Error inesperado al actualizar los datos.");
+    }
+  };
 
   // Handle submit for creating a new expense
   async function onCreateExpenseSubmit(data: {
@@ -31,6 +56,7 @@ export default function ContainerExpense({ expenses }: ExpensesPageProps) {
       const response = await handleCreateExpense(data);
 
       if (response.success) {
+        await handleRefresh();
         setShowComponent("list"); // Show list after successful creation
       } else {
         setErrorMessage(response.message);
@@ -60,6 +86,7 @@ export default function ContainerExpense({ expenses }: ExpensesPageProps) {
       const response = await handleEditExpense(data.id, data);
 
       if (response.success) {
+        await handleRefresh();
         setExpenseToEdit(null); // Reset the expense to edit
         setShowComponent("list"); // Show the list after editing
       } else {
