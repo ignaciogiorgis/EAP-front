@@ -7,9 +7,8 @@ type expensesListProps = {
     description: string;
     date: string;
   }[];
-  onEdit: (expense: any) => void;
 };
-const listExpenses = ({ expenses, onEdit }: expensesListProps) => {
+const listExpenses = ({ expenses }: expensesListProps) => {
   return (
     <div className="mb-5">
       <div className="px-5 mx-auto ">
@@ -62,17 +61,14 @@ const listExpenses = ({ expenses, onEdit }: expensesListProps) => {
                   <td className="p-4 bg-gray-700">
                     <p className="text-sm text-white">{expense.date}</p>
                   </td>
-                  <td className="flex ">
-                    <button
-                      onClick={() => onEdit(expense)}
-                      className="bg-green-300  font-extrabold text-green-900 w-full p-4 hover:bg-green-950 hover:text-white"
-                    >
+                  <div className="flex ">
+                    <button className="bg-green-300  font-extrabold text-green-900 w-full p-4 hover:bg-green-950 hover:text-white">
                       Edit
                     </button>
                     <button className="bg-red-300  font-extrabold text-red-900 w-full p-4 hover:bg-red-950 hover:text-white">
                       Delete
                     </button>
-                  </td>
+                  </div>
                 </tr>
               ))}
             </tbody>
