@@ -1,4 +1,6 @@
 //funcion que hace el llamado ala api para crear un nuevo gasto
+"use server";
+
 export async function handleCreateExpense(data: {
   name: string;
   value: string;
