@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { logoutUser } from "@/app/api/route";
+import { logoutUser } from "@/app/auth/api/route";
 
 const NavBar = () => {
   const router = useRouter();

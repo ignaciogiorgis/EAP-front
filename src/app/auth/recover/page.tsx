@@ -1,7 +1,7 @@
 "use client";
 import RecoverForm from "@/components/auth/recover/formRecover";
 import { useRouter } from "next/navigation";
-import { handleRecover } from "@/app/auth/recover/api/route";
+import { handleRecover } from "@/app/auth/api/route";
 import { useState } from "react";
 
 export default function RecoverPage() {

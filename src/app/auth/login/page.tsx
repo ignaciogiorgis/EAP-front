@@ -1,7 +1,7 @@
 "use client";
 
 import LoginForm from "@/components/auth/login/formLogin";
-import { handleLogin } from "@/app/auth/login/api/route";
+import { handleLogin } from "@/app/auth/api/route";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
