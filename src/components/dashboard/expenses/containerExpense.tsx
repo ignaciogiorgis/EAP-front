@@ -8,6 +8,7 @@ import {
 import FormExpenses from "./view/formExpenses";
 import MenuExpenses from "./view/menuExpenses";
 import ListExpenses from "./view/listExpenses";
+import DeleteModalExpense from "./view/deleteModalExpense";
 
 type ExpenseResponse = {
   success: boolean;
@@ -30,6 +31,23 @@ export default function ContainerExpense({
     null
   );
   const [expenseToEdit, setExpenseToEdit] = useState<any | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedExpense, setSelectedExpense] = useState(null);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleDeleteExpense = () => {
+    console.log("Deleting expense:", selectedExpense);
+    // Aquí puedes llamar a la API para el borrado lógico
+
+    // handleCloseModal();
+  };
 
   const handleRefresh = async () => {
     try {
@@ -141,10 +159,17 @@ export default function ContainerExpense({
       {showComponent === "list" && (
         <ListExpenses
           expenses={expenses}
+          onOpenModal={handleOpenModal}
           onEdit={(expense) => {
             setExpenseToEdit(expense); // Set the expense to edit
             setShowComponent("form"); // Switch to the form for editing
           }}
+        />
+      )}
+      {isModalOpen && (
+        <DeleteModalExpense
+          onClose={handleCloseModal}
+          onDelete={handleDeleteExpense}
         />
       )}
     </div>

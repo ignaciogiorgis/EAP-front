@@ -2,14 +2,16 @@ import React from "react";
 
 type expensesListProps = {
   expenses: {
+    id: number;
     name: string;
     value: number;
     description: string;
     date: string;
   }[];
   onEdit: (expense: any) => void;
+  onOpenModal: () => void;
 };
-const listExpenses = ({ expenses, onEdit }: expensesListProps) => {
+const listExpenses = ({ expenses, onEdit, onOpenModal }: expensesListProps) => {
   return (
     <div className="mb-5">
       <div className="px-5 mx-auto ">
@@ -45,7 +47,7 @@ const listExpenses = ({ expenses, onEdit }: expensesListProps) => {
             <tbody>
               {expenses.map((expense, index) => (
                 <tr
-                  key={index}
+                  key={expense.id}
                   className="hover:bg-gray-800 border border-black"
                 >
                   <td className="p-4 bg-gray-900">
@@ -69,7 +71,10 @@ const listExpenses = ({ expenses, onEdit }: expensesListProps) => {
                     >
                       Edit
                     </button>
-                    <button className="bg-red-300  font-extrabold text-red-900 w-full p-4 hover:bg-red-950 hover:text-white">
+                    <button
+                      onClick={() => onOpenModal()}
+                      className="bg-red-300  font-extrabold text-red-900 w-full p-4 hover:bg-red-950 hover:text-white"
+                    >
                       Delete
                     </button>
                   </td>
