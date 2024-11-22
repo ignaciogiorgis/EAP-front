@@ -9,7 +9,7 @@ type expensesListProps = {
     date: string;
   }[];
   onEdit: (expense: any) => void;
-  onOpenModal: () => void;
+  onOpenModal: (id: string | number) => void;
 };
 const listExpenses = ({ expenses, onEdit, onOpenModal }: expensesListProps) => {
   return (
@@ -72,7 +72,7 @@ const listExpenses = ({ expenses, onEdit, onOpenModal }: expensesListProps) => {
                       Edit
                     </button>
                     <button
-                      onClick={() => onOpenModal()}
+                      onClick={() => onOpenModal(expense.id)}
                       className="bg-red-300  font-extrabold text-red-900 w-full p-4 hover:bg-red-950 hover:text-white"
                     >
                       Delete

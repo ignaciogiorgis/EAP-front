@@ -101,3 +101,41 @@ export async function handleEditExpense(
     return { success: false, message: " Request error" };
   }
 }
+
+export async function handleDeleteExpense(
+  id: string | number
+): Promise<{ success: boolean; message?: string }> {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/expense/${id}`, // URL con el ID del gasto
+      {
+        method: "PATCH", // Método PATCH para realizar el borrado lógico
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ isDeleted: true }), // Marca el gasto como eliminado
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      return {
+        success: false,
+        message: errorData?.message || "Error al realizar el borrado lógico.",
+      };
+    }
+
+    const responseData = await response.json();
+
+    return {
+      success: true,
+      message: responseData.message || "Borrado lógico exitoso.",
+    };
+  } catch (error) {
+    console.error("Error al realizar el borrado lógico:", error);
+    return {
+      success: false,
+      message: "Error inesperado al realizar el borrado lógico.",
+    };
+  }
+}

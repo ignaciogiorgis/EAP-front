@@ -9,6 +9,7 @@ import FormExpenses from "./view/formExpenses";
 import MenuExpenses from "./view/menuExpenses";
 import ListExpenses from "./view/listExpenses";
 import DeleteModalExpense from "./view/deleteModalExpense";
+import { handleDeleteExpense } from "@/app/dashboard/api/route";
 
 type ExpenseResponse = {
   success: boolean;
@@ -32,21 +33,17 @@ export default function ContainerExpense({
   );
   const [expenseToEdit, setExpenseToEdit] = useState<any | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedExpense, setSelectedExpense] = useState(null);
+  const [selectedExpenseId, setSelectedExpenseId] = useState<
+    string | number | null
+  >(null);
 
-  const handleOpenModal = () => {
+  const handleOpenModal = (id: string | number) => {
+    setSelectedExpenseId(id);
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-  };
-
-  const handleDeleteExpense = () => {
-    console.log("Deleting expense:", selectedExpense);
-    // Aquí puedes llamar a la API para el borrado lógico
-
-    // handleCloseModal();
   };
 
   const handleRefresh = async () => {
@@ -124,52 +121,64 @@ export default function ContainerExpense({
     setShowComponent(showComponent === "form" ? null : "form");
   };
 
+  const deleteExpense = async (id: string | number) => {
+    const response = await handleDeleteExpense(id);
+
+    if (response.success) {
+      await handleRefresh(); // Refresca los datos tras el borrado
+    } else {
+      console.error(response.message); // Muestra el mensaje de error
+    }
+  };
+
   return (
     <div className="overflow-auto scrollbar-hide">
       <MenuExpenses
-        onFormToggle={handleFormToggle} // Reset the expenseToEdit when toggling the form
+        onFormToggle={handleFormToggle}
         onListToggle={() =>
           setShowComponent(showComponent === "list" ? null : "list")
         }
       />
 
-      {/* Show Form for creating expense */}
       {showComponent === "form" && !expenseToEdit && (
         <FormExpenses
           onSubmit={onCreateExpenseSubmit}
           externalError={errorMessage as string}
-          setIsForm={() => setShowComponent(null)} // Close the form
+          setIsForm={() => setShowComponent(null)}
         />
       )}
 
-      {/* Show Form for editing an existing expense */}
       {showComponent === "form" && expenseToEdit && (
         <FormExpenses
           onSubmit={onEditExpenseSubmit}
           externalError={errorMessage as string}
-          expense={expenseToEdit} // Pass the expense to edit
+          expense={expenseToEdit}
           setIsForm={() => {
-            setExpenseToEdit(null); // Reset the expense to edit
-            setShowComponent("list"); // Show the list after editing
+            setExpenseToEdit(null);
+            setShowComponent("list");
           }}
         />
       )}
 
-      {/* Show List of expenses */}
       {showComponent === "list" && (
         <ListExpenses
           expenses={expenses}
           onOpenModal={handleOpenModal}
           onEdit={(expense) => {
-            setExpenseToEdit(expense); // Set the expense to edit
-            setShowComponent("form"); // Switch to the form for editing
+            setExpenseToEdit(expense);
+            setShowComponent("form");
           }}
         />
       )}
       {isModalOpen && (
         <DeleteModalExpense
           onClose={handleCloseModal}
-          onDelete={handleDeleteExpense}
+          onDelete={() => {
+            if (selectedExpenseId !== null) {
+              deleteExpense(selectedExpenseId);
+              handleCloseModal();
+            }
+          }}
         />
       )}
     </div>
