@@ -4,12 +4,12 @@ import { useState } from "react";
 import {
   handleCreateExpense,
   handleEditExpense,
-  handleDeleteExpense,
 } from "@/app/dashboard/api/route";
 import FormExpenses from "./view/formExpenses";
 import MenuExpenses from "./view/menuExpenses";
 import ListExpenses from "./view/listExpenses";
 import DeleteModalExpense from "./view/deleteModalExpense";
+import { handleDeleteExpense } from "@/app/dashboard/api/route";
 import Pagination from "./view/paginatioExpenses";
 
 type ExpenseResponse = {
@@ -23,24 +23,23 @@ type ExpensesPageProps = {
   refreshData: () => Promise<ExpenseResponse>;
 };
 
-const ITEMS_PER_PAGE = 5; // Número de elementos por página.
-
 export default function ContainerExpense({
   expenses: initialExpenses,
   refreshData,
 }: ExpensesPageProps) {
   const [expenses, setExpenses] = useState(initialExpenses);
-  const [currentPage, setCurrentPage] = useState(1);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [showComponent, setShowComponent] = useState<"form" | "list" | null>(
     null
   );
+  const [currentPage, setCurrentPage] = useState(1);
   const [expenseToEdit, setExpenseToEdit] = useState<any | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedExpenseId, setSelectedExpenseId] = useState<
     string | number | null
   >(null);
 
+  const ITEMS_PER_PAGE = 5;
   const totalPages = Math.ceil(expenses.length / ITEMS_PER_PAGE);
 
   // Calcular los elementos de la página actual.
@@ -73,13 +72,74 @@ export default function ContainerExpense({
     }
   };
 
+  // Handle submit for creating a new expense
+  async function onCreateExpenseSubmit(data: {
+    name: string;
+    value: string;
+    description: string;
+    date: string;
+  }) {
+    try {
+      const response = await handleCreateExpense(data);
+
+      if (response.success) {
+        await handleRefresh();
+        setShowComponent("list"); // Show list after successful creation
+      } else {
+        setErrorMessage(response.message);
+      }
+    } catch (error) {
+      console.error("Error during creation:", error);
+      setErrorMessage(
+        "Ocurrió un error inesperado. Inténtalo de nuevo más tarde."
+      );
+    }
+  }
+
+  // Handle submit for editing an existing expense
+  async function onEditExpenseSubmit(data: {
+    id?: string; // Make id optional
+    name: string;
+    value: string;
+    description: string;
+    date: string;
+  }) {
+    if (!data.id) {
+      setErrorMessage("El ID es requerido para editar un gasto.");
+      return;
+    }
+
+    try {
+      const response = await handleEditExpense(data.id, data);
+
+      if (response.success) {
+        await handleRefresh();
+        setExpenseToEdit(null); // Reset the expense to edit
+        setShowComponent("list"); // Show the list after editing
+      } else {
+        setErrorMessage(response.message);
+      }
+    } catch (error) {
+      console.error("Error during edit:", error);
+      setErrorMessage(
+        "Ocurrió un error inesperado. Inténtalo de nuevo más tarde."
+      );
+    }
+  }
+
+  // Handle form toggle
+  const handleFormToggle = () => {
+    setExpenseToEdit(null); // Reset expenseToEdit when switching to create
+    setShowComponent(showComponent === "form" ? null : "form");
+  };
+
   const deleteExpense = async (id: string | number) => {
     const response = await handleDeleteExpense(id);
 
     if (response.success) {
-      await handleRefresh();
+      await handleRefresh(); // Refresca los datos tras el borrado
     } else {
-      console.error(response.message);
+      console.error(response.message); // Muestra el mensaje de error
     }
   };
 
@@ -90,9 +150,7 @@ export default function ContainerExpense({
   return (
     <div className="overflow-auto scrollbar-hide">
       <MenuExpenses
-        onFormToggle={() =>
-          setShowComponent(showComponent === "form" ? null : "form")
-        }
+        onFormToggle={handleFormToggle}
         onListToggle={() =>
           setShowComponent(showComponent === "list" ? null : "list")
         }
@@ -100,12 +158,21 @@ export default function ContainerExpense({
 
       {showComponent === "form" && !expenseToEdit && (
         <FormExpenses
-          onSubmit={async (data) => {
-            await handleCreateExpense(data);
-            await handleRefresh();
-          }}
+          onSubmit={onCreateExpenseSubmit}
           externalError={errorMessage as string}
           setIsForm={() => setShowComponent(null)}
+        />
+      )}
+
+      {showComponent === "form" && expenseToEdit && (
+        <FormExpenses
+          onSubmit={onEditExpenseSubmit}
+          externalError={errorMessage as string}
+          expense={expenseToEdit}
+          setIsForm={() => {
+            setExpenseToEdit(null);
+            setShowComponent("list");
+          }}
         />
       )}
 
@@ -126,7 +193,6 @@ export default function ContainerExpense({
           />
         </>
       )}
-
       {isModalOpen && (
         <DeleteModalExpense
           onClose={handleCloseModal}
