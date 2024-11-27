@@ -1,8 +1,6 @@
-import { ReactNode } from "react";
-import { handleShowExpenses } from "./api/route";
-import React from "react";
+import NavBar from "@/components/dashboard/navBar/NavBar";
 
-export default async function DashboardLayout({
+export default function ProfitsLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -11,7 +9,7 @@ export default async function DashboardLayout({
     <div>
       <main>
         <h1 className="text-center text-gray-800 text-4xl font-bold mt-7">
-          Expenses
+          Profits
         </h1>
         {children}
       </main>
