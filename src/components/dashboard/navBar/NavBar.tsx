@@ -32,6 +32,9 @@ const NavBar = () => {
             <Link href="/dashboard/profits">Profits</Link>
           </li>
           <li className=" hover:text-indigo-500 cursor-pointer">
+            <Link href="/dashboard/products">Products</Link>
+          </li>
+          <li className=" hover:text-indigo-500 cursor-pointer">
             <button onClick={handleLogout}>logout</button>
           </li>
         </ul>
