@@ -121,7 +121,7 @@ export async function handleDeleteExpense(
       const errorData = await response.json();
       return {
         success: false,
-        message: errorData?.message || "Error al realizar el borrado lógico.",
+        message: errorData?.message || "Error performing logical erase.",
       };
     }
 
@@ -129,13 +129,13 @@ export async function handleDeleteExpense(
 
     return {
       success: true,
-      message: responseData.message || "Borrado lógico exitoso.",
+      message: responseData.message || "Logical erase successful. ",
     };
   } catch (error) {
-    console.error("Error al realizar el borrado lógico:", error);
+    console.error("Error performing logical erase:", error);
     return {
       success: false,
-      message: "Error inesperado al realizar el borrado lógico.",
+      message: "Unexpected error when performing logical erase.",
     };
   }
 }

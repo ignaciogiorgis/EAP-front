@@ -10,7 +10,7 @@ import MenuExpenses from "./view/menuExpenses";
 import ListExpenses from "./view/listExpenses";
 import DeleteModalExpense from "./view/deleteModalExpense";
 import { handleDeleteExpense } from "@/app/dashboard/expenses/api/route";
-import Pagination from "./view/paginatioExpenses";
+import Pagination from "../components/pagination";
 
 type ExpenseResponse = {
   success: boolean;
@@ -64,11 +64,11 @@ export default function ContainerExpense({
       if (result.success && result.data) {
         setExpenses(result.data);
       } else {
-        setErrorMessage("No se pudieron actualizar los datos.");
+        setErrorMessage("Data could not be updated.");
       }
     } catch (error) {
-      console.error("Error al refrescar datos:", error);
-      setErrorMessage("Error inesperado al actualizar los datos.");
+      console.error("Error while refreshing data:", error);
+      setErrorMessage("Unexpected error updating data.");
     }
   };
 
@@ -90,9 +90,7 @@ export default function ContainerExpense({
       }
     } catch (error) {
       console.error("Error during creation:", error);
-      setErrorMessage(
-        "Ocurrió un error inesperado. Inténtalo de nuevo más tarde."
-      );
+      setErrorMessage("An unexpected error occurred. Please try again later.");
     }
   }
 
@@ -105,7 +103,7 @@ export default function ContainerExpense({
     date: string;
   }) {
     if (!data.id) {
-      setErrorMessage("El ID es requerido para editar un gasto.");
+      setErrorMessage("The ID is required to edit an expense.");
       return;
     }
 
@@ -121,9 +119,7 @@ export default function ContainerExpense({
       }
     } catch (error) {
       console.error("Error during edit:", error);
-      setErrorMessage(
-        "Ocurrió un error inesperado. Inténtalo de nuevo más tarde."
-      );
+      setErrorMessage("An unexpected error occurred. Please try again later.");
     }
   }
 
