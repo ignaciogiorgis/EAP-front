@@ -21,7 +21,7 @@ type FormProductsProps = {
   setIsForm: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const FormExpenses = ({
+const FormProducts = ({
   onSubmit,
   externalError,
   product,
@@ -80,7 +80,7 @@ const FormExpenses = ({
       >
         <div className="flex justify-between mb-4">
           <h3 className="text-white w-2/3 py-2 rounded-md font-semibold text-center bg-indigo-950">
-            {product ? "Edit Expense" : "Add Expense"}
+            {product ? "Edit Product" : "Add Product"}
           </h3>
           <button
             type="button"
@@ -144,4 +144,4 @@ const FormExpenses = ({
   );
 };
 
-export default FormExpenses;
+export default FormProducts;
