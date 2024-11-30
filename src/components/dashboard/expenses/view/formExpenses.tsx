@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Form from "next/form";
 import { validateForm, ValidationSchema } from "@/utils/validation";
+import { format } from "date-fns";
 
 type FormExpensesProps = {
   onSubmit: (data: {
@@ -17,7 +18,7 @@ type FormExpensesProps = {
     value: string;
     description: string;
     date: string;
-  }; // Gasto a editar, opcional
+  };
   setIsForm: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
@@ -28,7 +29,6 @@ const FormExpenses = ({
   setIsForm,
 }: FormExpensesProps) => {
   const [errors, setErrors] = useState<string[]>([]);
-  const [formSubmitted, setFormSubmitted] = useState(false);
   const [displayErrors, setDisplayErrors] = useState<boolean>(false);
 
   const validationSchema: ValidationSchema = {
@@ -47,7 +47,7 @@ const FormExpenses = ({
       name: formData.get("name") as string,
       value: formData.get("value") as string,
       description: formData.get("description") as string,
-      date: formData.get("date") as string,
+      date: format(new Date(formData.get("date") as string), "yyyy-MM-dd"),
     };
 
     const validationErrors = validateForm(

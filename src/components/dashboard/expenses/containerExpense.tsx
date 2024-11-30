@@ -48,7 +48,6 @@ export default function ContainerExpense({
     startIndex,
     startIndex + ITEMS_PER_PAGE
   );
-
   const handleOpenModal = (id: string | number) => {
     setSelectedExpenseId(id);
     setIsModalOpen(true);
