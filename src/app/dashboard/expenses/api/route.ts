@@ -80,12 +80,14 @@ export async function handleEditExpense(
   }
 ) {
   try {
+    const token = (await cookies()).get("token")?.value;
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/expense/${id}`, // URL con el ID del gasto
       {
         method: "PUT", // Método PUT para editar
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(data), // Datos a enviar
       }
@@ -112,22 +114,25 @@ export async function handleDeleteExpense(
   id: string | number
 ): Promise<{ success: boolean; message?: string }> {
   try {
+    const token = (await cookies()).get("token")?.value;
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/expense/${id}`, // URL con el ID del gasto
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/expense/${id}`,
       {
-        method: "PATCH", // Método PATCH para realizar el borrado lógico
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ isDeleted: true }), // Marca el gasto como eliminado
+        body: JSON.stringify({ isDeleted: true }),
       }
     );
 
     if (!response.ok) {
       const errorData = await response.json();
+      console.log("desde route front", errorData);
       return {
         success: false,
-        message: errorData?.message || "Error performing logical erase.",
+        message: errorData?.error || "Error performing logical erase.",
       };
     }
 
