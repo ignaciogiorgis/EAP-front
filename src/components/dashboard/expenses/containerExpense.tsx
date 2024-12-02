@@ -133,7 +133,7 @@ export default function ContainerExpense({
     if (response.success) {
       await handleRefresh(); // Refresca los datos tras el borrado
     } else {
-      console.error(response.message); // Muestra el mensaje de error
+      console.log(response.message); // Muestra el mensaje de error
     }
   };
 
