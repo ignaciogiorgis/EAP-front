@@ -7,7 +7,7 @@ import { validateForm, ValidationSchema } from "@/utils/validation";
 
 type RegisterFormProps = {
   onSubmit: (data: {
-    nombre: string;
+    name: string;
     email: string;
     password: string;
     repetir_password: string;
@@ -21,7 +21,7 @@ export default function RegisterForm({
 }: RegisterFormProps) {
   const [errors, setErrors] = useState<string[]>([]);
   const [formValues, setFormValues] = useState({
-    nombre: "",
+    name: "",
     email: "",
     password: "",
     repetir_password: "",
@@ -31,7 +31,7 @@ export default function RegisterForm({
   const [displayErrors, setDisplayErrors] = useState<boolean>(false);
 
   const validationSchema: ValidationSchema = {
-    nombre: { required: true, customMessage: "The Name is required" },
+    name: { required: true, customMessage: "The Name is required" },
     email: {
       required: true,
       pattern: /\S+@\S+\.\S+/,
@@ -98,9 +98,9 @@ export default function RegisterForm({
         <label className="block text-gray-700">Name</label>
         <input
           type="text"
-          name="nombre"
+          name="name"
           className="py-3 px-4 bg-slate-200 rounded-md text-black"
-          value={formValues.nombre}
+          value={formValues.name}
           onChange={handleChange}
           placeholder="Name"
         />

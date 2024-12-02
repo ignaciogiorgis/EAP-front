@@ -92,7 +92,7 @@ export async function handleRecover(data: { email: string }) {
 }
 
 export async function handleRegister(data: {
-  nombre: string;
+  name: string;
   email: string;
   password: string;
   repetir_password: string;

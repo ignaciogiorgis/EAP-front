@@ -9,7 +9,7 @@ export default function RegisterPage() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   async function onRegisterSubmit(data: {
-    nombre: string;
+    name: string;
     email: string;
     password: string;
     repetir_password: string;
