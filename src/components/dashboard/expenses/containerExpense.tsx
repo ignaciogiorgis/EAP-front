@@ -38,7 +38,6 @@ export default function ContainerExpense({
   const [selectedExpenseId, setSelectedExpenseId] = useState<
     string | number | null
   >(null);
-
   const ITEMS_PER_PAGE = 5;
   const totalPages = Math.ceil(expenses.length / ITEMS_PER_PAGE);
 

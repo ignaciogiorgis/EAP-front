@@ -1,6 +1,8 @@
 //funcion que hace el llamado ala api para crear un nuevo gasto
 "use server";
 
+import { cookies } from "next/headers";
+
 export async function handleCreateExpense(data: {
   name: string;
   value: string;
@@ -8,12 +10,14 @@ export async function handleCreateExpense(data: {
   date: string;
 }) {
   try {
+    const token = (await cookies()).get("token")?.value;
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/expense`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(data),
       }
@@ -37,12 +41,14 @@ export async function handleCreateExpense(data: {
 //funcion que hace el llamado ala api para traer el listado de gastos
 export async function handleShowExpenses() {
   try {
+    const token = (await cookies()).get("token")?.value;
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/expense`,
       {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       }
     );
