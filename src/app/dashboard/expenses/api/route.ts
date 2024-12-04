@@ -56,7 +56,7 @@ export async function handleShowExpenses() {
       const errorData = await response.json();
       return {
         success: false,
-        message: errorData?.error?.msg || " Request error",
+        message: errorData?.error || " Request error",
       };
     }
 
@@ -97,7 +97,7 @@ export async function handleEditExpense(
       const errorData = await response.json();
       return {
         success: false,
-        message: errorData?.error?.msg || " Request error",
+        message: errorData?.error || " Request error",
       };
     }
 
