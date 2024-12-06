@@ -1,4 +1,5 @@
 "use server";
+import { cookies } from "next/headers";
 
 export async function handleCreateProduct(data: {
   name: string;
@@ -7,12 +8,14 @@ export async function handleCreateProduct(data: {
   profit: number;
 }) {
   try {
+    const token = (await cookies()).get("token")?.value;
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/product`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(data),
       }
@@ -36,12 +39,14 @@ export async function handleCreateProduct(data: {
 
 export async function handleShowProducts() {
   try {
+    const token = (await cookies()).get("token")?.value;
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/product`,
       {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -73,12 +78,14 @@ export async function handleEditProduct(
   }
 ) {
   try {
+    const token = (await cookies()).get("token")?.value;
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/product/${id}`, // URL con el ID del gasto
       {
         method: "PUT", // Método PUT para editar
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(data), // Datos a enviar
       }
@@ -105,12 +112,14 @@ export async function handleDeleteProduct(
   id: string | number
 ): Promise<{ success: boolean; message?: string }> {
   try {
+    const token = (await cookies()).get("token")?.value;
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/product/${id}`, // URL con el ID del gasto
       {
         method: "PATCH", // Método PATCH para realizar el borrado lógico
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ isDeleted: true }), // Marca el gasto como eliminado
       }
