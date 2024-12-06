@@ -27,7 +27,7 @@ export async function handleCreateExpense(data: {
       const errorData = await response.json();
       return {
         success: false,
-        message: errorData?.error?.msg || " Request error",
+        message: errorData?.error || " Request error",
       };
     }
 
