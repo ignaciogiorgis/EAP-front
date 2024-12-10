@@ -14,7 +14,7 @@ const listproducts = ({ products, onEdit, onOpenModal }: ProductsListProps) => {
     <div className="mb-5">
       <div className="px-5 mx-auto ">
         <div className="relative flex flex-col w-full h-full text-white bg-gray-800 shadow-md rounded-lg bg-clip-border">
-          <table className="w-full text-left table-auto min-w-max ">
+          <table className="sm:table hidden">
             <thead>
               <tr>
                 <th className="p-4 border-b border-indigo-600 bg-gray-800">
@@ -80,6 +80,45 @@ const listproducts = ({ products, onEdit, onOpenModal }: ProductsListProps) => {
               ))}
             </tbody>
           </table>
+          <div>
+            <div className="flex flex-col sm:hidden p-3">
+              {products.map((product) => (
+                <div
+                  key={product.id}
+                  className="flex flex-col justify-center gap-2 p-4 mb-4 bg-gray-900 rounded-md"
+                >
+                  <p className="text-sm font-bold text-white">
+                    Name: <span className="font-normal">{product.name}</span>
+                  </p>
+                  <p className="text-sm font-bold text-white">
+                    Quantity:{" "}
+                    <span className="font-normal">{product.quantity}</span>
+                  </p>
+                  <p className="text-sm font-bold text-white">
+                    Cost: <span className="font-normal">{product.cost}</span>
+                  </p>
+                  <p className="text-sm font-bold text-white">
+                    Profit:{" "}
+                    <span className="font-normal">{product.profit}</span>
+                  </p>
+                  <div className="flex justify-between">
+                    <button
+                      onClick={() => onEdit(product)}
+                      className="bg-green-300 w-full font-extrabold text-green-900 p-2 hover:bg-green-950 hover:text-white"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => onOpenModal(product.id)}
+                      className="bg-red-300 w-full font-extrabold text-red-900 p-2 hover:bg-red-950 hover:text-white"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
