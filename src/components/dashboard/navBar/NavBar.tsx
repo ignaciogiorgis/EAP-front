@@ -21,7 +21,7 @@ const NavBar = () => {
         <h1 className="text-xl font-bold">
           Expenses <span className="font-medium">and </span> Profits
         </h1>
-        <ul className="flex gap-[40px] text-m">
+        <ul className="sm:flex sm:gap-[10px] md:gap-[40px] sm:items-center sm:text-sm md:text-base hidden">
           <li className=" hover:text-indigo-500 cursor-pointer">
             <Link href="/dashboard">Dashboard</Link>
           </li>
