@@ -42,6 +42,7 @@ const FormExpenses = ({
   };
 
   async function handleSubmit(formData: FormData) {
+    const dateValue = formData.get("date") as string;
     const formValues = {
       id: expense?.id || "", // Garantizamos que sea una cadena
       name: formData.get("name") as string,
@@ -71,7 +72,7 @@ const FormExpenses = ({
     <div className="p-3 flex flex-col justify-center items-center scrollbar-none">
       <Form
         action={handleSubmit}
-        className="flex flex-col gap-2 lg:w-1/3 mb-10 bg-white py-7 px-8 rounded-md border border-black border-dotted shadow-xl"
+        className="flex flex-col gap-2 lg:w-1/3 mb-10 bg-white py-7 px-8 rounded-md border  shadow-2xl"
       >
         <div className="flex justify-between mb-4">
           <h3 className="text-white w-2/3 py-2 rounded-md font-semibold text-center bg-indigo-950">
@@ -105,6 +106,7 @@ const FormExpenses = ({
           name="name"
           className="py-3 px-4 bg-slate-200 rounded-md text-black"
           defaultValue={expense?.name || ""}
+          placeholder="Enter the name..."
         />
 
         <label className="block text-gray-700">Value</label>
@@ -113,6 +115,7 @@ const FormExpenses = ({
           type="number"
           className="py-3 px-4 bg-slate-200 rounded-md text-black"
           defaultValue={expense?.value || ""}
+          placeholder="Enter the value..."
         />
 
         <label className="block text-gray-700">Description</label>
@@ -120,6 +123,7 @@ const FormExpenses = ({
           name="description"
           className="py-3 px-4 bg-slate-200 rounded-md text-black"
           defaultValue={expense?.description || ""}
+          placeholder="Enter the description..."
         />
 
         <label className="block text-gray-700">Date</label>

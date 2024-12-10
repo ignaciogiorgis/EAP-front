@@ -12,10 +12,10 @@ type expensesListProps = {
 const listExpenses = ({ expenses, onEdit, onOpenModal }: expensesListProps) => {
   return (
     <div className="mb-5">
-      <div className="px-5 mx-auto ">
-        <div className="relative flex flex-col w-full h-full text-white bg-gray-800 shadow-md rounded-lg bg-clip-border">
-          <table className="w-full text-left table-auto min-w-max ">
-            <thead>
+      <div className="px-5">
+        <div className="relative flex flex-col w-full h-full text-white bg-gray-800 shadow-md rounded-lg bg-clip-border ">
+          <table className="sm:table hidden">
+            <thead className="">
               <tr>
                 <th className="p-4 border-b border-indigo-600 bg-gray-800">
                   <p className="text-sm font-normal leading-none text-white">
@@ -38,7 +38,9 @@ const listExpenses = ({ expenses, onEdit, onOpenModal }: expensesListProps) => {
                   </p>
                 </th>
                 <th className="p-4 border-b border-indigo-600 bg-gray-800">
-                  <p className="text-sm font-normal leading-none text-white"></p>
+                  <p className="text-sm font-normal leading-none text-white">
+                    Action
+                  </p>
                 </th>
               </tr>
             </thead>
@@ -80,6 +82,44 @@ const listExpenses = ({ expenses, onEdit, onOpenModal }: expensesListProps) => {
               ))}
             </tbody>
           </table>
+          <div>
+            <div className="flex flex-col sm:hidden p-3">
+              {expenses.map((expense) => (
+                <div
+                  key={expense.id}
+                  className="flex flex-col justify-center gap-2 p-4 mb-4 bg-gray-900 rounded-md"
+                >
+                  <p className="text-sm font-bold text-white">
+                    Name: <span className="font-normal">{expense.name}</span>
+                  </p>
+                  <p className="text-sm font-bold text-white">
+                    Value: <span className="font-normal">{expense.value}</span>
+                  </p>
+                  <p className="text-sm font-bold text-white">
+                    Description:{" "}
+                    <span className="font-normal">{expense.description}</span>
+                  </p>
+                  <p className="text-sm font-bold text-white">
+                    Date: <span className="font-normal">{expense.date}</span>
+                  </p>
+                  <div className="flex justify-between">
+                    <button
+                      onClick={() => onEdit(expense)}
+                      className="bg-green-300 w-full font-extrabold text-green-900 p-2 hover:bg-green-950 hover:text-white"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => onOpenModal(expense.id)}
+                      className="bg-red-300 w-full font-extrabold text-red-900 p-2 hover:bg-red-950 hover:text-white"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>

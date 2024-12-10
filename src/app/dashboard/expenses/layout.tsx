@@ -1,8 +1,4 @@
-import { ReactNode } from "react";
-import { handleShowExpenses } from "./api/route";
-import React from "react";
-
-export default async function DashboardLayout({
+export default async function ExpensesLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -10,7 +6,7 @@ export default async function DashboardLayout({
   return (
     <div>
       <main>
-        <h1 className="text-center text-gray-800 text-4xl font-bold mt-7">
+        <h1 className="text-center text-gray-700 font-bold mt-7 sm:text-2xl md:text-3xl">
           Expenses
         </h1>
         {children}
