@@ -29,7 +29,7 @@ const NavBar = () => {
             <Link href="/dashboard/expenses">Expenses</Link>
           </li>
           <li className=" hover:text-indigo-500 cursor-pointer">
-            <Link href="/dashboard/profits">Profits</Link>
+            <Link href="/dashboard/sales">Sales</Link>
           </li>
           <li className=" hover:text-indigo-500 cursor-pointer">
             <Link href="/dashboard/products">Products</Link>

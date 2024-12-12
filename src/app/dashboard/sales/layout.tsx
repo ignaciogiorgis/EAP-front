@@ -1,6 +1,6 @@
 import NavBar from "@/components/dashboard/components/navBar/NavBar";
 
-export default function ProfitsLayout({
+export default function SalesLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -9,7 +9,7 @@ export default function ProfitsLayout({
     <div>
       <main>
         <h1 className="text-center text-gray-800 text-4xl font-bold mt-7">
-          Profits
+          Sales
         </h1>
         {children}
       </main>
