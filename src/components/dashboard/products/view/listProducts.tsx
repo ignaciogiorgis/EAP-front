@@ -12,7 +12,7 @@ type ProductsListProps = {
 const listproducts = ({ products, onEdit, onOpenModal }: ProductsListProps) => {
   return (
     <div className="mb-5">
-      <div className="px-5 mx-auto ">
+      <div className="px-5 mx-auto">
         <div className="relative flex flex-col w-full h-full text-white bg-gray-800 shadow-md rounded-lg bg-clip-border">
           <table className="sm:table hidden">
             <thead>

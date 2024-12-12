@@ -1,4 +1,4 @@
-import NavBar from "@/components/dashboard/navBar/NavBar";
+import NavBar from "@/components/dashboard/components/navBar/NavBar";
 
 export default function ProfitsLayout({
   children,
