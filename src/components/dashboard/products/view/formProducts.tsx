@@ -28,7 +28,6 @@ const FormProducts = ({
   setIsForm,
 }: FormProductsProps) => {
   const [errors, setErrors] = useState<string[]>([]);
-  const [formSubmitted, setFormSubmitted] = useState(false);
   const [displayErrors, setDisplayErrors] = useState<boolean>(false);
 
   const validationSchema: ValidationSchema = {

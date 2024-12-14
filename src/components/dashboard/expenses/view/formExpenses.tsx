@@ -42,13 +42,12 @@ const FormExpenses = ({
   };
 
   async function handleSubmit(formData: FormData) {
-    const dateValue = formData.get("date") as string;
     const formValues = {
-      id: expense?.id || "", // Garantizamos que sea una cadena
-      name: formData.get("name") as string,
-      value: formData.get("value") as string,
-      description: formData.get("description") as string,
-      date: format(new Date(formData.get("date") as string), "yyyy-MM-dd"),
+      id: expense?.id || "",
+      name: (formData.get("name") as string) || "",
+      value: (formData.get("value") as string) || "",
+      description: (formData.get("description") as string) || "",
+      date: (formData.get("date") as string) || "",
     };
 
     const validationErrors = validateForm(
@@ -56,13 +55,29 @@ const FormExpenses = ({
       validationSchema
     );
 
-    if (validationErrors.length === 0) {
-      await onSubmit(formValues);
-      setIsForm(false); // Cierra el formulario tras el éxito
-    } else {
+    if (validationErrors.length > 0) {
       setErrors(validationErrors);
       setDisplayErrors(true);
+      return;
     }
+
+    // Formateamos la fecha después de validar que existe y es válida
+    let formattedDate = "";
+    try {
+      formattedDate = format(new Date(formValues.date), "yyyy-MM-dd");
+    } catch (error) {
+      console.error("Invalid date value:", error);
+      setErrors(["The date format is invalid."]);
+      setDisplayErrors(true);
+      return;
+    }
+
+    // Actualizamos el objeto con la fecha formateada
+    formValues.date = formattedDate;
+
+    // Enviamos los datos procesados
+    await onSubmit(formValues);
+    setIsForm(false); // Cierra el formulario tras el éxito
   }
 
   const combinedErrors = [...errors];
