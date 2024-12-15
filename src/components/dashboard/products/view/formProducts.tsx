@@ -41,29 +41,30 @@ const FormProducts = ({
   };
 
   async function handleSubmit(formData: FormData) {
-    const formValues = {
+    const rawValues = {
       id: product?.id || "",
       name: formData.get("name") as string,
-      quantity: Number(formData.get("quantity")),
-      cost: Number(formData.get("cost")),
-      profit: Number(formData.get("profit")),
+      quantity: formData.get("quantity") as string,
+      cost: formData.get("cost") as string,
+      profit: formData.get("profit") as string,
     };
 
-    // Convertir las propiedades a string para la validación
-    const formValuesAsString = {
-      ...formValues,
-      quantity: formValues.quantity.toString(),
-      cost: formValues.cost.toString(),
-      profit: formValues.profit.toString(),
-    };
-
-    const validationErrors = validateForm(formValuesAsString, validationSchema);
+    // Validación inicial: verificar campos vacíos
+    const validationErrors = validateForm(rawValues, validationSchema);
 
     if (validationErrors.length === 0) {
-      await onSubmit(formValues); // Usar el original aquí
-      setIsForm(false); // Cierra el formulario tras el éxito
+      // Si no hay errores, convertir los valores necesarios a números
+      const formValues = {
+        ...rawValues,
+        quantity: Number(rawValues.quantity),
+        cost: Number(rawValues.cost),
+        profit: Number(rawValues.profit),
+      };
+
+      await onSubmit(formValues); // Enviar los datos procesados
+      setIsForm(false); // Cerrar el formulario tras el éxito
     } else {
-      setErrors(validationErrors);
+      setErrors(validationErrors); // Mostrar errores
       setDisplayErrors(true);
     }
   }
