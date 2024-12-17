@@ -32,6 +32,9 @@ const NavBar = () => {
             <Link href="/dashboard/sales">Sales</Link>
           </li>
           <li className=" hover:text-indigo-500 cursor-pointer">
+            <Link href="/dashboard/clients">Clients</Link>
+          </li>
+          <li className=" hover:text-indigo-500 cursor-pointer">
             <Link href="/dashboard/products">Products</Link>
           </li>
           <li className=" hover:text-indigo-500 cursor-pointer">
