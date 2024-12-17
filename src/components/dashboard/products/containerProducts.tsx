@@ -85,7 +85,7 @@ const containerPorducts = ({
 
       if (response.success) {
         await handleRefresh();
-        setShowComponent("list"); // Show list after successful creation
+        setShowComponent("list"); 
       } else {
         setErrorMessage(response.message);
       }
@@ -95,9 +95,8 @@ const containerPorducts = ({
     }
   }
 
-  // Handle submit for editing an existing expense
   async function onEditExpenseSubmit(data: {
-    id?: string; // Make id optional
+    id?: string; 
     name: string;
     quantity: number;
     cost: number;
