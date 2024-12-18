@@ -22,7 +22,7 @@ type ProductPageProps = {
   refreshData: () => Promise<ExpenseResponse>;
 };
 
-const containerPorducts = ({
+const containerProducts = ({
   refreshData,
   products: initialProducts,
 }: ProductPageProps) => {
@@ -85,7 +85,7 @@ const containerPorducts = ({
 
       if (response.success) {
         await handleRefresh();
-        setShowComponent("list"); 
+        setShowComponent("list");
       } else {
         setErrorMessage(response.message);
       }
@@ -96,7 +96,7 @@ const containerPorducts = ({
   }
 
   async function onEditExpenseSubmit(data: {
-    id?: string; 
+    id?: string;
     name: string;
     quantity: number;
     cost: number;
@@ -197,4 +197,4 @@ const containerPorducts = ({
   );
 };
 
-export default containerPorducts;
+export default containerProducts;
