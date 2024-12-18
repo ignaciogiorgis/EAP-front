@@ -1,9 +1,14 @@
-const clientPage = () => {
+import ContainerClients from "@/components/dashboard/clients/containerClients";
+import { handleShowClients } from "./api/route";
+
+const clientPage = async () => {
+  const clients = await handleShowClients();
   return (
-    <div>
-      <h1 className="text-center text-gray-700 font-bold mt-7 sm:text-2xl md:text-3xl">
-        Clients page
-      </h1>
+    <div className="overflow-auto scrollbar-hide">
+      <ContainerClients
+        clients={clients?.data || []}
+        refreshData={handleShowClients}
+      />
     </div>
   );
 };
