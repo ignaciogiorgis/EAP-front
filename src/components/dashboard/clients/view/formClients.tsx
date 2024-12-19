@@ -130,20 +130,22 @@ const FormClient = ({
           </div>
         )}
 
-        <label className="block text-gray-700">First Name</label>
-        <input
-          type="text"
-          name="firstName"
-          className="py-3 px-4 bg-slate-200 rounded-md text-black"
-          defaultValue={client?.firstName || ""}
-        />
+        <div className="columns-2">
+          <label className="block text-gray-700 ">First Name</label>
+          <input
+            type="text"
+            name="firstName"
+            className="py-3 px-4 bg-slate-200 rounded-md text-black w-full"
+            defaultValue={client?.firstName || ""}
+          />
 
-        <label className="block text-gray-700">Last Name</label>
-        <input
-          name="lastName"
-          className="py-3 px-4 bg-slate-200 rounded-md text-black"
-          defaultValue={client?.lastName || ""}
-        />
+          <label className="block text-gray-700">Last Name</label>
+          <input
+            name="lastName"
+            className="py-3 px-4 bg-slate-200 rounded-md text-black w-full"
+            defaultValue={client?.lastName || ""}
+          />
+        </div>
 
         <label className="block text-gray-700">Email</label>
         <input
@@ -151,34 +153,37 @@ const FormClient = ({
           className="py-3 px-4 bg-slate-200 rounded-md text-black"
           defaultValue={client?.email || ""}
         />
-
-        <label className="block text-gray-700">Address</label>
-        <input
-          name="address"
-          className="py-3 px-4 bg-slate-200 rounded-md text-black"
-          defaultValue={client?.address || ""}
-        />
-        <label className="block text-gray-700">Birthday</label>
-        <input
-          name="birthday"
-          type="date"
-          className="py-3 px-4 bg-slate-200 rounded-md text-black"
-          defaultValue={client?.birthday || ""}
-        />
-        <label className="block text-gray-700">Dni</label>
-        <input
-          name="dni"
-          type="number"
-          className="py-3 px-4 bg-slate-200 rounded-md text-black"
-          defaultValue={client?.dni || ""}
-        />
-        <label className="block text-gray-700">Phone</label>
-        <input
-          name="phone"
-          type="number"
-          className="py-3 px-4 bg-slate-200 rounded-md text-black"
-          defaultValue={client?.phone || ""}
-        />
+        <div className="columns-2">
+          <label className="block text-gray-700">Address</label>
+          <input
+            name="address"
+            className="py-3 px-4 bg-slate-200 rounded-md text-black w-full"
+            defaultValue={client?.address || ""}
+          />
+          <label className="block text-gray-700">Birthday</label>
+          <input
+            name="birthday"
+            type="date"
+            className="py-3 px-4 bg-slate-200 rounded-md text-black w-full"
+            defaultValue={client?.birthday || ""}
+          />
+        </div>
+        <div className="columns-2">
+          <label className="block text-gray-700">Dni</label>
+          <input
+            name="dni"
+            type="number"
+            className="py-3 px-4 bg-slate-200 rounded-md text-black w-full"
+            defaultValue={client?.dni || ""}
+          />
+          <label className="block text-gray-700">Phone</label>
+          <input
+            name="phone"
+            type="number"
+            className="py-3 px-4 bg-slate-200 rounded-md text-black w-full"
+            defaultValue={client?.phone || ""}
+          />
+        </div>
 
         <button
           type="submit"
