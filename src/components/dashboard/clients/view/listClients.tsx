@@ -15,8 +15,8 @@ type ClientsListProps = {
 const listClients = ({ clients, onEdit, onOpenModal }: ClientsListProps) => {
   return (
     <div className="mb-5">
-      <div className="px-5 mx-auto">
-        <div className="relative flex flex-col w-full h-full text-white bg-gray-800 shadow-md rounded-lg bg-clip-border">
+      <div className="px-5">
+        <div className="relative flex flex-col w-full h-full text-white bg-gray-800 shadow-md rounded-lg bg-clip-border ">
           <table className="sm:table hidden">
             <thead>
               <tr>
@@ -26,7 +26,7 @@ const listClients = ({ clients, onEdit, onOpenModal }: ClientsListProps) => {
                   </p>
                 </th>
                 <th className="p-4 border-b border-indigo-600 bg-gray-800">
-                  <p className="text-sm font-normal leading-none text-white">
+                  <p className="text-sm font-normal leading-none text-white truncate">
                     Last Name
                   </p>
                 </th>
@@ -35,16 +35,7 @@ const listClients = ({ clients, onEdit, onOpenModal }: ClientsListProps) => {
                     Email
                   </p>
                 </th>
-                <th className="p-4 border-b border-indigo-600 bg-gray-800">
-                  <p className="text-sm font-normal leading-none text-white">
-                    Address
-                  </p>
-                </th>
-                <th className="p-4 border-b border-indigo-600 bg-gray-800">
-                  <p className="text-sm font-normal leading-none text-white">
-                    Birthday
-                  </p>
-                </th>
+               
                 <th className="p-4 border-b border-indigo-600 bg-gray-800">
                   <p className="text-sm font-normal leading-none text-white">
                     Dni
@@ -53,6 +44,11 @@ const listClients = ({ clients, onEdit, onOpenModal }: ClientsListProps) => {
                 <th className="p-4 border-b border-indigo-600 bg-gray-800">
                   <p className="text-sm font-normal leading-none text-white">
                     Phone
+                  </p>
+                </th>
+                <th className="p-4 border-b border-indigo-600 bg-gray-800">
+                  <p className="text-sm font-normal leading-none text-white">
+                    Actions
                   </p>
                 </th>
               </tr>
@@ -74,12 +70,7 @@ const listClients = ({ clients, onEdit, onOpenModal }: ClientsListProps) => {
                   <td className="p-4 bg-gray-900">
                     <p className="text-sm text-white">{client.email}</p>
                   </td>
-                  <td className="p-4 bg-gray-700">
-                    <p className="text-sm text-white">{client.address}</p>
-                  </td>
-                  <td className="p-4 bg-gray-700">
-                    <p className="text-sm text-white">{client.birthday}</p>
-                  </td>
+                 
                   <td className="p-4 bg-gray-700">
                     <p className="text-sm text-white">{client.dni}</p>
                   </td>

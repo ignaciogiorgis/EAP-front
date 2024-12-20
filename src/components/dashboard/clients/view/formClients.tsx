@@ -102,7 +102,7 @@ const FormClient = ({
     <div className="p-3 flex flex-col justify-center items-center scrollbar-none">
       <Form
         action={handleSubmit}
-        className="flex flex-col gap-2 lg:w-1/3 mb-10 bg-white py-7 px-8 rounded-md border border-black border-dotted shadow-xl"
+        className="flex flex-col gap-2 lg:w-1/3 mb-10 bg-white py-7 px-8 rounded-md border  shadow-xl"
       >
         <div className="flex justify-between mb-4">
           <h3 className="text-white w-2/3 py-2 rounded-md font-semibold text-center bg-indigo-950">
