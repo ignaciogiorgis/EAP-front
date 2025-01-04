@@ -17,7 +17,7 @@ export async function handleCreateSale(data: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(data), 
+        body: JSON.stringify(data),
       }
     );
 
@@ -35,4 +35,10 @@ export async function handleCreateSale(data: {
     console.error("Request error POST:", error);
     return { success: false, message: "Request error" };
   }
+}
+export async function handleDeleteSale() {
+  return null;
+}
+export async function handleEditSale() {
+  return null;
 }
