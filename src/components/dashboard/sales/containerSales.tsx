@@ -11,22 +11,22 @@ import {
 import Pagination from "../components/pagination";
 import DeleteModalSale from "./view/deleteModalSale";
 
-type ExpenseResponse = {
+type SaleResponse = {
   success: boolean;
   data?: any[];
   message?: any;
 };
 
-type ProductPageProps = {
-  products: any[];
-  refreshData: () => Promise<ExpenseResponse>;
+type SalesPageProps = {
+  sales: any[];
+  refreshData: () => Promise<SaleResponse>;
 };
 
 const containerProducts = ({
   refreshData,
-  products: initialProducts,
-}: ProductPageProps) => {
-  const [products, setProducts] = useState(initialProducts);
+  sales: initialProducts,
+}: SalesPageProps) => {
+  const [sales, setSales] = useState(initialProducts);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [showComponent, setShowComponent] = useState<"form" | "list" | null>(
     null
@@ -39,13 +39,10 @@ const containerProducts = ({
   >(null);
 
   const ITEMS_PER_PAGE = 5;
-  const totalPages = Math.ceil(products.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(sales.length / ITEMS_PER_PAGE);
 
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const currentProducts = products.slice(
-    startIndex,
-    startIndex + ITEMS_PER_PAGE
-  );
+  const currentProducts = sales.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   const handleOpenModal = (id: string | number) => {
     setSelectedProductId(id);
@@ -60,7 +57,7 @@ const containerProducts = ({
     try {
       const result = await refreshData();
       if (result.success && result.data) {
-        setProducts(result.data);
+        setSales(result.data);
       } else {
         setErrorMessage("Data could not be updated.");
       }
@@ -81,7 +78,7 @@ const containerProducts = ({
     profit: number;
   }) {
     try {
-      const response = await handleCreateProduct(data);
+      const response = await handleCreateSale(data);
 
       if (response.success) {
         await handleRefresh();
@@ -108,7 +105,7 @@ const containerProducts = ({
     }
 
     try {
-      const response = await handleEditProduct(data.id, data);
+      const response = await handleEditSale(data.id, data);
 
       if (response.success) {
         await handleRefresh();
@@ -123,7 +120,7 @@ const containerProducts = ({
     }
   }
   const deleteExpense = async (id: string | number) => {
-    const response = await handleDeleteProduct(id);
+    const response = await handleDeleteSale(id);
 
     if (response.success) {
       await handleRefresh(); // Refresca los datos tras el borrado
@@ -173,7 +170,7 @@ const containerProducts = ({
             onPageChange={handlePageChange}
           />
           <ListSales
-            products={currentProducts}
+            sales={currentProducts}
             onOpenModal={handleOpenModal}
             onEdit={(product: any) => {
               setProductToEdit(product);
