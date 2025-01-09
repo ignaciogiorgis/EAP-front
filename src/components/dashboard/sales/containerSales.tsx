@@ -24,15 +24,15 @@ type SalesPageProps = {
 
 const containerProducts = ({
   refreshData,
-  sales: initialProducts,
+  sales: initialSales,
 }: SalesPageProps) => {
-  const [sales, setSales] = useState(initialProducts);
+  const [sales, setSales] = useState(initialSales);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [showComponent, setShowComponent] = useState<"form" | "list" | null>(
     null
   );
   const [currentPage, setCurrentPage] = useState(1);
-  const [productToEdit, setProductToEdit] = useState<any | null>(null);
+  const [saleToEdit, setSaleToEdit] = useState<any | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState<
     string | number | null
@@ -42,7 +42,7 @@ const containerProducts = ({
   const totalPages = Math.ceil(sales.length / ITEMS_PER_PAGE);
 
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const currentProducts = sales.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  const currentSales = sales.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   const handleOpenModal = (id: string | number) => {
     setSelectedProductId(id);
@@ -67,7 +67,7 @@ const containerProducts = ({
     }
   };
   const handleFormToggle = () => {
-    setProductToEdit(null);
+    setSaleToEdit(null);
     setShowComponent(showComponent === "form" ? null : "form");
   };
   // Handle submit for creating a new expense
@@ -94,10 +94,13 @@ const containerProducts = ({
 
   async function onEditExpenseSubmit(data: {
     id?: string;
-    name: string;
+    productId: number;
+    clientId: number;
     quantity: number;
-    cost: number;
-    profit: number;
+    price: number;
+    total: number;
+    paid: boolean;
+    saleDate: string;
   }) {
     if (!data.id) {
       setErrorMessage("The ID is required to edit an expense.");
@@ -109,7 +112,7 @@ const containerProducts = ({
 
       if (response.success) {
         await handleRefresh();
-        setProductToEdit(null); // Reset the expense to edit
+        setSaleToEdit(null); // Reset the expense to edit
         setShowComponent("list"); // Show the list after editing
       } else {
         setErrorMessage(response.message);
@@ -142,7 +145,7 @@ const containerProducts = ({
         }
       />
 
-      {showComponent === "form" && !productToEdit && (
+      {showComponent === "form" && !saleToEdit && (
         <FormSales
           onSubmit={onCreateExpenseSubmit}
           externalError={errorMessage as string}
@@ -150,13 +153,13 @@ const containerProducts = ({
         />
       )}
 
-      {showComponent === "form" && productToEdit && (
+      {showComponent === "form" && saleToEdit && (
         <FormSales
           onSubmit={onEditExpenseSubmit}
           externalError={errorMessage as string}
-          product={productToEdit}
+          sale={saleToEdit}
           setIsForm={() => {
-            setProductToEdit(null);
+            setSaleToEdit(null);
             setShowComponent("list");
           }}
         />
@@ -170,10 +173,10 @@ const containerProducts = ({
             onPageChange={handlePageChange}
           />
           <ListSales
-            sales={currentProducts}
+            sales={currentSales}
             onOpenModal={handleOpenModal}
-            onEdit={(product: any) => {
-              setProductToEdit(product);
+            onEdit={(sale: any) => {
+              setSaleToEdit(sale);
               setShowComponent("form");
             }}
           />

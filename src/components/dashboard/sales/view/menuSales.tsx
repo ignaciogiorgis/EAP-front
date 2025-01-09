@@ -5,7 +5,7 @@ interface MenuExpensesProps {
   onListToggle: MouseEventHandler<HTMLButtonElement>;
 }
 
-const menuProducts = ({ onFormToggle, onListToggle }: MenuExpensesProps) => {
+const menuSales = ({ onFormToggle, onListToggle }: MenuExpensesProps) => {
   return (
     <div>
       <div className="p-5">
@@ -30,4 +30,4 @@ const menuProducts = ({ onFormToggle, onListToggle }: MenuExpensesProps) => {
   );
 };
 
-export default menuProducts;
+export default menuSales;
