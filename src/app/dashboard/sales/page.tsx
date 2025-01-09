@@ -1,7 +1,14 @@
-import React from "react";
+import ContainerSales from "@/components/dashboard/sales/containerSales";
+import { handleShowSales } from "./api/route";
+("@/app/dashboard/products/api/route");
 
-const SalesPage = () => {
-  return <div> Sales page</div>;
+const salesPage = async () => {
+  const sales = await handleShowSales();
+  return (
+    <div className="overflow-auto scrollbar-hide">
+      <ContainerSales sales={[]} refreshData={handleShowSales} />
+    </div>
+  );
 };
 
-export default SalesPage;
+export default salesPage;
