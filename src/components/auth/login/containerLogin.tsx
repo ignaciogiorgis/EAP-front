@@ -5,7 +5,7 @@ import { handleLogin } from "@/app/auth/api/route";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function LoginPage() {
+export default function LoginContainer() {
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
