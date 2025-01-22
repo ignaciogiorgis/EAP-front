@@ -20,11 +20,15 @@ type SaleResponse = {
 type SalesPageProps = {
   sales: any[];
   refreshData: () => Promise<SaleResponse>;
+  products: any[];
+  clients: any[];
 };
 
 const containerProducts = ({
   refreshData,
   sales: initialSales,
+  products,
+  clients,
 }: SalesPageProps) => {
   const [sales, setSales] = useState(initialSales);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -72,10 +76,13 @@ const containerProducts = ({
   };
   // Handle submit for creating a new expense
   async function onCreateExpenseSubmit(data: {
-    name: string;
+    productName: number;
+    clientName: number;
     quantity: number;
-    cost: number;
-    profit: number;
+    price: number;
+    total: number;
+    paid: boolean;
+    saleDate: string;
   }) {
     try {
       const response = await handleCreateSale(data);
@@ -94,8 +101,8 @@ const containerProducts = ({
 
   async function onEditExpenseSubmit(data: {
     id?: string;
-    productId: number;
-    clientId: number;
+    productName: number;
+    clientName: number;
     quantity: number;
     price: number;
     total: number;
@@ -150,6 +157,8 @@ const containerProducts = ({
           onSubmit={onCreateExpenseSubmit}
           externalError={errorMessage as string}
           setIsForm={() => setShowComponent(null)}
+          products={products}
+          clients={clients}
         />
       )}
 

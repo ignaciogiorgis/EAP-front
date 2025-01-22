@@ -1,10 +1,10 @@
-"use Server";
+"use server";
 
 import { cookies } from "next/headers";
 
 export async function handleCreateSale(data: {
-  productId: number;
-  clientId: number;
+  productName: number;
+  clientName: number;
   quantity: number;
   price: number;
   total: number;
@@ -43,8 +43,8 @@ export async function handleCreateSale(data: {
 export async function handleEditSale(
   id: string,
   data: {
-    productId: number;
-    clientId: number;
+    productName: number;
+    clientName: number;
     quantity: number;
     price: number;
     total: number;
