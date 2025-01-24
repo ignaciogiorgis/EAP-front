@@ -3,14 +3,14 @@
 import { cookies } from "next/headers";
 
 export async function handleCreateSale(data: {
-  productName: number;
-  clientName: number;
+  productName: string;
+  clientName: string;
   quantity: number;
-  price: number;
   total: number;
   paid: boolean;
   saleDate: string;
 }) {
+  console.log(data, "server");
   try {
     const token = (await cookies()).get("token")?.value;
     const response = await fetch(
@@ -46,7 +46,6 @@ export async function handleEditSale(
     productName: number;
     clientName: number;
     quantity: number;
-    price: number;
     total: number;
     paid: boolean;
     saleDate: string;
