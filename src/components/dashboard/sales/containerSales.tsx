@@ -1,4 +1,5 @@
 "use client";
+
 import MenuSales from "./view/menuSales";
 import ListSales from "./view/listSales";
 import { useState } from "react";
@@ -11,11 +12,11 @@ import {
 import Pagination from "../components/pagination";
 import DeleteModalSale from "./view/deleteModalSale";
 
-type SaleResponse = {
+interface SaleResponse {
   success: boolean;
   data?: any[];
   message?: any;
-};
+}
 
 type SalesPageProps = {
   sales: any[];
@@ -76,10 +77,9 @@ const containerProducts = ({
   };
   // Handle submit for creating a new expense
   async function onCreateExpenseSubmit(data: {
-    productName: number;
-    clientName: number;
+    productName: string;
+    clientName: string;
     quantity: number;
-    price: number;
     total: number;
     paid: boolean;
     saleDate: string;
@@ -104,7 +104,6 @@ const containerProducts = ({
     productName: number;
     clientName: number;
     quantity: number;
-    price: number;
     total: number;
     paid: boolean;
     saleDate: string;

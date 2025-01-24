@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Form from "next/form";
 import { validateForm, ValidationSchema } from "@/utils/validation";
 
@@ -10,7 +10,6 @@ type FormSalesProps = {
     productName: string;
     clientName: string;
     quantity: number;
-    price: number;
     total: number;
     paid: boolean;
     saleDate: string;
@@ -21,13 +20,12 @@ type FormSalesProps = {
     productName: string;
     clientName: string;
     quantity: number;
-    price: number;
     total: number;
     paid: boolean;
     saleDate: string;
   };
   setIsForm: React.Dispatch<React.SetStateAction<boolean>>;
-  products: Array<{ id: string; name: string; price: number }>;
+  products: Array<{ id: string; name: string; cost: number; profit: number }>;
   clients: Array<{ id: string; firstName: string; lastName: string }>;
 };
 
@@ -41,40 +39,59 @@ const FormSales = ({
 }: FormSalesProps) => {
   const [errors, setErrors] = useState<string[]>([]);
   const [displayErrors, setDisplayErrors] = useState<boolean>(false);
-  const [selectedSale, setSelectedSale] = useState(sale?.productName || "");
-  const [quantity, setQuantity] = useState(sale?.quantity || 1);
+  const [selectedProduct, setSelectedProduct] = useState<string>("");
+  const [quantity, setQuantity] = useState<number>(sale?.quantity || 1);
+  const [total, setTotal] = useState<number>(0);
 
-  const validationSchema: ValidationSchema = {
-    productName: { required: true, customMessage: "Please select a product" },
-    clientName: { required: true, customMessage: "Please select a client" },
-    quantity: { required: true, customMessage: "The quantity is required" },
+  const validationSchema = {
+    productName: {
+      required: true,
+      customMessage: "The product is required",
+    },
+    clientName: {
+      required: true,
+      customMessage: "Por favor seleccione un cliente",
+    },
+    quantity: { required: true, customMessage: "La cantidad es requerida" },
+    paid: { required: true, customMessage: "La cantidad es requerida" },
+    saleDate: { required: true, customMessage: "La cantidad es requerida" },
+    total: { required: true, customMessage: "La cantidad es requerida" },
   };
 
-  async function handleSubmit(formData: FormData) {
+  // Calcular el total cuando cambie el producto o la cantidad
+  useEffect(() => {
+    if (selectedProduct && quantity) {
+      const product = products.find((p) => p.name === selectedProduct);
+      if (product) {
+        const pricePerUnit = product.cost + product.profit;
+        setTotal(pricePerUnit * quantity);
+      }
+    }
+  }, [selectedProduct, quantity, products]);
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault(); // Evita que el formulario se recargue.
+
+    const formData = new FormData(event.currentTarget);
+
     const rawValues = {
       id: sale?.id || "",
       productName: formData.get("productName") as string,
       clientName: formData.get("clientName") as string,
       quantity: formData.get("quantity") as string,
-      saleDate:
-        (formData.get("saleDate") as string) || new Date().toISOString(),
+      total: total.toString(),
+      paid: formData.get("paid") === "on" ? "true" : "false", // Convertimos a string.
+      saleDate: formData.get("saleDate") as string,
     };
 
     const validationErrors = validateForm(rawValues, validationSchema);
 
     if (validationErrors.length === 0) {
-      const selectedProduct = products.find(
-        (p) => p.name === rawValues.productName
-      );
-      const price = selectedProduct?.price || 0;
-      const total = price * Number(rawValues.quantity);
-
       const formValues = {
         ...rawValues,
         quantity: Number(rawValues.quantity),
-        price,
-        total,
-        paid: formData.get("paid") === "on",
+        total: total,
+        paid: Boolean(rawValues.paid),
       };
 
       await onSubmit(formValues);
@@ -91,12 +108,13 @@ const FormSales = ({
   return (
     <div className="p-3 flex flex-col justify-center items-center scrollbar-none">
       <Form
-        action={handleSubmit}
+        action="#"
+        onSubmit={handleSubmit}
         className="flex flex-col gap-2 lg:w-1/3 mb-10 bg-white py-7 px-8 rounded-md shadow-xl"
       >
         <div className="flex justify-between mb-4">
           <h3 className="text-white w-2/3 py-2 rounded-md font-semibold text-center bg-indigo-950">
-            {sale ? "Edit Sale" : "Add Sale"}
+            {sale ? "Editar Venta" : "Agregar Venta"}
           </h3>
           <button
             type="button"
@@ -120,14 +138,14 @@ const FormSales = ({
           </div>
         )}
 
-        <label className="block text-gray-700">Product</label>
+        <label className="block text-gray-700">Producto</label>
         <select
           name="productName"
           className="py-3 px-4 bg-slate-200 rounded-md text-black"
           defaultValue={sale?.productName || ""}
-          onChange={(e) => setSelectedSale(e.target.value)}
+          onChange={(e) => setSelectedProduct(e.target.value)}
         >
-          <option value="">Select a product</option>
+          <option value="">Seleccionar producto</option>
           {products.map((product) => (
             <option key={product.id} value={product.name}>
               {product.name}
@@ -135,13 +153,13 @@ const FormSales = ({
           ))}
         </select>
 
-        <label className="block text-gray-700">Client</label>
+        <label className="block text-gray-700">Cliente</label>
         <select
           name="clientName"
           className="py-3 px-4 bg-slate-200 rounded-md text-black"
           defaultValue={sale?.clientName || ""}
         >
-          <option value="">Select a client</option>
+          <option value="">Seleccionar cliente</option>
           {clients.map((client) => (
             <option key={client.id} value={client.firstName}>
               {client.firstName + " " + client.lastName}
@@ -149,17 +167,17 @@ const FormSales = ({
           ))}
         </select>
 
-        <label className="block text-gray-700">Quantity</label>
+        <label className="block text-gray-700">Cantidad</label>
         <input
           type="number"
           name="quantity"
           min="1"
           className="py-3 px-4 bg-slate-200 rounded-md text-black"
-          defaultValue={sale?.quantity || 1}
+          value={quantity}
           onChange={(e) => setQuantity(Number(e.target.value))}
         />
 
-        <label className="block text-gray-700">Sale Date</label>
+        <label className="block text-gray-700">Fecha de Venta</label>
         <input
           type="date"
           name="saleDate"
@@ -180,23 +198,19 @@ const FormSales = ({
             className="w-4 h-4"
           />
           <label htmlFor="paid" className="text-gray-700">
-            Paid
+            Pagado
           </label>
         </div>
 
         <div className="text-lg font-semibold text-gray-900 mt-4">
-          Total: $
-          {(
-            (products.find((p) => p.name === selectedSale)?.price || 0) *
-            quantity
-          ).toFixed(2)}
+          Total: ${total.toFixed(2)}
         </div>
 
         <button
           type="submit"
           className="bg-indigo-500 mt-3 rounded-md text-white shadow-md hover:bg-indigo-700 py-2 uppercase font-bold"
         >
-          {sale ? "Update" : "Create"}
+          {sale ? "Actualizar" : "Crear"}
         </button>
       </Form>
     </div>
