@@ -7,6 +7,9 @@ const salesPage = async () => {
   const sales = await handleShowSales();
   const products = await handleShowProducts();
   const clients = await handleShowClients();
+
+ 
+
   return (
     <div className="overflow-auto scrollbar-hide">
       <ContainerSales
