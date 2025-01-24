@@ -10,7 +10,6 @@ export async function handleCreateSale(data: {
   paid: boolean;
   saleDate: string;
 }) {
-  console.log(data, "server");
   try {
     const token = (await cookies()).get("token")?.value;
     const response = await fetch(
@@ -81,7 +80,6 @@ export async function handleEditSale(
     return { success: false, message: " Request error" };
   }
 }
-
 export async function handleDeleteSale(
   id: string | number
 ): Promise<{ success: boolean; message?: string }> {

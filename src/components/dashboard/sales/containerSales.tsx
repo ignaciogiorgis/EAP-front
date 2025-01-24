@@ -42,7 +42,6 @@ const containerProducts = ({
   const [selectedProductId, setSelectedProductId] = useState<
     string | number | null
   >(null);
-
   const ITEMS_PER_PAGE = 5;
   const totalPages = Math.ceil(sales.length / ITEMS_PER_PAGE);
 
