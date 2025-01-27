@@ -74,7 +74,7 @@ const containerProducts = ({
     setSaleToEdit(null);
     setShowComponent(showComponent === "form" ? null : "form");
   };
-  // Handle submit for creating a new expense
+
   async function onCreateExpenseSubmit(data: {
     productName: string;
     clientName: string;
@@ -100,8 +100,8 @@ const containerProducts = ({
 
   async function onEditExpenseSubmit(data: {
     id?: string;
-    productName: number;
-    clientName: number;
+    productName: string;
+    clientName: string;
     quantity: number;
     total: number;
     paid: boolean;
@@ -117,8 +117,8 @@ const containerProducts = ({
 
       if (response.success) {
         await handleRefresh();
-        setSaleToEdit(null); // Reset the expense to edit
-        setShowComponent("list"); // Show the list after editing
+        setSaleToEdit(null);
+        setShowComponent("list");
       } else {
         setErrorMessage(response.message);
       }
@@ -131,9 +131,9 @@ const containerProducts = ({
     const response = await handleDeleteSale(id);
 
     if (response.success) {
-      await handleRefresh(); // Refresca los datos tras el borrado
+      await handleRefresh();
     } else {
-      console.error(response.message); // Muestra el mensaje de error
+      console.error(response.message);
     }
   };
 
@@ -169,6 +169,8 @@ const containerProducts = ({
             setSaleToEdit(null);
             setShowComponent("list");
           }}
+          products={products}
+          clients={clients}
         />
       )}
 
