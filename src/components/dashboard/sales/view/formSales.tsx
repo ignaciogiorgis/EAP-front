@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Form from "next/form";
-import { validateForm, ValidationSchema } from "@/utils/validation";
+import { validateForm } from "@/utils/validation";
 
 type FormSalesProps = {
   onSubmit: (data: {
@@ -52,13 +52,8 @@ const FormSales = ({
       required: true,
       customMessage: "Por favor seleccione un cliente",
     },
-    quantity: { required: true, customMessage: "La cantidad es requerida" },
-    paid: { required: true, customMessage: "La cantidad es requerida" },
-    saleDate: { required: true, customMessage: "La cantidad es requerida" },
-    total: { required: true, customMessage: "La cantidad es requerida" },
   };
 
-  // Calcular el total cuando cambie el producto o la cantidad
   useEffect(() => {
     if (selectedProduct && quantity) {
       const product = products.find((p) => p.name === selectedProduct);
@@ -70,7 +65,7 @@ const FormSales = ({
   }, [selectedProduct, quantity, products]);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault(); // Evita que el formulario se recargue.
+    event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
 
@@ -80,7 +75,7 @@ const FormSales = ({
       clientName: formData.get("clientName") as string,
       quantity: formData.get("quantity") as string,
       total: total.toString(),
-      paid: formData.get("paid") === "on" ? "true" : "false", // Convertimos a string.
+      paid: formData.get("paid") === "on" ? "true" : "false",
       saleDate: formData.get("saleDate") as string,
     };
 
@@ -210,7 +205,7 @@ const FormSales = ({
           type="submit"
           className="bg-indigo-500 mt-3 rounded-md text-white shadow-md hover:bg-indigo-700 py-2 uppercase font-bold"
         >
-          {sale ? "Actualizar" : "Crear"}
+          {sale ? "Update" : "Create"}
         </button>
       </Form>
     </div>

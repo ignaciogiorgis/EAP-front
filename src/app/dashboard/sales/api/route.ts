@@ -42,8 +42,8 @@ export async function handleCreateSale(data: {
 export async function handleEditSale(
   id: string,
   data: {
-    productName: number;
-    clientName: number;
+    productName: string;
+    clientName: string;
     quantity: number;
     total: number;
     paid: boolean;
@@ -63,7 +63,7 @@ export async function handleEditSale(
         body: JSON.stringify(data),
       }
     );
-
+    console.log(response, "response");
     if (!response.ok) {
       const errorData = await response.json();
       return {
