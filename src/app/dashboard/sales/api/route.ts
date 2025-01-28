@@ -63,7 +63,6 @@ export async function handleEditSale(
         body: JSON.stringify(data),
       }
     );
-    console.log(response, "response");
     if (!response.ok) {
       const errorData = await response.json();
       return {
