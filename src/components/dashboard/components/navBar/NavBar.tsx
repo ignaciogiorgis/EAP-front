@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { logoutUser } from "@/app/auth/api/route";
+import NavBarMobile from "./NavBarMobile";
 
 const NavBar = () => {
   const router = useRouter();
@@ -17,7 +18,7 @@ const NavBar = () => {
   };
   return (
     <div>
-      <div className="flex bg-gray-800 text-white top-0 py-3 px-5 flex-wrap justify-between bg-silver">
+      <div className="flex items-center bg-gray-800 text-white top-0 py-3 px-5 flex-wrap justify-between bg-silver">
         <h1 className="text-xl font-bold">
           Expenses <span className="font-medium">and </span> Profits
         </h1>
@@ -38,9 +39,12 @@ const NavBar = () => {
             <Link href="/dashboard/products">Products</Link>
           </li>
           <li className=" hover:text-indigo-500 cursor-pointer">
-            <button onClick={handleLogout}>logout</button>
+            <button onClick={handleLogout}>Logout</button>
           </li>
         </ul>
+        <div className="sm:hidden block">
+          <NavBarMobile />
+        </div>
       </div>
     </div>
   );
