@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   handleCreateExpense,
   handleEditExpense,
@@ -38,15 +38,39 @@ export default function ContainerExpense({
   const [selectedExpenseId, setSelectedExpenseId] = useState<
     string | number | null
   >(null);
-  const ITEMS_PER_PAGE = 5;
-  const totalPages = Math.ceil(expenses.length / ITEMS_PER_PAGE);
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
-  // Calcular los elementos de la página actual.
+  const ITEMS_PER_PAGE = 5;
+
+  // Filtrar gastos según el término de búsqueda
+  const filteredExpenses = expenses.filter((expense) => {
+    const searchLower = searchTerm.toLowerCase();
+    return (
+      expense.name.toLowerCase().includes(searchLower) ||
+      expense.description.toLowerCase().includes(searchLower)
+    );
+  });
+
+  // Calcular total de páginas basándose en los datos filtrados
+  const totalPages = Math.max(
+    1,
+    Math.ceil(filteredExpenses.length / ITEMS_PER_PAGE)
+  );
+
+  // Obtener los elementos que deben mostrarse en la página actual
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const currentExpenses = expenses.slice(
+  const currentExpenses = filteredExpenses.slice(
     startIndex,
     startIndex + ITEMS_PER_PAGE
   );
+
+  // Corregir página si no hay elementos en la actual
+  useEffect(() => {
+    if (currentPage > 1 && currentExpenses.length === 0) {
+      setCurrentPage((prev) => Math.max(1, prev - 1));
+    }
+  }, [currentExpenses.length, currentPage]);
+
   const handleOpenModal = (id: string | number) => {
     setSelectedExpenseId(id);
     setIsModalOpen(true);
@@ -61,6 +85,12 @@ export default function ContainerExpense({
       const result = await refreshData();
       if (result.success && result.data) {
         setExpenses(result.data);
+
+        // Ajustar la página actual para no quedar en una vacía
+        setCurrentPage((prevPage) => {
+          const maxPages = Math.ceil(result.data!.length / ITEMS_PER_PAGE);
+          return prevPage > maxPages ? maxPages : prevPage;
+        });
       } else {
         setErrorMessage("Data could not be updated.");
       }
@@ -70,7 +100,6 @@ export default function ContainerExpense({
     }
   };
 
-  // Handle submit for creating a new expense
   async function onCreateExpenseSubmit(data: {
     name: string;
     value: string;
@@ -79,22 +108,20 @@ export default function ContainerExpense({
   }) {
     try {
       const response = await handleCreateExpense(data);
-
       if (response.success) {
         await handleRefresh();
-        setShowComponent("list"); // Show list after successful creation
+        setShowComponent("list");
       } else {
         setErrorMessage(response.message);
       }
     } catch (error) {
       console.error("Error during creation:", error);
-      setErrorMessage("An unexpected error occurred. Please try again later.");
+      setErrorMessage("An unexpected error occurred.");
     }
   }
 
-  // Handle submit for editing an existing expense
   async function onEditExpenseSubmit(data: {
-    id?: string; // Make id optional
+    id?: string;
     name: string;
     value: string;
     description: string;
@@ -107,33 +134,30 @@ export default function ContainerExpense({
 
     try {
       const response = await handleEditExpense(data.id, data);
-
       if (response.success) {
         await handleRefresh();
-        setExpenseToEdit(null); // Reset the expense to edit
-        setShowComponent("list"); // Show the list after editing
+        setExpenseToEdit(null);
+        setShowComponent("list");
       } else {
         setErrorMessage(response.message);
       }
     } catch (error) {
       console.error("Error during edit:", error);
-      setErrorMessage("An unexpected error occurred. Please try again later.");
+      setErrorMessage("An unexpected error occurred.");
     }
   }
 
-  // Handle form toggle
   const handleFormToggle = () => {
-    setExpenseToEdit(null); // Reset expenseToEdit when switching to create
+    setExpenseToEdit(null);
     setShowComponent(showComponent === "form" ? null : "form");
   };
 
   const deleteExpense = async (id: string | number) => {
     const response = await handleDeleteExpense(id);
-
     if (response.success) {
-      await handleRefresh(); // Refresca los datos tras el borrado
+      await handleRefresh();
     } else {
-      console.log(response.message); // Muestra el mensaje de error
+      console.log(response.message);
     }
   };
 
@@ -143,12 +167,23 @@ export default function ContainerExpense({
 
   return (
     <div className="overflow-auto scrollbar-hide">
-      <MenuExpenses
-        onFormToggle={handleFormToggle}
-        onListToggle={() =>
-          setShowComponent(showComponent === "list" ? null : "list")
-        }
-      />
+      <div className="flex justify-center ">
+        <div className="flex justify-center bg-slate-200 w-1/2 mt-4 rounded-lg">
+          <MenuExpenses
+            onFormToggle={handleFormToggle}
+            onListToggle={() =>
+              setShowComponent(showComponent === "list" ? null : "list")
+            }
+          />
+          <input
+            type="text"
+            placeholder="Search expenses..."
+            className="mb-10 p-2 mt-6 border rounded text-black"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+      </div>
 
       {showComponent === "form" && !expenseToEdit && (
         <FormExpenses
@@ -178,7 +213,7 @@ export default function ContainerExpense({
             onPageChange={handlePageChange}
           />
           <ListExpenses
-            expenses={currentExpenses}
+            expenses={currentExpenses} // ← Aquí usamos los gastos paginados correctamente
             onOpenModal={handleOpenModal}
             onEdit={(expense) => {
               setExpenseToEdit(expense);
@@ -187,6 +222,7 @@ export default function ContainerExpense({
           />
         </>
       )}
+
       {isModalOpen && (
         <DeleteModalExpense
           onClose={handleCloseModal}
