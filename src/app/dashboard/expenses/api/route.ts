@@ -39,11 +39,11 @@ export async function handleCreateExpense(data: {
   }
 }
 //funcion que hace el llamado ala api para traer el listado de gastos
-export async function handleShowExpenses() {
+export async function handleShowExpenses(search: string = "") {
   try {
     const token = (await cookies()).get("token")?.value;
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/expense`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/expense?search=${search}`, // Pasa el parámetro de búsqueda aquí
       {
         method: "GET",
         headers: {
@@ -52,6 +52,7 @@ export async function handleShowExpenses() {
         },
       }
     );
+
     if (!response.ok) {
       const errorData = await response.json();
       return {
