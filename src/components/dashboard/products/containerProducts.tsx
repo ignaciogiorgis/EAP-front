@@ -1,7 +1,8 @@
 "use client";
+
 import MenuProducts from "./view/menuProducts";
 import ListProducts from "./view/listProducts";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FormProducts from "./view/formProducts";
 import {
   handleCreateProduct,
@@ -11,7 +12,7 @@ import {
 import Pagination from "../components/pagination";
 import DeleteModalProduct from "./view/deleteModalProduct";
 
-type ExpenseResponse = {
+type ProductResponse = {
   success: boolean;
   data?: any[];
   message?: any;
@@ -19,7 +20,7 @@ type ExpenseResponse = {
 
 type ProductPageProps = {
   products: any[];
-  refreshData: () => Promise<ExpenseResponse>;
+  refreshData: () => Promise<ProductResponse>;
 };
 
 const containerProducts = ({
@@ -37,15 +38,30 @@ const containerProducts = ({
   const [selectedProductId, setSelectedProductId] = useState<
     string | number | null
   >(null);
-
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const ITEMS_PER_PAGE = 5;
-  const totalPages = Math.ceil(products.length / ITEMS_PER_PAGE);
+
+  const filteredProducts = products.filter((product) => {
+    const searchLower = searchTerm.toLowerCase();
+    return product.name.toLowerCase().includes(searchLower);
+  });
+
+  const totalPages = Math.max(
+    1,
+    Math.ceil(filteredProducts.length / ITEMS_PER_PAGE)
+  );
 
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const currentProducts = products.slice(
+  const currentProducts = filteredProducts.slice(
     startIndex,
     startIndex + ITEMS_PER_PAGE
   );
+
+  useEffect(() => {
+    if (currentPage > 1 && currentProducts.length === 0) {
+      setCurrentPage((prev) => Math.max(1, prev - 1));
+    }
+  }, [currentProducts.length, currentPage]);
 
   const handleOpenModal = (id: string | number) => {
     setSelectedProductId(id);
@@ -61,6 +77,12 @@ const containerProducts = ({
       const result = await refreshData();
       if (result.success && result.data) {
         setProducts(result.data);
+
+        // Ajustar la página actual para no quedar en una vacía
+        setCurrentPage((prevPage) => {
+          const maxPages = Math.ceil(result.data!.length / ITEMS_PER_PAGE);
+          return prevPage > maxPages ? maxPages : prevPage;
+        });
       } else {
         setErrorMessage("Data could not be updated.");
       }
@@ -73,8 +95,8 @@ const containerProducts = ({
     setProductToEdit(null);
     setShowComponent(showComponent === "form" ? null : "form");
   };
-  // Handle submit for creating a new expense
-  async function onCreateExpenseSubmit(data: {
+
+  async function onCreateProductSubmit(data: {
     name: string;
     quantity: number;
     cost: number;
@@ -95,7 +117,7 @@ const containerProducts = ({
     }
   }
 
-  async function onEditExpenseSubmit(data: {
+  async function onEditProductSubmit(data: {
     id?: string;
     name: string;
     quantity: number;
@@ -103,7 +125,7 @@ const containerProducts = ({
     profit: number;
   }) {
     if (!data.id) {
-      setErrorMessage("The ID is required to edit an expense.");
+      setErrorMessage("The ID is required to edit an product.");
       return;
     }
 
@@ -112,8 +134,8 @@ const containerProducts = ({
 
       if (response.success) {
         await handleRefresh();
-        setProductToEdit(null); // Reset the expense to edit
-        setShowComponent("list"); // Show the list after editing
+        setProductToEdit(null);
+        setShowComponent("list");
       } else {
         setErrorMessage(response.message);
       }
@@ -122,7 +144,7 @@ const containerProducts = ({
       setErrorMessage("An unexpected error occurred. Please try again later.");
     }
   }
-  const deleteExpense = async (id: string | number) => {
+  const deleteProduct = async (id: string | number) => {
     const response = await handleDeleteProduct(id);
 
     if (response.success) {
@@ -138,16 +160,26 @@ const containerProducts = ({
 
   return (
     <div className="overflow-auto scrollbar-hide">
-      <MenuProducts
-        onFormToggle={handleFormToggle}
-        onListToggle={() =>
-          setShowComponent(showComponent === "list" ? null : "list")
-        }
-      />
-
+      <div className="flex justify-center ">
+        <div className="flex justify-center bg-slate-200 w-1/2 mt-4 rounded-lg">
+          <MenuProducts
+            onFormToggle={handleFormToggle}
+            onListToggle={() =>
+              setShowComponent(showComponent === "list" ? null : "list")
+            }
+          />
+          <input
+            type="text"
+            placeholder="Search expenses..."
+            className="mb-10 p-2 mt-6 border rounded text-black"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+      </div>
       {showComponent === "form" && !productToEdit && (
         <FormProducts
-          onSubmit={onCreateExpenseSubmit}
+          onSubmit={onCreateProductSubmit}
           externalError={errorMessage as string}
           setIsForm={() => setShowComponent(null)}
         />
@@ -155,7 +187,7 @@ const containerProducts = ({
 
       {showComponent === "form" && productToEdit && (
         <FormProducts
-          onSubmit={onEditExpenseSubmit}
+          onSubmit={onEditProductSubmit}
           externalError={errorMessage as string}
           product={productToEdit}
           setIsForm={() => {
@@ -187,7 +219,7 @@ const containerProducts = ({
           onClose={handleCloseModal}
           onDelete={() => {
             if (selectedProductId !== null) {
-              deleteExpense(selectedProductId);
+              deleteProduct(selectedProductId);
               handleCloseModal();
             }
           }}
