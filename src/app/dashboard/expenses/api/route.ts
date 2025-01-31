@@ -38,7 +38,6 @@ export async function handleCreateExpense(data: {
     return { success: false, message: " Request error" };
   }
 }
-//funcion que hace el llamado ala api para traer el listado de gastos
 export async function handleShowExpenses(search: string = "") {
   try {
     const token = (await cookies()).get("token")?.value;

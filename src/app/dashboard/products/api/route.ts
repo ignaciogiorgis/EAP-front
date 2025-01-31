@@ -37,11 +37,11 @@ export async function handleCreateProduct(data: {
   }
 }
 
-export async function handleShowProducts() {
+export async function handleShowProducts(search: string = "") {
   try {
     const token = (await cookies()).get("token")?.value;
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/product`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/product?search=${search}`,
       {
         method: "GET",
         headers: {

@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import {
   handleCreateExpense,
   handleEditExpense,
+  handleDeleteExpense,
 } from "@/app/dashboard/expenses/api/route";
 import FormExpenses from "./view/formExpenses";
 import MenuExpenses from "./view/menuExpenses";
 import ListExpenses from "./view/listExpenses";
 import DeleteModalExpense from "./view/deleteModalExpense";
-import { handleDeleteExpense } from "@/app/dashboard/expenses/api/route";
 import Pagination from "../components/pagination";
 
 type ExpenseResponse = {

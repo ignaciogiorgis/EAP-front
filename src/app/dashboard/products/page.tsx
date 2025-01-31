@@ -4,6 +4,7 @@ import { handleShowProducts } from "./api/route";
 
 const productPage = async () => {
   const products = await handleShowProducts();
+  
   return (
     <div className="overflow-auto scrollbar-hide">
       <ContainerProducts
