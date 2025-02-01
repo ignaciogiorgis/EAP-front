@@ -40,11 +40,11 @@ export async function handleCreateClient(data: {
   }
 }
 
-export async function handleShowClients() {
+export async function handleShowClients(search: string = "") {
   try {
     const token = (await cookies()).get("token")?.value;
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/client`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/client?search=${search}`,
       {
         method: "GET",
         headers: {
