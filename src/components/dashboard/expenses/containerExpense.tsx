@@ -11,17 +11,7 @@ import MenuExpenses from "./view/menuExpenses";
 import ListExpenses from "./view/listExpenses";
 import DeleteModalExpense from "./view/deleteModalExpense";
 import Pagination from "../components/pagination";
-
-type ExpenseResponse = {
-  success: boolean;
-  data?: any[];
-  message?: any;
-};
-
-type ExpensesPageProps = {
-  expenses: any[];
-  refreshData: () => Promise<ExpenseResponse>;
-};
+import { ExpensesPageProps } from "@/components/index";
 
 export default function ContainerExpense({
   expenses: initialExpenses,

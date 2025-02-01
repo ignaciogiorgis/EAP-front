@@ -1,9 +1,4 @@
-import React, { MouseEventHandler } from "react";
-
-interface MenuExpensesProps {
-  onFormToggle: MouseEventHandler<HTMLButtonElement>;
-  onListToggle: MouseEventHandler<HTMLButtonElement>;
-}
+import { MenuExpensesProps } from "@/components/index";
 
 const menuExpenses = ({ onFormToggle, onListToggle }: MenuExpensesProps) => {
   return (

@@ -2,25 +2,7 @@ import { useState } from "react";
 import Form from "next/form";
 import { validateForm, ValidationSchema } from "@/utils/validation";
 import { format } from "date-fns";
-
-type FormExpensesProps = {
-  onSubmit: (data: {
-    id?: string;
-    name: string;
-    value: string;
-    description: string;
-    date: string;
-  }) => Promise<void>;
-  externalError?: string;
-  expense?: {
-    id: string;
-    name: string;
-    value: string;
-    description: string;
-    date: string;
-  };
-  setIsForm: React.Dispatch<React.SetStateAction<boolean>>;
-};
+import { FormExpensesProps } from "@/components/index";
 
 const FormExpenses = ({
   onSubmit,
