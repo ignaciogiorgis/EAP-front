@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MenuClients from "./view/menuClients";
 import ListClients from "./view/listClients";
 import FormClients from "./view/formClients";
@@ -38,12 +38,33 @@ const containerClients = ({
   const [selectedClientId, setSelectedClientId] = useState<
     string | number | null
   >(null);
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   const ITEMS_PER_PAGE = 5;
-  const totalPages = Math.ceil(clients.length / ITEMS_PER_PAGE);
+  const filteredClients = clients.filter((client) => {
+    const searchLower = searchTerm.toLowerCase();
+    return (
+      client.firstName.toLowerCase().includes(searchLower) ||
+      client.lastName.toLowerCase().includes(searchLower)
+    );
+  });
+
+  const totalPages = Math.max(
+    1,
+    Math.ceil(filteredClients.length / ITEMS_PER_PAGE)
+  );
 
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const currentClients = clients.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  const currentClients = filteredClients.slice(
+    startIndex,
+    startIndex + ITEMS_PER_PAGE
+  );
+
+  useEffect(() => {
+    if (currentPage > 1 && currentClients.length === 0) {
+      setCurrentPage((prev) => Math.max(1, prev - 1));
+    }
+  }, [currentClients.length, currentPage]);
 
   const handleOpenModal = (id: string | number) => {
     setSelectedClientId(id);
@@ -141,12 +162,23 @@ const containerClients = ({
 
   return (
     <div className="overflow-auto scrollbar-hide">
-      <MenuClients
-        onFormToggle={handleFormToggle}
-        onListToggle={() =>
-          setShowComponent(showComponent === "list" ? null : "list")
-        }
-      />
+      <div className="flex justify-center ">
+        <div className="flex justify-center bg-slate-200 w-1/2 mt-4 rounded-lg">
+          <MenuClients
+            onFormToggle={handleFormToggle}
+            onListToggle={() =>
+              setShowComponent(showComponent === "list" ? null : "list")
+            }
+          />
+          <input
+            type="text"
+            placeholder="Search expenses..."
+            className="mb-10 p-2 mt-6 border rounded text-black"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+      </div>
 
       {showComponent === "form" && !clientToEdit && (
         <FormClients
