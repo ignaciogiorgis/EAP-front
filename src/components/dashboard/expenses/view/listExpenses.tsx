@@ -1,15 +1,5 @@
 "use client";
-type expensesListProps = {
-  expenses: {
-    id: number;
-    name: string;
-    value: number;
-    description: string;
-    date: string;
-  }[];
-  onEdit: (expense: any) => void;
-  onOpenModal: (id: string | number) => void;
-};
+import { expensesListProps } from "@/components/index";
 
 const ListExpenses = ({ expenses, onEdit, onOpenModal }: expensesListProps) => {
   return (
