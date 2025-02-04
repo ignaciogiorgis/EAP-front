@@ -2,7 +2,7 @@
 
 import MenuSales from "./view/menuSales";
 import ListSales from "./view/listSales";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FormSales from "./view/formSales";
 import {
   handleCreateSale,
@@ -42,11 +42,30 @@ const containerProducts = ({
   const [selectedProductId, setSelectedProductId] = useState<
     string | number | null
   >(null);
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const ITEMS_PER_PAGE = 5;
-  const totalPages = Math.ceil(sales.length / ITEMS_PER_PAGE);
+
+  const filteredSales = sales.filter((sale) => {
+    const searchLower = searchTerm.toLowerCase();
+    return sale.clientName.toLowerCase().includes(searchLower);
+  });
+
+  const totalPages = Math.max(
+    1,
+    Math.ceil(filteredSales.length / ITEMS_PER_PAGE)
+  );
 
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const currentSales = sales.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  const currentSales = filteredSales.slice(
+    startIndex,
+    startIndex + ITEMS_PER_PAGE
+  );
+
+  useEffect(() => {
+    if (currentPage > 1 && currentSales.length === 0) {
+      setCurrentPage((prev) => Math.max(1, prev - 1));
+    }
+  }, [currentSales.length, currentPage]);
 
   const handleOpenModal = (id: string | number) => {
     setSelectedProductId(id);
@@ -62,6 +81,11 @@ const containerProducts = ({
       const result = await refreshData();
       if (result.success && result.data) {
         setSales(result.data);
+
+        setCurrentPage((prevPage) => {
+          const maxPages = Math.ceil(result.data!.length / ITEMS_PER_PAGE);
+          return prevPage > maxPages ? maxPages : prevPage;
+        });
       } else {
         setErrorMessage("Data could not be updated.");
       }
@@ -143,12 +167,23 @@ const containerProducts = ({
 
   return (
     <div className="overflow-auto scrollbar-hide">
-      <MenuSales
-        onFormToggle={handleFormToggle}
-        onListToggle={() =>
-          setShowComponent(showComponent === "list" ? null : "list")
-        }
-      />
+      <div className="flex justify-center ">
+        <div className="flex justify-center bg-slate-200 w-1/2 mt-4 rounded-lg">
+          <MenuSales
+            onFormToggle={handleFormToggle}
+            onListToggle={() =>
+              setShowComponent(showComponent === "list" ? null : "list")
+            }
+          />
+          <input
+            type="text"
+            placeholder="Search sale for client..."
+            className="mb-10 p-2 mt-6 border rounded text-black"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+      </div>
 
       {showComponent === "form" && !saleToEdit && (
         <FormSales
