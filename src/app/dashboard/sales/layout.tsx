@@ -1,5 +1,6 @@
 import NavBar from "@/components/components/navBar/NavBar";
 import { Metadata } from "next";
+import { FaChartLine } from "react-icons/fa";
 
 export const metadata: Metadata = {
   title: "Sales",
@@ -14,9 +15,14 @@ export default function SalesLayout({
   return (
     <div>
       <main className="bg-gradient-to-b from-gray-900 to-gray-800">
-        <h1 className="text-center text-white pt-4 font-bold sm:text-2xl md:text-3xl">
-          Sales
-        </h1>
+        <div className="flex justify-center items-center gap-8">
+          <h1 className="text-center text-white pt-4 font-bold sm:text-2xl md:text-3xl">
+            Sales
+          </h1>
+          <div>
+            <FaChartLine className="text-cyan-400 text-5xl" />
+          </div>
+        </div>
         {children}
       </main>
     </div>
