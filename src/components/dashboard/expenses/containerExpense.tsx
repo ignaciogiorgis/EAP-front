@@ -32,7 +32,6 @@ export default function ContainerExpense({
 
   const ITEMS_PER_PAGE = 5;
 
-  // Filtrar gastos según el término de búsqueda
   const filteredExpenses = expenses.filter((expense) => {
     const searchLower = searchTerm.toLowerCase();
     return (
@@ -41,20 +40,17 @@ export default function ContainerExpense({
     );
   });
 
-  // Calcular total de páginas basándose en los datos filtrados
   const totalPages = Math.max(
     1,
     Math.ceil(filteredExpenses.length / ITEMS_PER_PAGE)
   );
 
-  // Obtener los elementos que deben mostrarse en la página actual
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const currentExpenses = filteredExpenses.slice(
     startIndex,
     startIndex + ITEMS_PER_PAGE
   );
 
-  // Corregir página si no hay elementos en la actual
   useEffect(() => {
     if (currentPage > 1 && currentExpenses.length === 0) {
       setCurrentPage((prev) => Math.max(1, prev - 1));
@@ -75,8 +71,6 @@ export default function ContainerExpense({
       const result = await refreshData();
       if (result.success && result.data) {
         setExpenses(result.data);
-
-        // Ajustar la página actual para no quedar en una vacía
         setCurrentPage((prevPage) => {
           const maxPages = Math.ceil(result.data!.length / ITEMS_PER_PAGE);
           return prevPage > maxPages ? maxPages : prevPage;
@@ -156,9 +150,9 @@ export default function ContainerExpense({
   };
 
   return (
-    <div className="overflow-auto scrollbar-hide">
-      <div className="flex justify-center ">
-        <div className="flex justify-center bg-slate-200 w-1/2 mt-4 rounded-lg">
+    <div className="min-h-screen p-6 text-white">
+      <div className="mx-auto">
+        <div className="bg-gray-700 shadow-lg rounded-xl p-6 flex flex-col md:flex-row items-center gap-4">
           <MenuExpenses
             onFormToggle={handleFormToggle}
             onListToggle={() =>
@@ -167,63 +161,63 @@ export default function ContainerExpense({
           />
           <input
             type="text"
-            placeholder="Search expenses..."
-            className="mb-10 p-2 mt-6 border rounded text-black"
+            placeholder="Search Expenses..."
+            className="w-full md:w-1/4 px-4 py-2 rounded-md bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-      </div>
 
-      {showComponent === "form" && !expenseToEdit && (
-        <FormExpenses
-          onSubmit={onCreateExpenseSubmit}
-          externalError={errorMessage as string}
-          setIsForm={() => setShowComponent(null)}
-        />
-      )}
-
-      {showComponent === "form" && expenseToEdit && (
-        <FormExpenses
-          onSubmit={onEditExpenseSubmit}
-          externalError={errorMessage as string}
-          expense={expenseToEdit}
-          setIsForm={() => {
-            setExpenseToEdit(null);
-            setShowComponent("list");
-          }}
-        />
-      )}
-
-      {showComponent === "list" && (
-        <>
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
+        {showComponent === "form" && !expenseToEdit && (
+          <FormExpenses
+            onSubmit={onCreateExpenseSubmit}
+            externalError={errorMessage as string}
+            setIsForm={() => setShowComponent(null)}
           />
-          <ListExpenses
-            expenses={currentExpenses} // ← Aquí usamos los gastos paginados correctamente
-            onOpenModal={handleOpenModal}
-            onEdit={(expense) => {
-              setExpenseToEdit(expense);
-              setShowComponent("form");
+        )}
+
+        {showComponent === "form" && expenseToEdit && (
+          <FormExpenses
+            onSubmit={onEditExpenseSubmit}
+            externalError={errorMessage as string}
+            expense={expenseToEdit}
+            setIsForm={() => {
+              setExpenseToEdit(null);
+              setShowComponent("list");
             }}
           />
-        </>
-      )}
+        )}
 
-      {isModalOpen && (
-        <DeleteModalExpense
-          onClose={handleCloseModal}
-          onDelete={() => {
-            if (selectedExpenseId !== null) {
-              deleteExpense(selectedExpenseId);
-              handleCloseModal();
-            }
-          }}
-        />
-      )}
+        {showComponent === "list" && (
+          <>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
+            <ListExpenses
+              expenses={currentExpenses}
+              onOpenModal={handleOpenModal}
+              onEdit={(expense) => {
+                setExpenseToEdit(expense);
+                setShowComponent("form");
+              }}
+            />
+          </>
+        )}
+
+        {isModalOpen && (
+          <DeleteModalExpense
+            onClose={handleCloseModal}
+            onDelete={() => {
+              if (selectedExpenseId !== null) {
+                deleteExpense(selectedExpenseId);
+                handleCloseModal();
+              }
+            }}
+          />
+        )}
+      </div>
     </div>
   );
 }

@@ -13,8 +13,8 @@ export default function SalesLayout({
 }) {
   return (
     <div>
-      <main>
-        <h1 className="text-center text-gray-800 text-4xl font-bold mt-7">
+      <main className="bg-gradient-to-b from-gray-900 to-gray-800">
+        <h1 className="text-center text-white pt-4 font-bold sm:text-2xl md:text-3xl">
           Sales
         </h1>
         {children}
