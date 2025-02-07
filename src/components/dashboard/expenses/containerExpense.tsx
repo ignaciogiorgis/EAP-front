@@ -10,7 +10,7 @@ import FormExpenses from "./view/formExpenses";
 import MenuExpenses from "./view/menuExpenses";
 import ListExpenses from "./view/listExpenses";
 import DeleteModalExpense from "./view/deleteModalExpense";
-import Pagination from "../components/pagination";
+import Pagination from "../../components/pagination";
 import { ExpensesPageProps } from "@/components/index";
 
 export default function ContainerExpense({

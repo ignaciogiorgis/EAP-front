@@ -32,3 +32,121 @@ body {
   -ms-overflow-style: none; /* Para Internet Explorer y Edge */
   scrollbar-width: none; /* Para Firefox */
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1s ease-out forwards;
+  opacity: 1;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradientMove {
+  background-size: 200% 200%;
+  animation: gradientMove 6s infinite alternate ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1.5s ease-out forwards;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slideUp {
+  animation: slideUp 1s ease-out forwards;
+}
+
+@keyframes glow {
+  0% {
+    text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    text-shadow: 0px 0px 15px rgba(255, 255, 255, 0.5);
+  }
+  100% {
+    text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.3);
+  }
+}
+
+.animate-glow {
+  animation: glow 2s infinite alternate ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1s ease-out;
+}
+
+@keyframes spin-fast {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-fast {
+  animation: spin-fast 0.8s linear infinite;
+}
+
+@keyframes spin-slow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 1.2s linear infinite;
+}

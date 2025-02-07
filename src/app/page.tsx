@@ -1,4 +1,4 @@
-import PublicNavBar from "@/components/dashboard/components/navBar/PublicNavBar";
+import PublicNavBar from "@/components/components/navBar/PublicNavBar";
 import Link from "next/link";
 import { LiaBusinessTimeSolid } from "react-icons/lia";
 
@@ -6,90 +6,102 @@ export default function Home() {
   return (
     <>
       <div className="relative">
+        {/* Fondo degradado animado */}
         <div
-          className="py-40 absolute inset-0 h-full w-full -z-10"
+          className="absolute inset-0 h-full w-full -z-10 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 animate-gradientMove"
           style={{
             clipPath: "polygon(0 0, 100% 0, 100% 50%, 0 100%)",
-            backgroundColor: "#1f2937",
           }}
         ></div>
 
         <PublicNavBar />
 
-        <div className="flex justify-center items-center gap-10 h-screen">
-          <h2 className="text-4xl mt-6 font-bold text-white animate-fade-move">
+        {/* Hero Section */}
+        <div className="flex flex-col justify-center items-center h-screen text-center">
+          <h2 className="text-4xl font-extrabold text-white opacity-0 animate-fadeIn">
             A solution to your business
           </h2>
-          <div>
-            <LiaBusinessTimeSolid className="text-white text-6xl mt-2  animate-bounce" />
-          </div>
+          <LiaBusinessTimeSolid className="text-white text-6xl mt-4 animate-bounce" />
         </div>
       </div>
 
-      <section className="bg-gray-800 py-10 px-4 mt-20">
-        <h3 className="text-white text-2xl font-bold text-center mb-6">
+      {/* Testimonios */}
+      {/* Testimonios */}
+      <section className="relative bg-gray-800 py-16 px-6 mt-20 overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500"></div>
+        <h3 className="text-white text-3xl font-bold text-center mb-8 animate-fadeIn">
           What Our Clients Say
         </h3>
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-gray-700 p-6 rounded-lg shadow-lg text-white">
-            <p>"Great service! Helped me boost my business."</p>
-            <h4 className="mt-4 font-bold">- Jane Doe</h4>
-          </div>
-          <div className="bg-gray-700 p-6 rounded-lg shadow-lg text-white">
-            <p>"Excellent platform with amazing features."</p>
-            <h4 className="mt-4 font-bold">- John Smith</h4>
-          </div>
-          <div className="bg-gray-700 p-6 rounded-lg shadow-lg text-white">
-            <p>"Highly recommend it for anyone starting a business."</p>
-            <h4 className="mt-4 font-bold">- Sarah Lee</h4>
-          </div>
+        <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+          {[
+            {
+              text: "Great service! Helped me boost my business.",
+              author: "Jane Doe",
+            },
+            {
+              text: "Excellent platform with amazing features.",
+              author: "John Smith",
+            },
+            {
+              text: "Highly recommend it for anyone starting a business.",
+              author: "Sarah Lee",
+            },
+          ].map((testimonial, index) => (
+            <div
+              key={index}
+              className="bg-gray-700 p-6 rounded-lg shadow-lg text-white transform transition-all duration-300 hover:scale-105 hover:shadow-2xl animate-slideUp"
+            >
+              <p className="italic text-lg">"{testimonial.text}"</p>
+              <h4 className="mt-4 font-bold text-blue-400">{`- ${testimonial.author}`}</h4>
+            </div>
+          ))}
         </div>
+        <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-blue-500"></div>
       </section>
 
-      <section className="py-10 bg-white px-4">
+      {/* Características */}
+      <section className="relative py-16 bg-gray-100 px-6 overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-blue-500"></div>
         <div className="container mx-auto text-center">
-          <h3 className="text-2xl font-bold mb-6 text-gray-900">
+          <h3 className="text-3xl font-bold mb-10 text-gray-900 animate-fadeIn">
             Our Features
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-6 border rounded-lg shadow-md">
-              <h4 className="font-bold text-xl text-gray-900">Feature 1</h4>
-              <p className="text-gray-900 mt-2">
-                Description of the first feature.
-              </p>
-            </div>
-            <div className="p-6 border rounded-lg shadow-md">
-              <h4 className="font-bold text-xl text-gray-900">Feature 2</h4>
-              <p className="text-gray-900 mt-2">
-                Description of the second feature.
-              </p>
-            </div>
-            <div className="p-6 border rounded-lg shadow-md">
-              <h4 className="font-bold text-xl text-gray-900">Feature 3</h4>
-              <p className="text-gray-900 mt-2">
-                Description of the third feature.
-              </p>
-            </div>
+            {["Feature 1", "Feature 2", "Feature 3"].map((feature, index) => (
+              <div
+                key={index}
+                className="p-6 border border-gray-300 rounded-lg shadow-md bg-white transform transition-all duration-300 hover:scale-105 hover:shadow-xl animate-slideUp"
+              >
+                <h4 className="font-bold text-xl text-gray-900">{feature}</h4>
+                <p className="text-gray-700 mt-2">
+                  Description of {feature.toLowerCase()}.
+                </p>
+              </div>
+            ))}
           </div>
         </div>
+        <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500"></div>
       </section>
 
-      <footer className="bg-gray-900 text-white py-6">
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-8">
         <div className="container mx-auto text-center">
-          <p className="text-sm">
+          <p className="text-sm animate-fadeIn">
             &copy; {new Date().getFullYear()} Your Business Name. All rights
             reserved.
           </p>
           <div className="flex justify-center mt-4 space-x-6">
-            <a href="#" className="hover:text-gray-300">
-              Privacy Policy
-            </a>
-            <a href="#" className="hover:text-gray-300">
-              Terms of Service
-            </a>
-            <a href="#" className="hover:text-gray-300">
-              Contact
-            </a>
+            {["Privacy Policy", "Terms of Service", "Contact"].map(
+              (link, index) => (
+                <Link
+                  key={index}
+                  href="#"
+                  className="hover:text-gray-400 transition duration-300 hover:underline animate-glow"
+                >
+                  {link}
+                </Link>
+              )
+            )}
           </div>
         </div>
       </footer>

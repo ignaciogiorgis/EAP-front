@@ -54,12 +54,12 @@ const FormExpenses = ({
       return;
     }
 
-    // Actualizamos el objeto con la fecha formateada
+  
     formValues.date = formattedDate;
 
-    // Enviamos los datos procesados
+
     await onSubmit(formValues);
-    setIsForm(false); // Cierra el formulario tras el éxito
+    setIsForm(false); 
   }
 
   const combinedErrors = [...errors];

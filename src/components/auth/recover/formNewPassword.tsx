@@ -38,32 +38,34 @@ export default function formNewPassword({ token }: Props) {
     router.push("/auth/login");
   }
   return (
-    <div className=" h-screen flex w-full flex-col justify-center items-center">
-      <h1 className="font-extrabold text-3xl text-white my-10 uppercase ">
-        Coloca tu nueva Contraseña
-      </h1>
-      <Form
-        className=" flex flex-col gap-2 w-1/3 mb-10 bg-white py-7  px-8 rounded-md shadow-md"
-        action={handleRecover}
-      >
-        <label className="text-gray-500 font-semibold" htmlFor="password">
-          Password
-        </label>
+    <div className="min-h-screen flex items-center justify-center bg-gray-900 p-4">
+      <div className="w-full max-w-md bg-gray-800 p-8 rounded-lg shadow-xl">
+        <h1 className="text-2xl font-bold text-white text-center mb-6">
+          Enter your new Password <span className="text-indigo-500">EAP</span>
+        </h1>
+        <Form className="space-y-4" action={handleRecover}>
+          <label
+            className="block text-gray-400 text-sm font-medium"
+            htmlFor="password"
+          >
+            Password
+          </label>
 
-        <input
-          className="py-3 px-4 bg-slate-200 rounded-md "
-          name="password"
-          type="password"
-          placeholder="Password"
-        />
+          <input
+            className="w-full p-3 mt-1 bg-gray-700 text-white rounded-md focus:ring-2 focus:ring-indigo-500"
+            name="password"
+            type="password"
+            placeholder="Password"
+          />
 
-        <button
-          className="bg-indigo-500 rounded-md mt-3 text-white shadow-md hover:bg-indigo-700 py-2 uppercase font-bold"
-          type="submit"
-        >
-          Enviar
-        </button>
-      </Form>
+          <button
+            className="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-semibold p-3 rounded-md transition-all"
+            type="submit"
+          >
+            Send
+          </button>
+        </Form>
+      </div>
     </div>
   );
 }

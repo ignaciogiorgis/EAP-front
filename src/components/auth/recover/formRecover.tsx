@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Form from "next/form";
 import { validateForm } from "@/utils/validation";
+import { FiAlertCircle } from "react-icons/fi";
 
 type RecoverFormProps = {
   onSubmit: (data: { email: string }) => Promise<void>;
@@ -56,50 +57,53 @@ export default function RecoverForm({
   if (externalError) combinedErrors.push(externalError);
 
   return (
-    <div className="bg-indigo-300 h-screen p-3 flex flex-col justify-center items-center">
-      <h1 className=" sm:text-xl lg:text-3xl text-white my-10 ">
-        Recover your password
-      </h1>
-      <Form
-        action={handleSubmit}
-        className=" flex flex-col gap-2 lg:w-1/3 mb-10 bg-white py-7  px-8 rounded-md shadow-md"
-      >
+    <div className="min-h-screen flex items-center justify-center bg-gray-900 p-4">
+      <div className="w-full max-w-md bg-gray-800 p-8 rounded-lg shadow-xl">
+        <h1 className="text-2xl font-bold text-white text-center mb-6">
+          Recover your password <span className="text-indigo-500">EAP</span>
+        </h1>
         {displayErrors && combinedErrors.length > 0 && (
-          <div>
+          <div className="mb-4">
             {combinedErrors.map((error, index) => (
               <div
                 key={index}
-                className="bg-red-100 my-2 p-2 rounded text-red-700"
+                className="flex items-center bg-red-600 text-white p-2 rounded-md text-sm"
               >
-                <p>{error}</p>
+                <FiAlertCircle className="mr-2" /> {error}
               </div>
             ))}
           </div>
         )}
-        <label className="block text-gray-700">Email</label>
-        <input
-          name="email"
-          className="py-3 px-4 bg-slate-200 rounded-md text-black"
-          placeholder="Email"
-          value={formValues.email}
-          onChange={handleChange}
-        />
+        <Form action={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-gray-400 text-sm font-medium">
+              Email
+            </label>
+            <input
+              name="email"
+              className="w-full p-3 mt-1 bg-gray-700 text-white rounded-md focus:ring-2 focus:ring-indigo-500"
+              placeholder="Email"
+              value={formValues.email}
+              onChange={handleChange}
+            />
+          </div>
 
-        <button
-          type="submit"
-          className="bg-indigo-500 mt-3 rounded-md text-white shadow-md hover:bg-indigo-700 py-2 uppercase font-bold"
-        >
-          Send
-        </button>
-        <div className="flex justify-between">
-          <Link className="text-gray-400 text-sm" href="/auth/register">
-            Create an account
-          </Link>
-          <Link className="text-gray-400 text-sm" href="/auth/login">
-            Sign In
-          </Link>
-        </div>
-      </Form>
+          <button
+            type="submit"
+            className="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-semibold p-3 rounded-md transition-all"
+          >
+            Send
+          </button>
+          <div className="flex justify-between">
+            <Link className="text-gray-400 text-sm" href="/auth/register">
+              Create an account
+            </Link>
+            <Link className="text-gray-400 text-sm" href="/auth/login">
+              Sign In
+            </Link>
+          </div>
+        </Form>
+      </div>
     </div>
   );
 }
