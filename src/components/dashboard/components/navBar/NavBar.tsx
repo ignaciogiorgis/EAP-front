@@ -8,6 +8,7 @@ import NavBarMobile from "./NavBarMobile";
 
 const NavBar = () => {
   const router = useRouter();
+
   const handleLogout = async () => {
     const success = await logoutUser();
     if (success) {
@@ -16,37 +17,48 @@ const NavBar = () => {
       alert("Error al cerrar sesión. Intenta de nuevo.");
     }
   };
+
   return (
-    <div>
-      <div className="flex items-center bg-gray-800 text-white top-0 py-3 px-5 flex-wrap justify-between bg-silver">
-        <h1 className="text-xl font-bold">
-          Expenses <span className="font-medium">and </span> Profits
+    <nav className="bg-gray-900 text-white py-4 shadow-lg">
+      <div className="container mx-auto flex justify-between items-center px-6">
+        <h1 className="text-2xl font-bold tracking-wide">
+          Expenses <span className="font-medium text-indigo-400">and</span>{" "}
+          Profits
         </h1>
-        <ul className="sm:flex sm:gap-[10px] md:gap-[40px] sm:items-center sm:text-sm md:text-base hidden">
-          <li className=" hover:text-indigo-500 cursor-pointer">
-            <Link href="/dashboard">Dashboard</Link>
-          </li>
-          <li className=" hover:text-indigo-500 cursor-pointer">
-            <Link href="/dashboard/expenses">Expenses</Link>
-          </li>
-          <li className=" hover:text-indigo-500 cursor-pointer">
-            <Link href="/dashboard/sales">Sales</Link>
-          </li>
-          <li className=" hover:text-indigo-500 cursor-pointer">
-            <Link href="/dashboard/clients">Clients</Link>
-          </li>
-          <li className=" hover:text-indigo-500 cursor-pointer">
-            <Link href="/dashboard/products">Products</Link>
-          </li>
-          <li className=" hover:text-indigo-500 cursor-pointer">
-            <button onClick={handleLogout}>Logout</button>
+
+        <ul className="hidden md:flex space-x-8 text-lg items-center">
+          {[
+            { href: "/dashboard", label: "Dashboard" },
+            { href: "/dashboard/expenses", label: "Expenses" },
+            { href: "/dashboard/sales", label: "Sales" },
+            { href: "/dashboard/clients", label: "Clients" },
+            { href: "/dashboard/products", label: "Products" },
+          ].map((item, index) => (
+            <li key={index}>
+              <Link
+                href={item.href}
+                className="hover:text-indigo-400 hover:underline transition duration-300"
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
+
+          <li>
+            <button
+              className="bg-red-600 hover:bg-red-500 px-4 py-2 rounded-lg transition duration-300"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
           </li>
         </ul>
-        <div className="sm:hidden block">
+
+        <div className="md:hidden">
           <NavBarMobile />
         </div>
       </div>
-    </div>
+    </nav>
   );
 };
 

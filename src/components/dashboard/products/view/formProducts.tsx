@@ -73,65 +73,75 @@ const FormProducts = ({
   if (externalError) combinedErrors.push(externalError);
 
   return (
-    <div className="p-3 flex flex-col justify-center items-center scrollbar-none">
+    <div className="p-4 flex flex-col justify-center items-center">
       <Form
         action={handleSubmit}
-        className="flex flex-col gap-2 lg:w-1/3 mb-10 bg-white py-7 px-8 rounded-md border border-black border-dotted shadow-xl"
+        className="flex flex-col gap-4 lg:w-1/3 bg-gray-900 text-white p-8 rounded-lg shadow-xl"
       >
-        <div className="flex justify-between mb-4">
-          <h3 className="text-white w-2/3 py-2 rounded-md font-semibold text-center bg-indigo-950">
+        <div className="flex justify-between items-center border-b pb-3">
+          <h3 className="text-lg font-semibold text-gray-300">
             {product ? "Edit Product" : "Add Product"}
           </h3>
           <button
             type="button"
             onClick={() => setIsForm(false)}
-            className="text-3xl font-bold uppercase flex items-center justify-center text-white bg-indigo-500 rounded-md w-1/5 hover:bg-indigo-700"
+            className="text-xl font-bold text-gray-400 hover:text-gray-200 transition"
           >
-            X
+            ✕
           </button>
         </div>
 
         {displayErrors && combinedErrors.length > 0 && (
-          <div>
+          <div className=" md:grid md:grid-cols-2">
             {combinedErrors.map((error, index) => (
-              <div
+              <p
+                className="bg-red-500 text-white p-2 rounded-md mt-1 ml-1"
                 key={index}
-                className="bg-red-100 my-2 p-2 rounded text-red-700"
               >
-                <p>{error}</p>
-              </div>
+                {error}
+              </p>
             ))}
           </div>
         )}
-
-        <label className="block text-gray-700">Name</label>
-        <input
-          type="text"
-          name="name"
-          className="py-3 px-4 bg-slate-200 rounded-md text-black"
-          defaultValue={product?.name || ""}
-        />
-
-        <label className="block text-gray-700">quantity</label>
-        <input
-          name="quantity"
-          className="py-3 px-4 bg-slate-200 rounded-md text-black"
-          defaultValue={product?.quantity || ""}
-        />
-
-        <label className="block text-gray-700">cost</label>
-        <input
-          name="cost"
-          className="py-3 px-4 bg-slate-200 rounded-md text-black"
-          defaultValue={product?.cost || ""}
-        />
-
-        <label className="block text-gray-700">profit</label>
-        <input
-          name="profit"
-          className="py-3 px-4 bg-slate-200 rounded-md text-black"
-          defaultValue={product?.profit || ""}
-        />
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="text-gray-400">Name</label>
+            <input
+              type="text"
+              name="name"
+              className="w-full bg-gray-800 p-3 rounded-md text-white border border-gray-700 focus:ring-2 focus:ring-indigo-500"
+              defaultValue={product?.name || ""}
+              placeholder="Enter the name..."
+            />
+          </div>
+          <div>
+            <label className="text-gray-400">Quantity</label>
+            <input
+              name="quantity"
+              className="w-full bg-gray-800 p-3 rounded-md text-white border border-gray-700 focus:ring-2 focus:ring-indigo-500"
+              defaultValue={product?.quantity || ""}
+              placeholder="Enter the quantity..."
+            />
+          </div>
+          <div>
+            <label className="text-gray-400">Cost</label>
+            <input
+              name="cost"
+              className="w-full bg-gray-800 p-3 rounded-md text-white border border-gray-700 focus:ring-2 focus:ring-indigo-500"
+              defaultValue={product?.cost || ""}
+              placeholder="Enter the cost..."
+            />
+          </div>
+          <div>
+            <label className="text-gray-400">Profit</label>
+            <input
+              name="profit"
+              className="w-full bg-gray-800 p-3 rounded-md text-white border border-gray-700 focus:ring-2 focus:ring-indigo-500"
+              defaultValue={product?.profit || ""}
+              placeholder="Enter the profit..."
+            />
+          </div>
+        </div>
 
         <button
           type="submit"
