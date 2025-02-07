@@ -2,6 +2,8 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
+import "animate.css";
 
 export default function ConfirmarCuenta({ token }: { token: string }) {
   const router = useRouter();
@@ -35,19 +37,35 @@ export default function ConfirmarCuenta({ token }: { token: string }) {
   }, [token]);
 
   return (
-    <div className="h-screen bg-indigo-500 flex flex-col items-center justify-center space-y-5">
-      <h1 className="text-center font-bold uppercase lg:text-4xl ">
-        Confirmación de Cuenta
+    <div className="h-screen bg-indigo-500 flex flex-col items-center justify-center space-y-12 px-6">
+      <h1 className="text-center font-bold uppercase text-white lg:text-4xl text-3xl tracking-wide animate__animated animate__fadeIn">
+        Account Confirmation
       </h1>
-      {mensaje && <p>{mensaje}</p>}
+
+      {mensaje && (
+        <p className="text-white text-lg italic animate__animated animate__fadeIn">
+          {mensaje}
+        </p>
+      )}
+
       {error ? (
-        error
+        <div className="flex items-center space-x-2 text-red-400 font-semibold animate__animated animate__bounceIn">
+          <FaExclamationCircle className="text-4xl" />
+          <p>{error}</p>
+        </div>
       ) : (
+        <div className="flex items-center space-x-2 text-emerald-800 animate__animated animate__bounceIn">
+          <FaCheckCircle className="text-4xl" />
+          <p>Success! Your account has been confirmed.</p>
+        </div>
+      )}
+
+      {!error && !mensaje && (
         <Link
-          className="bg-emerald-500 p-3 rounded-md shadow-md font-bold hover:bg-emerald-700"
+          className="bg-emerald-500 p-4 rounded-lg shadow-xl text-white font-semibold text-lg transition-transform transform hover:scale-105 hover:bg-emerald-700 active:scale-95 animate__animated animate__fadeIn"
           href="/auth/login"
         >
-          Ingresa Aqui
+          Enter Here
         </Link>
       )}
     </div>

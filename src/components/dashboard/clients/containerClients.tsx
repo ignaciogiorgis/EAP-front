@@ -9,7 +9,7 @@ import {
   handleDeleteClient,
   handleEditClient,
 } from "@/app/dashboard/clients/api/route";
-import Pagination from "../components/pagination";
+import Pagination from "../../components/pagination";
 import DeleteModalClient from "./view/deleteModalClients";
 
 type ClientResponse = {

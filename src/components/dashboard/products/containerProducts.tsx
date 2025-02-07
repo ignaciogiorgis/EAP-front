@@ -9,7 +9,7 @@ import {
   handleDeleteProduct,
   handleEditProduct,
 } from "@/app/dashboard/products/api/route";
-import Pagination from "../components/pagination";
+import Pagination from "../../components/pagination";
 import DeleteModalProduct from "./view/deleteModalProduct";
 
 type ProductResponse = {

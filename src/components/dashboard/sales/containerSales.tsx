@@ -9,7 +9,7 @@ import {
   handleDeleteSale,
   handleEditSale,
 } from "@/app/dashboard/sales/api/route";
-import Pagination from "../components/pagination";
+import Pagination from "../../components/pagination";
 import DeleteModalSale from "./view/deleteModalSale";
 
 interface SaleResponse {
