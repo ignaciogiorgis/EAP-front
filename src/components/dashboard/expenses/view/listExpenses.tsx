@@ -1,51 +1,43 @@
 "use client";
+
 import { expensesListProps } from "@/components/index";
 
 const ListExpenses = ({ expenses, onEdit, onOpenModal }: expensesListProps) => {
   return (
     <div className="mb-5">
       <div className="px-5">
-        <div className="relative flex flex-col w-full h-full text-white bg-gray-800 shadow-md rounded-lg bg-clip-border">
-          <table className="sm:table hidden">
+        <div className="relative flex flex-col w-full h-full bg-gray-900 shadow-lg rounded-xl">
+          {/* Tabla para pantallas grandes */}
+          <table className="hidden sm:table w-full border-collapse overflow-hidden rounded-lg">
             <thead>
-              <tr>
-                <th className="p-4 border-b border-indigo-600 bg-gray-800">
-                  Name
-                </th>
-                <th className="p-4 border-b border-indigo-600 bg-gray-800">
-                  Value
-                </th>
-                <th className="p-4 border-b border-indigo-600 bg-gray-800">
-                  Description
-                </th>
-                <th className="p-4 border-b border-indigo-600 bg-gray-800">
-                  Date
-                </th>
-                <th className="p-4 border-b border-indigo-600 bg-gray-800">
-                  Action
-                </th>
+              <tr className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+                <th className="p-4 text-left">Name</th>
+                <th className="p-4 text-left">Value</th>
+                <th className="p-4 text-left">Description</th>
+                <th className="p-4 text-left">Date</th>
+                <th className="p-4 text-center">Action</th>
               </tr>
             </thead>
             <tbody>
               {expenses.map((expense) => (
                 <tr
                   key={expense.id}
-                  className="hover:bg-gray-800 border border-black"
+                  className="hover:bg-gray-800 transition-all border-b border-gray-700"
                 >
-                  <td className="p-4 bg-gray-900">{expense.name}</td>
-                  <td className="p-4 bg-gray-700">{expense.value}</td>
-                  <td className="p-4 bg-gray-900">{expense.description}</td>
-                  <td className="p-4 bg-gray-700">{expense.date}</td>
-                  <td className="flex">
+                  <td className="p-4">{expense.name}</td>
+                  <td className="p-4">{expense.value}</td>
+                  <td className="p-4">{expense.description}</td>
+                  <td className="p-4">{expense.date}</td>
+                  <td className="flex gap-2 justify-center p-4">
                     <button
                       onClick={() => onEdit(expense)}
-                      className="bg-green-300 font-extrabold text-green-900 w-full p-4 hover:bg-green-950 hover:text-white"
+                      className="px-4 py-2 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transition-all"
                     >
                       Edit
                     </button>
                     <button
                       onClick={() => onOpenModal(expense.id)}
-                      className="bg-red-300 font-extrabold text-red-900 w-full p-4 hover:bg-red-950 hover:text-white"
+                      className="px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition-all"
                     >
                       Delete
                     </button>
@@ -55,35 +47,39 @@ const ListExpenses = ({ expenses, onEdit, onOpenModal }: expensesListProps) => {
             </tbody>
           </table>
 
-          <div className="flex flex-col sm:hidden p-3">
+          {/* Vista de tarjetas para móviles */}
+          <div className="flex flex-col gap-4 sm:hidden p-4">
             {expenses.map((expense) => (
               <div
                 key={expense.id}
-                className="flex flex-col gap-2 p-4 mb-4 bg-gray-900 rounded-md"
+                className="p-4 bg-gray-800 rounded-xl shadow-md border border-gray-700"
               >
-                <p className="text-sm font-bold text-white">
-                  Name: <span className="font-normal">{expense.name}</span>
+                <p className="text-gray-300">
+                  <span className="font-semibold text-white">Name:</span>{" "}
+                  {expense.name}
                 </p>
-                <p className="text-sm font-bold text-white">
-                  Value: <span className="font-normal">{expense.value}</span>
+                <p className="text-gray-300">
+                  <span className="font-semibold text-white">Value:</span>{" "}
+                  {expense.value}
                 </p>
-                <p className="text-sm font-bold text-white">
-                  Description:{" "}
-                  <span className="font-normal">{expense.description}</span>
+                <p className="text-gray-300">
+                  <span className="font-semibold text-white">Description:</span>{" "}
+                  {expense.description}
                 </p>
-                <p className="text-sm font-bold text-white">
-                  Date: <span className="font-normal">{expense.date}</span>
+                <p className="text-gray-300">
+                  <span className="font-semibold text-white">Date:</span>{" "}
+                  {expense.date}
                 </p>
-                <div className="flex justify-between">
+                <div className="flex gap-2 mt-3">
                   <button
                     onClick={() => onEdit(expense)}
-                    className="bg-green-300 w-full font-extrabold text-green-900 p-2 hover:bg-green-950 hover:text-white"
+                    className="flex-1 px-4 py-2 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transition-all"
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => onOpenModal(expense.id)}
-                    className="bg-red-300 w-full font-extrabold text-red-900 p-2 hover:bg-red-950 hover:text-white"
+                    className="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition-all"
                   >
                     Delete
                   </button>

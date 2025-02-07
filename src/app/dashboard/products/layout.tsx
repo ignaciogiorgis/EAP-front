@@ -5,8 +5,8 @@ export default async function ProductsLayout({
 }) {
   return (
     <div>
-      <main>
-        <h1 className="text-center text-gray-700 font-bold mt-7 sm:text-2xl md:text-3xl">
+      <main className="bg-gradient-to-b from-gray-900 to-gray-800">
+        <h1 className="text-center text-white pt-4 font-bold sm:text-2xl md:text-3xl">
           Products
         </h1>
         {children}

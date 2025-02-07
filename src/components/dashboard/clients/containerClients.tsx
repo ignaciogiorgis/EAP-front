@@ -161,9 +161,9 @@ const containerClients = ({
   };
 
   return (
-    <div className="overflow-auto scrollbar-hide">
-      <div className="flex justify-center ">
-        <div className="flex justify-center bg-slate-200 w-1/2 mt-4 rounded-lg">
+    <div className="min-h-screen p-6 text-white">
+      <div className="mx-auto">
+        <div className="bg-gray-700 shadow-lg rounded-xl p-6 flex flex-col md:flex-row items-center gap-4">
           <MenuClients
             onFormToggle={handleFormToggle}
             onListToggle={() =>
@@ -172,8 +172,8 @@ const containerClients = ({
           />
           <input
             type="text"
-            placeholder="Search expenses..."
-            className="mb-10 p-2 mt-6 border rounded text-black"
+            placeholder="Search Clients..."
+            className="w-full md:w-1/4 px-4 py-2 rounded-md bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
