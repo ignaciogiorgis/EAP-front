@@ -63,11 +63,9 @@ const FormClient = ({
       phone: formData.get("phone") as string,
     };
 
-    // Validación inicial: verificar campos vacíos
     const validationErrors = validateForm(rawValues, validationSchema);
 
     if (validationErrors.length === 0) {
-      // Si no hay errores, convertir los valores necesarios a números
       const formValues = {
         ...rawValues,
         dni: Number(rawValues.dni),
@@ -84,13 +82,12 @@ const FormClient = ({
         return;
       }
 
-      // Actualizamos el objeto con la fecha formateada
       formValues.birthday = formattedDate;
 
-      await onSubmit(formValues); // Enviar los datos procesados
-      setIsForm(false); // Cerrar el formulario tras el éxito
+      await onSubmit(formValues);
+      setIsForm(false);
     } else {
-      setErrors(validationErrors); // Mostrar errores
+      setErrors(validationErrors);
       setDisplayErrors(true);
     }
   }
@@ -99,97 +96,122 @@ const FormClient = ({
   if (externalError) combinedErrors.push(externalError);
 
   return (
-    <div className="p-3 flex flex-col justify-center items-center scrollbar-none">
+    <div className="p-4 flex flex-col justify-center items-center">
       <Form
         action={handleSubmit}
-        className="flex flex-col gap-2 lg:w-1/3 mb-10 bg-white py-7 px-8 rounded-md border  shadow-xl"
+        className="flex flex-col gap-4 lg:w-1/3 bg-gray-900 text-white p-8 rounded-lg shadow-xl"
       >
-        <div className="flex justify-between mb-4">
-          <h3 className="text-white w-2/3 py-2 rounded-md font-semibold text-center bg-indigo-950">
-            {client ? "Edit client" : "Add client"}
+        <div className="flex justify-between items-center border-b pb-3">
+          <h3 className="text-lg font-semibold text-gray-300">
+            {client ? "Edit Client" : "Add Client"}
           </h3>
           <button
             type="button"
             onClick={() => setIsForm(false)}
-            className="text-3xl font-bold uppercase flex items-center justify-center text-white bg-indigo-500 rounded-md w-1/5 hover:bg-indigo-700"
+            className="text-xl font-bold text-gray-400 hover:text-gray-200 transition"
           >
-            X
+            ✕
           </button>
         </div>
 
         {displayErrors && combinedErrors.length > 0 && (
-          <div>
+          <div className=" md:grid md:grid-cols-2">
             {combinedErrors.map((error, index) => (
-              <div
+              <p
+                className="bg-red-500 text-white p-2 rounded-md mt-1 ml-1"
                 key={index}
-                className="bg-red-100 my-2 p-2 rounded text-red-700"
               >
-                <p>{error}</p>
-              </div>
+                {error}
+              </p>
             ))}
           </div>
         )}
 
-        <div className="columns-2">
-          <label className="block text-gray-700 ">First Name</label>
-          <input
-            type="text"
-            name="firstName"
-            className="py-3 px-4 bg-slate-200 rounded-md text-black w-full"
-            defaultValue={client?.firstName || ""}
-          />
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="text-gray-400">First Name</label>
+            <input
+              type="text"
+              name="firstName"
+              className="w-full bg-gray-800 p-3 rounded-md text-white border border-gray-700 focus:ring-2 focus:ring-indigo-500"
+              defaultValue={client?.firstName || ""}
+              placeholder="Enter the first name..."
+            />
+          </div>
 
-          <label className="block text-gray-700">Last Name</label>
+          <div>
+            <label className="text-gray-400">Last Name</label>
+            <input
+              name="lastName"
+              className="w-full bg-gray-800 p-3 rounded-md text-white border border-gray-700 focus:ring-2 focus:ring-indigo-500"
+              defaultValue={client?.lastName || ""}
+              placeholder="Enter the last name..."
+            />
+          </div>
+        </div>
+
+        <div>
+          <label className="text-gray-400">Email</label>
           <input
-            name="lastName"
-            className="py-3 px-4 bg-slate-200 rounded-md text-black w-full"
-            defaultValue={client?.lastName || ""}
+            name="email"
+            className="w-full bg-gray-800 p-3 rounded-md text-white border border-gray-700 focus:ring-2 focus:ring-indigo-500"
+            defaultValue={client?.email || ""}
+            placeholder="Enter the email..."
           />
         </div>
 
-        <label className="block text-gray-700">Email</label>
-        <input
-          name="email"
-          className="py-3 px-4 bg-slate-200 rounded-md text-black"
-          defaultValue={client?.email || ""}
-        />
-        <div className="columns-2">
-          <label className="block text-gray-700">Address</label>
-          <input
-            name="address"
-            className="py-3 px-4 bg-slate-200 rounded-md text-black w-full"
-            defaultValue={client?.address || ""}
-          />
-          <label className="block text-gray-700">Birthday</label>
-          <input
-            name="birthday"
-            type="date"
-            className="py-3 px-4 bg-slate-200 rounded-md text-black w-full"
-            defaultValue={client?.birthday || ""}
-          />
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="text-gray-400">Address</label>
+            <input
+              name="address"
+              className="w-full bg-gray-800 p-3 rounded-md text-white border border-gray-700 focus:ring-2 focus:ring-indigo-500"
+              defaultValue={client?.address || ""}
+              placeholder="Enter the address..."
+            />
+          </div>
+
+          <div>
+            <label className="text-gray-400">Birthday</label>
+            <input
+              name="birthday"
+              type="date"
+              className="w-full bg-gray-800 p-3 rounded-md text-white border border-gray-700 focus:ring-2 focus:ring-indigo-500"
+              defaultValue={client?.birthday || ""}
+              placeholder="Enter the birthday..."
+            />
+          </div>
         </div>
-        <div className="columns-2">
-          <label className="block text-gray-700">Dni</label>
-          <input
-            name="dni"
-            type="number"
-            className="py-3 px-4 bg-slate-200 rounded-md text-black w-full"
-            defaultValue={client?.dni || ""}
-          />
-          <label className="block text-gray-700">Phone</label>
-          <input
-            name="phone"
-            type="number"
-            className="py-3 px-4 bg-slate-200 rounded-md text-black w-full"
-            defaultValue={client?.phone || ""}
-          />
+
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="text-gray-400">DNI</label>
+            <input
+              name="dni"
+              type="number"
+              className="w-full bg-gray-800 p-3 rounded-md text-white border border-gray-700 focus:ring-2 focus:ring-indigo-500"
+              defaultValue={client?.dni || ""}
+              placeholder="Enter the dni..."
+            />
+          </div>
+
+          <div>
+            <label className="text-gray-400">Phone</label>
+            <input
+              name="phone"
+              type="number"
+              className="w-full bg-gray-800 p-3 rounded-md text-white border border-gray-700 focus:ring-2 focus:ring-indigo-500"
+              defaultValue={client?.phone || ""}
+              placeholder="Enter the phone..."
+            />
+          </div>
         </div>
 
         <button
           type="submit"
-          className="bg-indigo-500 mt-3 rounded-md text-white shadow-md hover:bg-indigo-700 py-2 uppercase font-bold"
+          className="w-full bg-indigo-600 hover:bg-indigo-700 transition p-3 rounded-md text-white uppercase font-semibold"
         >
-          {client ? "Update" : "Create"}
+          {client ? "Update Client" : "Create Client"}
         </button>
       </Form>
     </div>

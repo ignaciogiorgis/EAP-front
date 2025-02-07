@@ -101,104 +101,111 @@ const FormSales = ({
   if (externalError) combinedErrors.push(externalError);
 
   return (
-    <div className="p-3 flex flex-col justify-center items-center scrollbar-none">
+    <div className="p-4 flex flex-col justify-center items-center">
       <Form
         action="#"
         onSubmit={handleSubmit}
-        className="flex flex-col gap-2 lg:w-1/3 mb-10 bg-white py-7 px-8 rounded-md shadow-xl"
+        className="flex flex-col gap-4 lg:w-1/3 bg-gray-900 text-white p-8 rounded-lg shadow-xl"
       >
-        <div className="flex justify-between mb-4">
-          <h3 className="text-white w-2/3 py-2 rounded-md font-semibold text-center bg-indigo-950">
-            {sale ? "Editar Venta" : "Agregar Venta"}
+        <div className="flex justify-between items-center border-b pb-3">
+          <h3 className="text-lg font-semibold text-gray-300">
+            {sale ? "Edit Sale" : "Add Sale"}
           </h3>
           <button
             type="button"
             onClick={() => setIsForm(false)}
-            className="text-3xl font-bold uppercase flex items-center justify-center text-white bg-indigo-500 rounded-md w-1/5 hover:bg-indigo-700"
+            className="text-xl font-bold text-gray-400 hover:text-gray-200 transition"
           >
-            X
+            ✕
           </button>
         </div>
 
         {displayErrors && combinedErrors.length > 0 && (
-          <div>
+          <div className=" md:grid md:grid-cols-2">
             {combinedErrors.map((error, index) => (
-              <div
+              <p
+                className="bg-red-500 text-white p-2 rounded-md mt-1 ml-1"
                 key={index}
-                className="bg-red-100 my-2 p-2 rounded text-red-700"
               >
-                <p>{error}</p>
-              </div>
+                {error}
+              </p>
             ))}
           </div>
         )}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="text-gray-400">Producto</label>
+            <select
+              name="productName"
+              className="w-full bg-gray-800 p-3 rounded-md text-white border border-gray-700 focus:ring-2 focus:ring-indigo-500"
+              defaultValue={sale?.productName || ""}
+              onChange={(e) => setSelectedProduct(e.target.value)}
+            >
+              <option value="">Seleccionar producto</option>
+              {products.map((product) => (
+                <option key={product.id} value={product.name}>
+                  {product.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="text-gray-400">Cliente</label>
+            <select
+              name="clientName"
+              className="w-full bg-gray-800 p-3 rounded-md text-white border border-gray-700 focus:ring-2 focus:ring-indigo-500"
+              defaultValue={sale?.clientName || ""}
+            >
+              <option value="">Seleccionar cliente</option>
+              {clients.map((client) => (
+                <option key={client.id} value={client.firstName}>
+                  {client.firstName + " " + client.lastName}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="text-gray-400">Cantidad</label>
+            <input
+              type="number"
+              name="quantity"
+              min="1"
+              className="w-full bg-gray-800 p-3 rounded-md text-white border border-gray-700 focus:ring-2 focus:ring-indigo-500"
+              value={quantity}
+              onChange={(e) => setQuantity(Number(e.target.value))}
+            />
+          </div>
+          <div>
+            <label className="text-gray-400">Fecha de Venta</label>
+            <input
+              type="date"
+              name="saleDate"
+              className="w-full bg-gray-800 p-3 rounded-md text-white border border-gray-700 focus:ring-2 focus:ring-indigo-500"
+              defaultValue={
+                sale?.saleDate
+                  ? new Date(sale.saleDate).toISOString().split("T")[0]
+                  : new Date().toISOString().split("T")[0]
+              }
+            />
+          </div>
+          <div>
+            <div className="flex items-center gap-2 mt-2">
+              <input
+                type="checkbox"
+                name="paid"
+                id="paid"
+                defaultChecked={sale?.paid}
+                className="w-7 h-7 "
+              />
+              <label htmlFor="paid" className="text-white">
+                Pagado
+              </label>
+            </div>
+          </div>
 
-        <label className="block text-gray-700">Producto</label>
-        <select
-          name="productName"
-          className="py-3 px-4 bg-slate-200 rounded-md text-black"
-          defaultValue={sale?.productName || ""}
-          onChange={(e) => setSelectedProduct(e.target.value)}
-        >
-          <option value="">Seleccionar producto</option>
-          {products.map((product) => (
-            <option key={product.id} value={product.name}>
-              {product.name}
-            </option>
-          ))}
-        </select>
-
-        <label className="block text-gray-700">Cliente</label>
-        <select
-          name="clientName"
-          className="py-3 px-4 bg-slate-200 rounded-md text-black"
-          defaultValue={sale?.clientName || ""}
-        >
-          <option value="">Seleccionar cliente</option>
-          {clients.map((client) => (
-            <option key={client.id} value={client.firstName}>
-              {client.firstName + " " + client.lastName}
-            </option>
-          ))}
-        </select>
-
-        <label className="block text-gray-700">Cantidad</label>
-        <input
-          type="number"
-          name="quantity"
-          min="1"
-          className="py-3 px-4 bg-slate-200 rounded-md text-black"
-          value={quantity}
-          onChange={(e) => setQuantity(Number(e.target.value))}
-        />
-
-        <label className="block text-gray-700">Fecha de Venta</label>
-        <input
-          type="date"
-          name="saleDate"
-          className="py-3 px-4 bg-slate-200 rounded-md text-black"
-          defaultValue={
-            sale?.saleDate
-              ? new Date(sale.saleDate).toISOString().split("T")[0]
-              : new Date().toISOString().split("T")[0]
-          }
-        />
-
-        <div className="flex items-center gap-2 mt-2">
-          <input
-            type="checkbox"
-            name="paid"
-            id="paid"
-            defaultChecked={sale?.paid}
-            className="w-4 h-4"
-          />
-          <label htmlFor="paid" className="text-gray-700">
-            Pagado
-          </label>
-        </div>
-
-        <div className="text-lg font-semibold text-gray-900 mt-4">
-          Total: ${total.toFixed(2)}
+          <div className="text-lg font-semibold text-white mt-4">
+            Total: ${total.toFixed(2)}
+          </div>
         </div>
 
         <button
