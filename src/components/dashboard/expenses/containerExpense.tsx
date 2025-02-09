@@ -9,7 +9,7 @@ import {
 import FormExpenses from "./view/formExpenses";
 import MenuExpenses from "./view/menuExpenses";
 import ListExpenses from "./view/listExpenses";
-import DeleteModalExpense from "./view/deleteModalExpense";
+import DeleteModal from "@/components/components/ModalDelete/deleteModal";
 import Pagination from "../../components/pagination";
 import { ExpensesPageProps } from "@/components/index";
 
@@ -207,7 +207,7 @@ export default function ContainerExpense({
         )}
 
         {isModalOpen && (
-          <DeleteModalExpense
+          <DeleteModal
             onClose={handleCloseModal}
             onDelete={() => {
               if (selectedExpenseId !== null) {
@@ -215,6 +215,7 @@ export default function ContainerExpense({
                 handleCloseModal();
               }
             }}
+            option="Expense"
           />
         )}
       </div>
