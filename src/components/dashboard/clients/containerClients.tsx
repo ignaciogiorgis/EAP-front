@@ -11,7 +11,7 @@ import {
 } from "@/app/dashboard/clients/api/route";
 import { ClientPageProps } from "@/components/index";
 import Pagination from "../../components/pagination";
-import DeleteModalClient from "./view/deleteModalClients";
+import DeleteModal from "@/components/components/ModalDelete/deleteModal";
 
 const containerClients = ({
   refreshData,
@@ -208,7 +208,7 @@ const containerClients = ({
         </>
       )}
       {isModalOpen && (
-        <DeleteModalClient
+        <DeleteModal
           onClose={handleCloseModal}
           onDelete={() => {
             if (selectedClientId !== null) {
@@ -216,6 +216,7 @@ const containerClients = ({
               handleCloseModal();
             }
           }}
+          option="Client"
         />
       )}
     </div>

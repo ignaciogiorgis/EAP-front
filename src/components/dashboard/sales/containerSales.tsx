@@ -10,7 +10,7 @@ import {
   handleEditSale,
 } from "@/app/dashboard/sales/api/route";
 import Pagination from "../../components/pagination";
-import DeleteModalSale from "./view/deleteModalSale";
+import DeleteModal from "@/components/components/ModalDelete/deleteModal";
 import { SalesPageProps } from "@/components/index";
 
 const containerProducts = ({
@@ -215,7 +215,7 @@ const containerProducts = ({
         </>
       )}
       {isModalOpen && (
-        <DeleteModalSale
+        <DeleteModal
           onClose={handleCloseModal}
           onDelete={() => {
             if (selectedProductId !== null) {
@@ -223,6 +223,7 @@ const containerProducts = ({
               handleCloseModal();
             }
           }}
+          option="Sale"
         />
       )}
     </div>

@@ -11,7 +11,7 @@ import {
 } from "@/app/dashboard/products/api/route";
 import { ProductPageProps } from "@/components/index";
 import Pagination from "../../components/pagination";
-import DeleteModalProduct from "./view/deleteModalProduct";
+import DeleteModal from "@/components/components/ModalDelete/deleteModal";
 
 const containerProducts = ({
   refreshData,
@@ -205,7 +205,7 @@ const containerProducts = ({
         </>
       )}
       {isModalOpen && (
-        <DeleteModalProduct
+        <DeleteModal
           onClose={handleCloseModal}
           onDelete={() => {
             if (selectedProductId !== null) {
@@ -213,6 +213,7 @@ const containerProducts = ({
               handleCloseModal();
             }
           }}
+          option="Product"
         />
       )}
     </div>

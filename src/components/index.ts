@@ -12,9 +12,10 @@ export type PaginationProps = {
   onPageChange: (page: number) => void;
 };
 
-export type DeleteModal = {
+export type DeleteModalProps = {
   onClose: () => void;
   onDelete: () => void;
+  option: string;
 };
 
 export interface MenuProps {
@@ -146,7 +147,6 @@ export type FormSalesProps = {
   products: Array<{ id: string; name: string; cost: number; profit: number }>;
   clients: Array<{ id: string; firstName: string; lastName: string }>;
 };
-
 
 //clients
 

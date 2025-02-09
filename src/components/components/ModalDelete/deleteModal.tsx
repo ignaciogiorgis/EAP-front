@@ -1,13 +1,14 @@
-import { DeleteModal } from "@/components/index";
-const DeleteModalSale = ({ onClose, onDelete }: DeleteModal) => {
+import { DeleteModalProps } from "@/components/index";
+
+const DeleteModal = ({ option, onClose, onDelete }: DeleteModalProps) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm transition-opacity">
       <div className="bg-gray-900 text-white rounded-lg shadow-xl p-8 w-[500px] transform transition-transform scale-100 hover:scale-[1.02]">
         <div className="text-center">
           <div className="text-red-500 text-4xl mb-2">⚠️</div>
-          <h2 className="text-xl font-semibold">Delete Sale</h2>
+          <h2 className="text-xl font-semibold">Delete {option}</h2>
           <p className="text-gray-300 mt-2">
-            Are you sure you want to delete this Sale? This action cannot be
+            Are you sure you want to delete this {option}? This action cannot be
             undone.
           </p>
         </div>
@@ -31,4 +32,4 @@ const DeleteModalSale = ({ onClose, onDelete }: DeleteModal) => {
   );
 };
 
-export default DeleteModalSale;
+export default DeleteModal;
