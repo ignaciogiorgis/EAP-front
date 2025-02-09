@@ -9,19 +9,9 @@ import {
   handleDeleteProduct,
   handleEditProduct,
 } from "@/app/dashboard/products/api/route";
+import { ProductPageProps } from "@/components/index";
 import Pagination from "../../components/pagination";
 import DeleteModalProduct from "./view/deleteModalProduct";
-
-type ProductResponse = {
-  success: boolean;
-  data?: any[];
-  message?: any;
-};
-
-type ProductPageProps = {
-  products: any[];
-  refreshData: () => Promise<ProductResponse>;
-};
 
 const containerProducts = ({
   refreshData,

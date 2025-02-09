@@ -1,32 +1,8 @@
 import { useState } from "react";
 import Form from "next/form";
+import { FormClientsProps } from "@/components/index";
 import { validateForm, ValidationSchema } from "@/utils/validation";
 import { format } from "date-fns";
-
-type FormClientsProps = {
-  onSubmit: (data: {
-    id?: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    address: string;
-    birthday: string;
-    dni: number;
-    phone: number;
-  }) => Promise<void>;
-  externalError?: string;
-  client?: {
-    id: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    address: string;
-    birthday: string;
-    dni: number;
-    phone: number;
-  };
-  setIsForm: React.Dispatch<React.SetStateAction<boolean>>;
-};
 
 const FormClient = ({
   onSubmit,

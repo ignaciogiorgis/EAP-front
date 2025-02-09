@@ -11,19 +11,7 @@ import {
 } from "@/app/dashboard/sales/api/route";
 import Pagination from "../../components/pagination";
 import DeleteModalSale from "./view/deleteModalSale";
-
-interface SaleResponse {
-  success: boolean;
-  data?: any[];
-  message?: any;
-}
-
-type SalesPageProps = {
-  sales: any[];
-  refreshData: () => Promise<SaleResponse>;
-  products: any[];
-  clients: any[];
-};
+import { SalesPageProps } from "@/components/index";
 
 const containerProducts = ({
   refreshData,

@@ -3,13 +3,9 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Form from "next/form";
+import { LoginFormProps } from "@/components/index";
 import { validateForm } from "@/utils/validation";
-import { FiAlertCircle } from "react-icons/fi"; 
-
-type LoginFormProps = {
-  onSubmit: (data: { email: string; password: string }) => Promise<void>;
-  externalError?: string;
-};
+import { FiAlertCircle } from "react-icons/fi";
 
 export default function LoginForm({ onSubmit, externalError }: LoginFormProps) {
   const [errors, setErrors] = useState<string[]>([]);

@@ -3,31 +3,7 @@
 import { useEffect, useState } from "react";
 import Form from "next/form";
 import { validateForm } from "@/utils/validation";
-
-type FormSalesProps = {
-  onSubmit: (data: {
-    id?: string;
-    productName: string;
-    clientName: string;
-    quantity: number;
-    total: number;
-    paid: boolean;
-    saleDate: string;
-  }) => Promise<void>;
-  externalError?: string;
-  sale?: {
-    id: string;
-    productName: string;
-    clientName: string;
-    quantity: number;
-    total: number;
-    paid: boolean;
-    saleDate: string;
-  };
-  setIsForm: React.Dispatch<React.SetStateAction<boolean>>;
-  products: Array<{ id: string; name: string; cost: number; profit: number }>;
-  clients: Array<{ id: string; firstName: string; lastName: string }>;
-};
+import { FormSalesProps } from "@/components/index";
 
 const FormSales = ({
   onSubmit,

@@ -2,13 +2,9 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Form from "next/form";
+import { RecoverFormProps } from "@/components/index";
 import { validateForm } from "@/utils/validation";
 import { FiAlertCircle } from "react-icons/fi";
-
-type RecoverFormProps = {
-  onSubmit: (data: { email: string }) => Promise<void>;
-  externalError?: string;
-};
 
 export default function RecoverForm({
   onSubmit,

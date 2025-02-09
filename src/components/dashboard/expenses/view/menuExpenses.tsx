@@ -1,6 +1,6 @@
-import { MenuExpensesProps } from "@/components/index";
+import { MenuProps } from "@/components/index";
 
-const menuExpenses = ({ onFormToggle, onListToggle }: MenuExpensesProps) => {
+const menuExpenses = ({ onFormToggle, onListToggle }: MenuProps) => {
   return (
     <div>
       <div className="p-5">
