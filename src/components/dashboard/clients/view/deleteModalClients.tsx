@@ -1,9 +1,6 @@
-type DeleteModalProps = {
-  onClose: () => void;
-  onDelete: () => void;
-};
+import { DeleteModal } from "@/components/index";
 
-const DeleteModalClient = ({ onClose, onDelete }: DeleteModalProps) => {
+const DeleteModalClient = ({ onClose, onDelete }: DeleteModal) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm transition-opacity">
       <div className="bg-gray-900 text-white rounded-lg shadow-xl p-8 w-[500px] transform transition-transform scale-100 hover:scale-[1.02]">

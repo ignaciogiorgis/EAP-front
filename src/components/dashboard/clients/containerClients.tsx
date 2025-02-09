@@ -9,19 +9,9 @@ import {
   handleDeleteClient,
   handleEditClient,
 } from "@/app/dashboard/clients/api/route";
+import { ClientPageProps } from "@/components/index";
 import Pagination from "../../components/pagination";
 import DeleteModalClient from "./view/deleteModalClients";
-
-type ClientResponse = {
-  success: boolean;
-  data?: any[];
-  message?: any;
-};
-
-type ClientPageProps = {
-  clients: any[];
-  refreshData: () => Promise<ClientResponse>;
-};
 
 const containerClients = ({
   refreshData,

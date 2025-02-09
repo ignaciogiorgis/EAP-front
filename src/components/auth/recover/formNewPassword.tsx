@@ -3,12 +3,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Form from "next/form";
+import { PropsRecover } from "@/components/index";
 
-interface Props {
-  token: string;
-}
-
-export default function formNewPassword({ token }: Props) {
+export default function formNewPassword({ token }: PropsRecover) {
   const [errors, setErrors] = useState<string[]>([]);
 
   const router = useRouter();
@@ -32,8 +29,8 @@ export default function formNewPassword({ token }: Props) {
         setErrors([data.mensaje]);
       }
     } catch (error) {
-      console.error("Error en el registro:", error);
-      setErrors(["Hubo un problema en el registro."]);
+      console.error("Registration error:", error);
+      setErrors(["There was a problem registering."]);
     }
     router.push("/auth/login");
   }

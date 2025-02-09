@@ -1,25 +1,8 @@
 import { useState } from "react";
 import Form from "next/form";
 import { validateForm, ValidationSchema } from "@/utils/validation";
+import { FormProductsProps } from "@/components/index";
 
-type FormProductsProps = {
-  onSubmit: (data: {
-    id?: string;
-    name: string;
-    quantity: number;
-    cost: number;
-    profit: number;
-  }) => Promise<void>;
-  externalError?: string;
-  product?: {
-    id: string;
-    name: string;
-    quantity: number;
-    cost: number;
-    profit: number;
-  };
-  setIsForm: React.Dispatch<React.SetStateAction<boolean>>;
-};
 
 const FormProducts = ({
   onSubmit,

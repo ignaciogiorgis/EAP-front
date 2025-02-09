@@ -3,18 +3,9 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Form from "next/form";
+import { RegisterFormProps } from "@/components/index";
 import { validateForm, ValidationSchema } from "@/utils/validation";
 import { FiAlertCircle } from "react-icons/fi";
-
-type RegisterFormProps = {
-  onSubmit: (data: {
-    name: string;
-    email: string;
-    password: string;
-    repetir_password: string;
-  }) => Promise<void>;
-  externalError?: string;
-};
 
 export default function RegisterForm({
   onSubmit,
