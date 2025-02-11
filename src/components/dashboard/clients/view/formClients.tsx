@@ -187,7 +187,7 @@ const FormClient = ({
           type="submit"
           className="w-full bg-indigo-600 hover:bg-indigo-700 transition p-3 rounded-md text-white uppercase font-semibold"
         >
-          {client ? "Update Client" : "Create Client"}
+          {client ? "Update" : "Create"}
         </button>
       </Form>
     </div>

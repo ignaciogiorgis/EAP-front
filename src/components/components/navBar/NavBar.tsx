@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { logoutUser } from "@/app/auth/api/route";
@@ -8,6 +8,7 @@ import NavBarMobile from "./NavBarMobile";
 
 const NavBar = () => {
   const router = useRouter();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleLogout = async () => {
     const success = await logoutUser();
@@ -44,13 +45,30 @@ const NavBar = () => {
             </li>
           ))}
 
-          <li>
+          <li className="relative">
             <button
-              className="bg-red-600 hover:bg-red-500 px-4 py-2 rounded-lg transition duration-300"
-              onClick={handleLogout}
+              className="bg-gray-800 px-4 py-2 rounded-lg hover:bg-gray-700 transition duration-300 flex items-center"
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
-              Logout
+              Settings ▼
             </button>
+
+            {isDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-40 bg-gray-800 border border-gray-700 rounded-lg shadow-lg">
+                <Link
+                  href="/dashboard/profile"
+                  className="block px-4 py-2 text-white hover:bg-gray-700 transition duration-300"
+                >
+                  Profile
+                </Link>
+                <button
+                  className="w-full text-left px-4 py-2 text-red-400 hover:bg-red-500 hover:text-white transition duration-300 rounded-b-lg"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </div>
+            )}
           </li>
         </ul>
 
