@@ -43,7 +43,6 @@ const FormExpenses = ({
       return;
     }
 
-    // Formateamos la fecha después de validar que existe y es válida
     let formattedDate = "";
     try {
       formattedDate = format(new Date(formValues.date), "yyyy-MM-dd");
@@ -54,12 +53,10 @@ const FormExpenses = ({
       return;
     }
 
-  
     formValues.date = formattedDate;
 
-
     await onSubmit(formValues);
-    setIsForm(false); 
+    setIsForm(false);
   }
 
   const combinedErrors = [...errors];
@@ -141,7 +138,7 @@ const FormExpenses = ({
           type="submit"
           className="w-full bg-indigo-600 hover:bg-indigo-700 transition p-3 rounded-md text-white uppercase font-semibold"
         >
-          {expense ? "Update Client" : "Create Client"}
+          {expense ? "Update" : "Create"}
         </button>
       </Form>
     </div>

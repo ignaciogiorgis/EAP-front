@@ -6,7 +6,6 @@ export default function Home() {
   return (
     <>
       <div className="relative">
-        {/* Fondo degradado animado */}
         <div
           className="absolute inset-0 h-full w-full -z-10 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 animate-gradientMove"
           style={{
@@ -25,8 +24,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Testimonios */}
-      {/* Testimonios */}
       <section className="relative bg-gray-800 py-16 px-6 mt-20 overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500"></div>
         <h3 className="text-white text-3xl font-bold text-center mb-8 animate-fadeIn">
@@ -59,7 +56,6 @@ export default function Home() {
         <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-blue-500"></div>
       </section>
 
-      {/* Características */}
       <section className="relative py-16 bg-gray-100 px-6 overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-blue-500"></div>
         <div className="container mx-auto text-center">
@@ -83,7 +79,6 @@ export default function Home() {
         <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500"></div>
       </section>
 
-      {/* Footer */}
       <footer className="bg-gray-900 text-white py-8">
         <div className="container mx-auto text-center">
           <p className="text-sm animate-fadeIn">
