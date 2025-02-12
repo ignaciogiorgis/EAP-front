@@ -1,15 +1,8 @@
 "use client";
 
 import { useState } from "react";
-
-interface FormProfileProps {
-  onSubmit: (data: any) => Promise<{ success: boolean; message?: string }>;
-  user: { name: string; email: string; picture?: string; message?: string };
-  setIsForm: (value: boolean) => void;
-  handleUploadProfilePicture: (
-    formData: FormData
-  ) => Promise<{ success: boolean; message?: string }>;
-}
+import { useRouter } from "next/navigation";
+import { FormProfileProps } from "@/components/index";
 
 const FormProfile = ({
   onSubmit,
@@ -17,6 +10,8 @@ const FormProfile = ({
   setIsForm,
   handleUploadProfilePicture,
 }: FormProfileProps) => {
+  const router = useRouter();
+
   const [errors, setErrors] = useState<string[]>([]);
   const [displayErrors, setDisplayErrors] = useState<boolean>(false);
   const [preview, setPreview] = useState<string | null>(user?.picture || null);
@@ -35,20 +30,15 @@ const FormProfile = ({
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    // Si hay un archivo, lo agregamos a FormData
+
     if (file) {
       formData.append("file", file);
     }
 
-    // Asegúrate de que 'name', 'email' y 'message' se agreguen correctamente
-    const name = formData.get("name") as string; // Tómalo como string
-    const message = formData.get("message") as string; // Tómalo como string
+    formData.append("name", formData.get("name") as string);
+    formData.append("email", user.email);
+    formData.append("message", formData.get("message") as string);
 
-    formData.append("name", name);
-    formData.append("email", user.email); // El email no debe cambiar
-    formData.append("message", message);
-
-    // Primero, subimos la imagen si hay una nueva imagen seleccionada
     if (file) {
       const uploadResponse = await handleUploadProfilePicture(formData);
       if (!uploadResponse.success) {
@@ -62,6 +52,7 @@ const FormProfile = ({
 
     if (response?.success) {
       setIsForm(false);
+      router.push("/dashboard");
     } else {
       setErrors([response?.message || "Error desconocido"]);
       setDisplayErrors(true);
@@ -76,13 +67,6 @@ const FormProfile = ({
       >
         <div className="flex justify-between items-center border-b pb-3">
           <h3 className="text-lg font-semibold text-gray-300">Edit Profile</h3>
-          <button
-            type="button"
-            onClick={() => setIsForm(false)}
-            className="text-xl font-bold text-gray-400 hover:text-gray-200 transition"
-          >
-            ✕
-          </button>
         </div>
 
         {displayErrors && errors.length > 0 && (
@@ -126,7 +110,7 @@ const FormProfile = ({
             <img
               src={preview}
               alt="Profile Preview"
-              className="w-24 h-24 object-cover rounded-full mx-auto mb-3"
+              className="w-36 h-36 object-cover rounded-full mx-auto mb-3 border p-2"
             />
           )}
           <input

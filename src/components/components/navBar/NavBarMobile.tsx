@@ -5,6 +5,7 @@ import { logoutUser } from "@/app/auth/api/route";
 
 const NavBarMobile = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const router = useRouter();
 
   const toggleMenu = () => {
@@ -44,7 +45,6 @@ const NavBarMobile = () => {
         </button>
       </div>
 
-      {/* Menú desplegable */}
       <div
         className={`mt-4 space-y-3 ${
           isMenuOpen
@@ -64,20 +64,43 @@ const NavBarMobile = () => {
               <Link
                 href={item.href}
                 className="block py-2 px-4 text-gray-700 dark:text-gray-300 rounded-md hover:bg-indigo-500 hover:text-white transition-colors"
+                onClick={() => {
+                  setIsMenuOpen(false);
+                }}
               >
                 {item.label}
               </Link>
             </li>
           ))}
 
-          {/* Botón de Logout */}
-          <li>
+          <li className="relative">
             <button
-              className="w-full text-left py-2 px-4 text-gray-700 dark:text-gray-300 rounded-md hover:bg-red-500 hover:text-white transition-colors"
-              onClick={handleLogout}
+              className="bg-gray-800 px-4 py-2 rounded-lg hover:bg-gray-700 transition duration-300 flex items-center"
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
-              Logout
+              Settings ▼
             </button>
+
+            {isDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-40 bg-gray-800 border border-gray-700 rounded-lg shadow-lg">
+                <Link
+                  href="/dashboard/profile"
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    setIsDropdownOpen(false);
+                  }}
+                  className="block px-4 py-2 text-white hover:bg-gray-700 transition duration-300"
+                >
+                  Profile
+                </Link>
+                <button
+                  className="w-full text-left px-4 py-2 text-red-400 hover:bg-red-500 hover:text-white transition duration-300 rounded-b-lg"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </div>
+            )}
           </li>
         </ul>
       </div>

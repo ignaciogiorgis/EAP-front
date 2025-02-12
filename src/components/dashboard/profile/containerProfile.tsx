@@ -1,23 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import FormProfile from "@/components/dashboard/profile/view/formProfile";
 import { handleEditProfile } from "@/app/dashboard/api/route";
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  picture?: string;
-  message?: string;
-}
-
-interface ContainerProfileProps {
-  user: User;
-  handleUploadProfilePicture: (
-    formData: FormData
-  ) => Promise<{ success: boolean; message?: string }>;
-}
+import { ContainerProfileProps, User } from "@/components/index";
 
 const ContainerProfile = ({
   user,
@@ -30,12 +16,11 @@ const ContainerProfile = ({
     try {
       const updatedData = {
         name: formData.get("name") as string,
-        email: formData.get("email") as string, // No debería cambiar
-        picture: formData.get("picture") as string, // Se obtendría de la subida de imagen
+        email: formData.get("email") as string,
+        picture: formData.get("picture") as string,
         message: formData.get("message") as string,
       };
 
-      // Llamamos a handleEditProfile pasando el id del usuario y los datos actualizados
       const response = await handleEditProfile(user.id, updatedData);
 
       if (!response.success) {

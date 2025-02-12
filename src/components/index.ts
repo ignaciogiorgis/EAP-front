@@ -224,3 +224,29 @@ export type RegisterFormProps = {
   }) => Promise<void>;
   externalError?: string;
 };
+
+//profile
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  picture?: string;
+  message?: string;
+}
+
+export interface ContainerProfileProps {
+  user: User;
+  handleUploadProfilePicture: (
+    formData: FormData
+  ) => Promise<{ success: boolean; message?: string }>;
+}
+
+export interface FormProfileProps {
+  onSubmit: (data: any) => Promise<{ success: boolean; message?: string }>;
+  user: { name: string; email: string; picture?: string; message?: string };
+  setIsForm: (value: boolean) => void;
+  handleUploadProfilePicture: (
+    formData: FormData
+  ) => Promise<{ success: boolean; message?: string }>;
+}

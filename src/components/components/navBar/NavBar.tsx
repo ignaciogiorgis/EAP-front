@@ -39,6 +39,7 @@ const NavBar = () => {
               <Link
                 href={item.href}
                 className="hover:text-indigo-400 hover:underline transition duration-300"
+                onClick={() => setIsDropdownOpen(false)}
               >
                 {item.label}
               </Link>
@@ -57,6 +58,7 @@ const NavBar = () => {
               <div className="absolute right-0 mt-2 w-40 bg-gray-800 border border-gray-700 rounded-lg shadow-lg">
                 <Link
                   href="/dashboard/profile"
+                  onClick={() => setIsDropdownOpen(false)}
                   className="block px-4 py-2 text-white hover:bg-gray-700 transition duration-300"
                 >
                   Profile
