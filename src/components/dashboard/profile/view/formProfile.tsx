@@ -35,14 +35,18 @@ const FormProfile = ({
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-
+    // Si hay un archivo, lo agregamos a FormData
     if (file) {
       formData.append("file", file);
     }
 
-    formData.append("name", formData.get("name") as string);
-    formData.append("email", user.email); // El email no debe ser editable
-    formData.append("message", formData.get("message") as string);
+    // Asegúrate de que 'name', 'email' y 'message' se agreguen correctamente
+    const name = formData.get("name") as string; // Tómalo como string
+    const message = formData.get("message") as string; // Tómalo como string
+
+    formData.append("name", name);
+    formData.append("email", user.email); // El email no debe cambiar
+    formData.append("message", message);
 
     // Primero, subimos la imagen si hay una nueva imagen seleccionada
     if (file) {

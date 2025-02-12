@@ -6,7 +6,6 @@ import ContainerProfile from "@/components/dashboard/profile/containerProfile";
 
 const Page = async () => {
   const response = await handleShowProfile();
-
   return (
     <div>
       <ContainerProfile
