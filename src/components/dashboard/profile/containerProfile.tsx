@@ -2,8 +2,10 @@
 
 import { useState, useEffect } from "react";
 import FormProfile from "@/components/dashboard/profile/view/formProfile";
+import { handleEditProfile } from "@/app/dashboard/api/route";
 
 interface User {
+  id: string;
   name: string;
   email: string;
   picture?: string;
@@ -26,17 +28,28 @@ const ContainerProfile = ({
 
   async function onSubmit(formData: FormData) {
     try {
-      const response = await fetch("/api/profile", {
-        method: "POST",
-        body: formData,
-      });
+      const updatedData = {
+        name: formData.get("name") as string,
+        email: formData.get("email") as string, // No debería cambiar
+        picture: formData.get("picture") as string, // Se obtendría de la subida de imagen
+        message: formData.get("message") as string,
+      };
 
-      if (!response.ok) {
-        return { success: false, message: "Error al enviar el formulario" };
+      // Llamamos a handleEditProfile pasando el id del usuario y los datos actualizados
+      const response = await handleEditProfile(user.id, updatedData);
+
+      if (!response.success) {
+        return { success: false, message: response.message };
       }
+
+      setCurrentUser((prevUser) => ({
+        ...prevUser,
+        ...updatedData,
+      }));
 
       return { success: true, message: "Perfil actualizado correctamente" };
     } catch (error) {
+      console.error("Error al actualizar el perfil:", error);
       return { success: false, message: "Hubo un error en la solicitud" };
     }
   }
