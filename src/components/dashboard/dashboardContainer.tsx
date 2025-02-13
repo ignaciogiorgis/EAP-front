@@ -8,18 +8,21 @@ import {
   FaStore,
   FaDollarSign,
 } from "react-icons/fa";
+import { handleShowDataDashboard } from "@/app/dashboard/api/route";
 
-export default function Dashboard() {
+export default async function Dashboard() {
+  const dataDashboard = await handleShowDataDashboard();
+  const { totalExpenses, totalSales, totalCountSales } = dataDashboard?.data;
   const stats = [
     {
       title: "Ganancias Último Mes",
-      value: "$45,320",
+      value: `$ ${totalSales}`,
       icon: <FaMoneyBillWave className="text-green-400 text-5xl" />,
       className: "lg:col-span-2",
     },
     {
       title: "Total de Gastos",
-      value: "$12,580",
+      value: `$ ${totalExpenses}`,
       icon: <FaShoppingCart className="text-red-400 text-5xl" />,
     },
     {
@@ -67,7 +70,6 @@ export default function Dashboard() {
         📊 Dashboard
       </h1>
 
-      {/* Grid adaptable */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full max-w-6xl px-4 auto-rows-fr">
         {stats.map((stat, index) => (
           <div
