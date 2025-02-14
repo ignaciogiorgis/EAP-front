@@ -12,7 +12,16 @@ import { handleShowDataDashboard } from "@/app/dashboard/api/route";
 
 export default async function Dashboard() {
   const dataDashboard = await handleShowDataDashboard();
-  const { totalExpenses, totalSales, totalCountSales } = dataDashboard?.data;
+  const {
+    totalExpenses,
+    totalSales,
+    totalCountSales,
+    totalDebt,
+    bestSellingProduct,
+    totalClients,
+  } = dataDashboard?.data;
+
+  console.log(dataDashboard?.data);
   const stats = [
     {
       title: "Ganancias Último Mes",
@@ -27,24 +36,25 @@ export default async function Dashboard() {
     },
     {
       title: "Número de Ventas",
-      value: "384",
+      value: ` ${totalCountSales}`,
       icon: <FaBox className="text-blue-400 text-5xl" />,
     },
     {
+      title: "Deuda total",
+      value: ` ${totalDebt}`,
+      icon: <FaUserTimes className="text-purple-400 text-5xl" />,
+    },
+    {
       title: "Clientes Totales",
-      value: "1,250",
+      value: `${totalClients}`,
       icon: <FaUsers className="text-yellow-400 text-5xl" />,
       className: "lg:row-span-2",
     },
     {
-      title: "Clientes con Deuda",
-      value: "34",
-      icon: <FaUserTimes className="text-purple-400 text-5xl" />,
-    },
-    {
-      title: "Producto Más Vendido",
-      value: "Laptop Gaming",
-      icon: <FaBox className="text-orange-400 text-5xl" />,
+      title: "Ingresos Totales",
+      value: "$320,000",
+      icon: <FaDollarSign className="text-green-500 text-5xl" />,
+      className: "lg:col-span-2",
     },
     {
       title: "Crecimiento Mensual",
@@ -57,10 +67,9 @@ export default async function Dashboard() {
       icon: <FaStore className="text-pink-400 text-5xl" />,
     },
     {
-      title: "Ingresos Totales",
-      value: "$320,000",
-      icon: <FaDollarSign className="text-green-500 text-5xl" />,
-      className: "lg:col-span-2",
+      title: "Producto Más Vendido",
+      value: `${bestSellingProduct}`,
+      icon: <FaBox className="text-orange-400 text-5xl" />,
     },
   ];
 
