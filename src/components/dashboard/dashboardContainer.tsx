@@ -21,7 +21,6 @@ export default async function Dashboard() {
     totalClients,
   } = dataDashboard?.data;
 
-  console.log(dataDashboard?.data);
   const stats = [
     {
       title: "Ganancias Último Mes",
