@@ -2,10 +2,8 @@ import { setCookie, deleteCookie } from "cookies-next";
 
 export async function logoutUser() {
   try {
-    // Eliminar el token en el cliente (navegador) con cookies-next
     deleteCookie("token");
 
-    // Realizar el llamado al backend para el logout
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/logout`,
       {
@@ -18,12 +16,12 @@ export async function logoutUser() {
     );
 
     if (!response.ok) {
-      throw new Error("Error al hacer logout");
+      throw new Error("Error when logout");
     }
 
     return true;
   } catch (error) {
-    console.error("Error en logout:", error);
+    console.error("Error in logout:", error);
     return false;
   }
 }
@@ -45,7 +43,7 @@ export async function handleLogin(data: { email: string; password: string }) {
       const errorData = await response.json();
       return {
         success: false,
-        message: errorData?.error || "Error en la solicitud",
+        message: errorData?.error || "Request error",
       };
     }
 
@@ -56,8 +54,8 @@ export async function handleLogin(data: { email: string; password: string }) {
 
     return { success: true, data: responseData };
   } catch (error) {
-    console.error("Error en la solicitud POST:", error);
-    return { success: false, message: "Error en la solicitud" };
+    console.error("Request error POST:", error);
+    return { success: false, message: "Request error" };
   }
 }
 //funcion que hace el llamado para recuperar el password
@@ -78,7 +76,7 @@ export async function handleRecover(data: { email: string }) {
       const errorData = await response.json();
       return {
         success: false,
-        message: errorData?.error || "Error en la solicitud",
+        message: errorData?.error || "Request error",
       };
     }
 
@@ -86,8 +84,8 @@ export async function handleRecover(data: { email: string }) {
 
     return { success: true, data: responseData };
   } catch (error) {
-    console.error("Error en la solicitud POST:", error);
-    return { success: false, message: "Error en la solicitud" };
+    console.error("Request error POST:", error);
+    return { success: false, message: "Request error" };
   }
 }
 
@@ -111,18 +109,16 @@ export async function handleRegister(data: {
 
     if (!response.ok) {
       const errorData = await response.json();
-      // Retornar el error para manejarlo en el frontend sin lanzar una excepción
       return {
         success: false,
-        message: errorData?.error?.msg || "Error en la solicitud",
+        message: errorData?.error || "Request error",
       };
     }
 
     const responseData = await response.json();
     return { success: true, data: responseData };
   } catch (error) {
-    console.error("Error en la solicitud POST:", error);
-    return { success: false, message: "Error en la solicitud" };
+    console.error("Request error POST:", error);
+    return { success: false, message: "Request error" };
   }
 }
-

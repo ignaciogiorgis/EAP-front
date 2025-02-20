@@ -67,13 +67,13 @@ export async function handleEditSale(
       const errorData = await response.json();
       return {
         success: false,
-        message: errorData?.error?.msg || " Request error",
+        message: errorData?.error || " Request error",
       };
     }
 
     const responseData = await response.json();
 
-    return { success: true, data: responseData }; // Retorna el gasto editado
+    return { success: true, data: responseData };
   } catch (error) {
     console.error(" Request error PUT:", error);
     return { success: false, message: " Request error" };
@@ -135,7 +135,7 @@ export async function handleShowSales() {
       const errorData = await response.json();
       return {
         success: false,
-        message: errorData?.error?.msg || " Request error",
+        message: errorData?.error || " Request error",
       };
     }
 

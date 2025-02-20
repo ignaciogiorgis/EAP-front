@@ -25,7 +25,7 @@ export async function handleCreateProduct(data: {
       const errorData = await response.json();
       return {
         success: false,
-        message: errorData?.error?.msg || " Request error",
+        message: errorData?.error || " Request error",
       };
     }
 
@@ -54,7 +54,7 @@ export async function handleShowProducts(search: string = "") {
       const errorData = await response.json();
       return {
         success: false,
-        message: errorData?.error?.msg || " Request error",
+        message: errorData?.error || " Request error",
       };
     }
 
@@ -67,7 +67,6 @@ export async function handleShowProducts(search: string = "") {
   }
 }
 
-// Función que hace el llamado a la API para editar un gasto
 export async function handleEditProduct(
   id: string,
   data: {
@@ -80,14 +79,14 @@ export async function handleEditProduct(
   try {
     const token = (await cookies()).get("token")?.value;
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/product/${id}`, // URL con el ID del gasto
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/product/${id}`,
       {
-        method: "PUT", // Método PUT para editar
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(data), // Datos a enviar
+        body: JSON.stringify(data),
       }
     );
 
@@ -95,13 +94,13 @@ export async function handleEditProduct(
       const errorData = await response.json();
       return {
         success: false,
-        message: errorData?.error?.msg || " Request error",
+        message: errorData?.error || " Request error",
       };
     }
 
     const responseData = await response.json();
 
-    return { success: true, data: responseData }; // Retorna el gasto editado
+    return { success: true, data: responseData };
   } catch (error) {
     console.error(" Request error PUT:", error);
     return { success: false, message: " Request error" };
@@ -114,14 +113,14 @@ export async function handleDeleteProduct(
   try {
     const token = (await cookies()).get("token")?.value;
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/product/${id}`, // URL con el ID del gasto
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/product/${id}`,
       {
-        method: "PATCH", // Método PATCH para realizar el borrado lógico
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ isDeleted: true }), // Marca el gasto como eliminado
+        body: JSON.stringify({ isDeleted: true }),
       }
     );
 

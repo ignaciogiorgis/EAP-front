@@ -85,14 +85,14 @@ export async function handleEditClient(
   try {
     const token = (await cookies()).get("token")?.value;
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/client/${id}`, // URL con el ID del gasto
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/client/${id}`,
       {
-        method: "PUT", // Método PUT para editar
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(data), // Datos a enviar
+        body: JSON.stringify(data), 
       }
     );
 
@@ -119,9 +119,9 @@ export async function handleDeleteClient(
   try {
     const token = (await cookies()).get("token")?.value;
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/client/${id}`, // URL con el ID del gasto
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/client/${id}`, 
       {
-        method: "PATCH", // Método PATCH para realizar el borrado lógico
+        method: "PATCH", 
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,

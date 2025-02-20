@@ -42,7 +42,7 @@ export async function handleShowExpenses(search: string = "") {
   try {
     const token = (await cookies()).get("token")?.value;
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/expense?search=${search}`, // Pasa el parámetro de búsqueda aquí
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/expense?search=${search}`,
       {
         method: "GET",
         headers: {
@@ -69,7 +69,6 @@ export async function handleShowExpenses(search: string = "") {
   }
 }
 
-// Función que hace el llamado a la API para editar un gasto
 export async function handleEditExpense(
   id: string,
   data: {
@@ -82,14 +81,14 @@ export async function handleEditExpense(
   try {
     const token = (await cookies()).get("token")?.value;
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/expense/${id}`, // URL con el ID del gasto
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/expense/${id}`,
       {
-        method: "PUT", // Método PUT para editar
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(data), // Datos a enviar
+        body: JSON.stringify(data),
       }
     );
 
@@ -103,7 +102,7 @@ export async function handleEditExpense(
 
     const responseData = await response.json();
 
-    return { success: true, data: responseData }; // Retorna el gasto editado
+    return { success: true, data: responseData };
   } catch (error) {
     console.error(" Request error PUT:", error);
     return { success: false, message: " Request error" };

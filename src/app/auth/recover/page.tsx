@@ -18,10 +18,8 @@ export default function RecoverPage() {
         setErrorMessage(response.message);
       }
     } catch (error) {
-      console.error("Error durante el registro:", error);
-      setErrorMessage(
-        "Ocurrió un error inesperado. Inténtalo de nuevo más tarde."
-      );
+      console.error("Error during registration:", error);
+      setErrorMessage("An unexpected error occurred. Please try again later.");
     }
   }
 
