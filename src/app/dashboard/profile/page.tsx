@@ -1,7 +1,7 @@
 import {
   handleShowProfile,
   handleUploadProfilePicture,
-} from "@/app/dashboard/api/route";
+} from "@/utils/dashboard/profile";
 import ContainerProfile from "@/components/dashboard/profile/containerProfile";
 
 const Page = async () => {

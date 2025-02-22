@@ -8,7 +8,7 @@ import {
   FaStore,
   FaDollarSign,
 } from "react-icons/fa";
-import { handleShowDataDashboard } from "@/app/dashboard/api/route";
+import { handleShowDataDashboard } from "@/utils/dashboard/profile";
 
 export default async function Dashboard() {
   const dataDashboard = await handleShowDataDashboard();
@@ -20,7 +20,6 @@ export default async function Dashboard() {
     bestSellingProduct,
     totalClients,
   } = dataDashboard?.data;
-
   const stats = [
     {
       title: "Ganancias Último Mes",

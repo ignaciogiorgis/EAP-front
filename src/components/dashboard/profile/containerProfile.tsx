@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import FormProfile from "@/components/dashboard/profile/view/formProfile";
-import { handleEditProfile } from "@/app/dashboard/api/route";
+import { handleEditProfile } from "@/utils/dashboard/profile";
 import { ContainerProfileProps, User } from "@/components/index";
 
 const ContainerProfile = ({

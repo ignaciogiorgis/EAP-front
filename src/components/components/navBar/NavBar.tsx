@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { logoutUser } from "@/app/auth/api/route";
+import { logoutUser } from "@/utils/auth";
 import NavBarMobile from "./NavBarMobile";
 
 const NavBar = () => {
@@ -15,7 +15,7 @@ const NavBar = () => {
     if (success) {
       router.push("/auth/login");
     } else {
-      alert("Error al cerrar sesión. Intenta de nuevo.");
+      alert("Failed to log out. Try again.");
     }
   };
 

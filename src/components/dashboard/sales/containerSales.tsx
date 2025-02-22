@@ -8,7 +8,7 @@ import {
   handleCreateSale,
   handleDeleteSale,
   handleEditSale,
-} from "@/app/dashboard/sales/api/route";
+} from "@/utils/dashboard/sales";
 import Pagination from "../../components/pagination";
 import DeleteModal from "@/components/components/ModalDelete/deleteModal";
 import { SalesPageProps } from "@/components/index";
