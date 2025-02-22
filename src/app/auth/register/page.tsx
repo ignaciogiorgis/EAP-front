@@ -1,7 +1,7 @@
 "use client";
 import RegisterForm from "@/components/auth/register/formRegister";
 import { useRouter } from "next/navigation";
-import { handleRegister } from "@/app/auth/api/route";
+import { handleRegister } from "@/utils/auth";
 import { useState } from "react";
 
 export default function RegisterPage() {

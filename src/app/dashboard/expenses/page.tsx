@@ -1,5 +1,5 @@
 import ContainerExpense from "@/components/dashboard/expenses/containerExpense";
-import { handleShowExpenses } from "@/app/dashboard/expenses/api/route";
+import { handleShowExpenses } from "@/utils/dashboard/expenses";
 
 export default async function CreateExpensePage() {
   const expenses = await handleShowExpenses();

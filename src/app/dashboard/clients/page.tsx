@@ -1,5 +1,5 @@
 import ContainerClients from "@/components/dashboard/clients/containerClients";
-import { handleShowClients } from "./api/route";
+import { handleShowClients } from "@/utils/dashboard/clients";
 
 const clientPage = async () => {
   const clients = await handleShowClients();
@@ -14,5 +14,3 @@ const clientPage = async () => {
 };
 
 export default clientPage;
-
-

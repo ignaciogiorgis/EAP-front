@@ -8,7 +8,7 @@ import {
   handleCreateProduct,
   handleDeleteProduct,
   handleEditProduct,
-} from "@/app/dashboard/products/api/route";
+} from "@/utils/dashboard/products";
 import { ProductPageProps } from "@/components/index";
 import Pagination from "../../components/pagination";
 import DeleteModal from "@/components/components/ModalDelete/deleteModal";

@@ -5,7 +5,7 @@ import {
   handleCreateExpense,
   handleEditExpense,
   handleDeleteExpense,
-} from "@/app/dashboard/expenses/api/route";
+} from "@/utils/dashboard/expenses";
 import FormExpenses from "./view/formExpenses";
 import MenuExpenses from "./view/menuExpenses";
 import ListExpenses from "./view/listExpenses";

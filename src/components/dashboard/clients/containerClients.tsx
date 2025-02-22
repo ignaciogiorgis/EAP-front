@@ -8,7 +8,7 @@ import {
   handleCreateClient,
   handleDeleteClient,
   handleEditClient,
-} from "@/app/dashboard/clients/api/route";
+} from "@/utils/dashboard/clients";
 import { ClientPageProps } from "@/components/index";
 import Pagination from "../../components/pagination";
 import DeleteModal from "@/components/components/ModalDelete/deleteModal";
