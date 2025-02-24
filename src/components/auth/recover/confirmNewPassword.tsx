@@ -1,11 +1,13 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import FormNewPassword from "./formNewPassword";
 
-export default function ConfirmarNuevaContraseña({ token }: { token: string }) {
+export default function ConfirmarNuevaContraseña() {
   const router = useRouter();
+  const { id } = useParams();
+  const token = Array.isArray(id) ? id[0] : id;
   const [mensaje, setMensaje] = useState<string | null>(null);
   const [error, setError] = useState<boolean>(false);
   useEffect(() => {

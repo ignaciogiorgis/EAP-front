@@ -2,6 +2,7 @@ import ContainerSales from "@/components/dashboard/sales/containerSales";
 import { handleShowSales } from "@/utils/dashboard/sales";
 import { handleShowProducts } from "@/utils/dashboard/products";
 import { handleShowClients } from "@/utils/dashboard/clients";
+export const dynamic = "force-dynamic";
 
 const salesPage = async () => {
   const sales = await handleShowSales();

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { logoutUser } from "@/app/auth/api/route";
+import { logoutUser } from "@/utils/auth";
 
 const NavBarMobile = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

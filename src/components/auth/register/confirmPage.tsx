@@ -1,12 +1,14 @@
 "use client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
+
 import { useEffect, useState } from "react";
 import { FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
 import "animate.css";
 
-export default function ConfirmarCuenta({ token }: { token: string }) {
-  const router = useRouter();
+export default function ConfirmarCuenta() {
+  const { id } = useParams();
+  const token = id;
   const [mensaje, setMensaje] = useState<string | null>(null);
   const [error, setError] = useState<boolean>(false);
 
