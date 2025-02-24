@@ -1,6 +1,7 @@
 import PublicNavBar from "@/components/components/navBar/PublicNavBar";
 import Link from "next/link";
 import { LiaBusinessTimeSolid } from "react-icons/lia";
+export const dynamic = "force-dynamic";
 
 export default function Home() {
   return (

@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import ContainerClients from "@/components/dashboard/clients/containerClients";
 import { handleShowClients } from "@/utils/dashboard/clients";
 

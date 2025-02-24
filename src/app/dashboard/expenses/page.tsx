@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import ContainerExpense from "@/components/dashboard/expenses/containerExpense";
 import { handleShowExpenses } from "@/utils/dashboard/expenses";
 
